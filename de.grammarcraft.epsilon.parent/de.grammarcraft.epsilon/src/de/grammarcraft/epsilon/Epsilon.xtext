@@ -2,8 +2,44 @@ grammar de.grammarcraft.epsilon.Epsilon with org.eclipse.xtext.common.Terminals
 
 generate epsilon "http://www.grammarcraft.de/epsilon/Epsilon"
 
-Model:
-	greetings+=Greeting*;
+Specification:
+	rules += ( MetaRule | HyperRule )+
+;
+
+ident: ID ;
+number: INT ;
+
+MetaTerm:
+	( ident | STRING )* ;
 	
-Greeting:
-	'Hello' name=ID '!';
+MetaExpr:
+	MetaTerm ( "|" MetaTerm )*
+;
+MetaRule:
+	ident ("*")? "=" MetaExpr "."
+;
+AffixForm:
+	(("#")? ident (number)? | STRING )* 
+;
+ActualParams:
+	"<" AffixForm ( "," AffixForm )* ">" 
+;
+FormalParams:
+	"<"   ("+" | "-" ) AffixForm ":" ident 
+	( "," ("+" | "-" ) AffixForm ":" ident )* ">" 
+;
+HyperTerm:
+	( ident (ActualParams)? 
+	| STRING 
+	| (ActualParams)? 
+	  ( "(" | "[" | "{" ) HyperExpr ( ")" | "]" | "}" ) 
+	  (FormalParams)? 
+	)* 
+;
+HyperExpr:
+	(FormalParams)? HyperTerm (ActualParams)?
+	( "|" (FormalParams)? HyperTerm (ActualParams)? )*
+;
+HyperRule:
+	ident ("*")? ":" HyperExpr "."
+;
