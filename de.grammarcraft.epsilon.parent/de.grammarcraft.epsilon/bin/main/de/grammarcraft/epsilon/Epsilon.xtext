@@ -1,0 +1,9 @@
+grammar de.grammarcraft.epsilon.Epsilon with org.eclipse.xtext.common.Terminals
+
+generate epsilon "http://www.grammarcraft.de/epsilon/Epsilon"
+
+Model:
+	greetings+=Greeting*;
+	
+Greeting:
+	'Hello' name=ID '!';

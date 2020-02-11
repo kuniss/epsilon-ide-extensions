@@ -1,0 +1,4 @@
+include 'de.grammarcraft.epsilon'
+include 'de.grammarcraft.epsilon.ide'
+include 'de.grammarcraft.epsilon.web'
+include 'de.grammarcraft.epsilon.tests'
