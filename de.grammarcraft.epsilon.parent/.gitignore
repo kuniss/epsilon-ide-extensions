@@ -1,0 +1,9 @@
+/.gradle/
+**/bin/
+**/build/
+**/target/
+**/.*._trace
+**/*.xtendbin
+**/*.xtextbin
+**/src-gen/
+**/xtend-gen/

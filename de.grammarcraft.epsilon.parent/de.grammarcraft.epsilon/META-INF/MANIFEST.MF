@@ -8,5 +8,22 @@ Bundle-SymbolicName: de.grammarcraft.epsilon; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext,
  org.eclipse.xtext.xbase,
- org.eclipse.equinox.common;bundle-version="3.5.0"
+ org.eclipse.equinox.common;bundle-version="3.5.0",
+ org.eclipse.emf.ecore,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
+ org.eclipse.xtext.util,
+ org.eclipse.emf.common,
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: de.grammarcraft.epsilon.epsilon.util,
+ de.grammarcraft.epsilon.parser.antlr.internal,
+ de.grammarcraft.epsilon.services,
+ de.grammarcraft.epsilon.epsilon,
+ de.grammarcraft.epsilon.generator,
+ de.grammarcraft.epsilon.validation,
+ de.grammarcraft.epsilon.scoping,
+ de.grammarcraft.epsilon.parser.antlr,
+ de.grammarcraft.epsilon.epsilon.impl,
+ de.grammarcraft.epsilon,
+ de.grammarcraft.epsilon.serializer
+Import-Package: org.apache.log4j

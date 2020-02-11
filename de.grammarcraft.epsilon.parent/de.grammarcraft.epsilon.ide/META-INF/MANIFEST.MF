@@ -8,5 +8,8 @@ Bundle-SymbolicName: de.grammarcraft.epsilon.ide; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: de.grammarcraft.epsilon,
  org.eclipse.xtext.ide,
- org.eclipse.xtext.xbase.ide
+ org.eclipse.xtext.xbase.ide,
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: de.grammarcraft.epsilon.ide.contentassist.antlr.internal,
+ de.grammarcraft.epsilon.ide.contentassist.antlr
