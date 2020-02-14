@@ -29,7 +29,7 @@ FormalParams:
 	( "," ("+" | "-" ) AffixForm ":" ident )* ">" 
 ;
 HyperTerm:
-	( ident (ActualParams)? 
+	( ident (=> ActualParams)? // TODO tree rewriting needed here depending on formal affix params, see [DeWeKaKr] S.23, Erster Pass
 	| STRING 
 	| (ActualParams)? 
 	  ( "(" | "[" | "{" ) HyperExpr ( ")" | "]" | "}" ) 
