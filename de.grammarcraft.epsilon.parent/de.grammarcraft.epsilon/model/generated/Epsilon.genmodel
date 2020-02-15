@@ -6,11 +6,8 @@
     complianceLevel="8.0" copyrightFields="false" runtimeVersion="2.12">
   <genPackages prefix="Epsilon" basePackage="de.grammarcraft.epsilon" disposableProviderFactory="true"
       fileExtensions="eps" ecorePackage="Epsilon.ecore#/">
-    <genClasses ecoreClass="Epsilon.ecore#//Model">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epsilon.ecore#//Model/greetings"/>
-    </genClasses>
-    <genClasses ecoreClass="Epsilon.ecore#//Greeting">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//Greeting/name"/>
+    <genClasses ecoreClass="Epsilon.ecore#//Specification">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//Specification/rules"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
