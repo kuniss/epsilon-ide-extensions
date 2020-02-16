@@ -14,8 +14,12 @@ MetaExpr:
 	MetaTerm ( "|" MetaTerm )*
 ;
 MetaTerm:
-	( ident | STRING )* 
-;	
+	( MetaSymbol )* 
+;
+MetaSymbol:
+	  ident 
+	| STRING 
+;
 
 // Hyper rules
 HyperRule:
@@ -26,12 +30,14 @@ HyperExpr:
 	( "|" (FormalParams)? HyperTerm (ActualParams)? )*
 ;
 HyperTerm:
-	( ident (=> ActualParams)? // TODO tree rewriting needed here depending on formal affix params, see [DeWeKaKr] S.23, Erster Pass
+	( HyperSymbol )* 
+;
+HyperSymbol:
+	  ident (=> ActualParams)? // TODO tree rewriting needed here depending on formal affix params, see [DeWeKaKr] S.23, Erster Pass
 	| STRING 
 	| (ActualParams)? 
 	  ( "(" | "[" | "{" ) HyperExpr ( ")" | "]" | "}" ) 
 	  (FormalParams)? 
-	)* 
 ;
 
 // Affix forms
@@ -43,7 +49,11 @@ ActualParams:
 	"<" AffixForm ( "," AffixForm )* ">" 
 ;
 AffixForm:
-	(("#")? ident (number)? | STRING )* 
+	( Affix )* 
+;
+Affix:
+	  ("#")? ident (number)? 
+	| STRING 
 ;
 
 ident: ID ;
