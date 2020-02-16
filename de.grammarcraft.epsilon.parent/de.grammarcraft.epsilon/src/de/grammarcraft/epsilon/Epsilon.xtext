@@ -41,5 +41,5 @@ HyperExpr:
 	( "|" (FormalParams)? HyperTerm (ActualParams)? )*
 ;
 HyperRule:
-	ident ("*")? ":" HyperExpr "."
+	ident ("*")? (FormalParams)? ":" HyperExpr "."
 ;
