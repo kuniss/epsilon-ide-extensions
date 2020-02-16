@@ -22,8 +22,6 @@ class EpsilonParsingTest {
 	@Test
 	def void parseSimpleExample() {
 		val result = parseHelper.parse('''
-			! simpl example
-			
 			x = "a" | "b".
 			
 			x <+ "a": x> : "a".
@@ -35,8 +33,8 @@ class EpsilonParsingTest {
 	
 	@Test
 	def void parseRedcutedExample() {
+//			! DeclAppl
 		val result = parseHelper.parse('''
-			! DeclAppl
 			
 			Tab = | id ";" Tab.
 
