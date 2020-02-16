@@ -16,7 +16,7 @@
         eType="#//MetaTerm" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MetaTerm">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="metaTerm" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metaSymbols" upperBound="-1"
         eType="#//MetaSymbol" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MetaSymbol"/>

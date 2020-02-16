@@ -17,7 +17,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epsilon.ecore#//MetaExpr/alternatives"/>
     </genClasses>
     <genClasses ecoreClass="Epsilon.ecore#//MetaTerm">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epsilon.ecore#//MetaTerm/metaTerm"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epsilon.ecore#//MetaTerm/metaSymbols"/>
     </genClasses>
     <genClasses ecoreClass="Epsilon.ecore#//MetaSymbol"/>
     <genClasses ecoreClass="Epsilon.ecore#//HyperRule">

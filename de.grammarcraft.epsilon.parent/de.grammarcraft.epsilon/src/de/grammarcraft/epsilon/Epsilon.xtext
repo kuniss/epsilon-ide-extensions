@@ -14,7 +14,7 @@ MetaExpr:
 	alternatives+=MetaTerm ( "|" alternatives+=MetaTerm )*
 ;
 MetaTerm:
-	{MetaTerm} ( metaTerm+=MetaSymbol )* 
+	{MetaTerm} ( metaSymbols+=MetaSymbol )* 
 ;
 MetaSymbol:
 	  {MetaNonterminal} ref=[MetaRule] 
