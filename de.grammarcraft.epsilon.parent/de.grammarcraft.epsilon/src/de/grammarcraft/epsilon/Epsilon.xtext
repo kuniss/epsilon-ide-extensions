@@ -3,33 +3,27 @@ grammar de.grammarcraft.epsilon.Epsilon with org.eclipse.xtext.common.Terminals
 generate epsilon "http://www.grammarcraft.de/epsilon/Epsilon"
 
 Specification:
-	rules += ( MetaRule | HyperRule )+
+	{Specification} rules += ( MetaRule | HyperRule )*
 ;
 
-@Override terminal ML_COMMENT : '(*' -> '*)';
-@Override terminal SL_COMMENT : '!' !('\n'|'\r')* ('\r'? '\n')?;
-
-ident: ID ;
-number: INT ;
-
-MetaTerm:
-	( ident | STRING )* ;
-	
-MetaExpr:
-	MetaTerm ( "|" MetaTerm )*
-;
+// Meta rules
 MetaRule:
 	ident ("*")? "=" MetaExpr "."
 ;
-AffixForm:
-	(("#")? ident (number)? | STRING )* 
+MetaExpr:
+	MetaTerm ( "|" MetaTerm )*
 ;
-ActualParams:
-	"<" AffixForm ( "," AffixForm )* ">" 
+MetaTerm:
+	( ident | STRING )* 
+;	
+
+// Hyper rules
+HyperRule:
+	ident ("*")? (FormalParams)? ":" HyperExpr "."
 ;
-FormalParams:
-	"<"   ("+" | "-" ) AffixForm ":" ident 
-	( "," ("+" | "-" ) AffixForm ":" ident )* ">" 
+HyperExpr:
+	(FormalParams)? HyperTerm (ActualParams)?
+	( "|" (FormalParams)? HyperTerm (ActualParams)? )*
 ;
 HyperTerm:
 	( ident (=> ActualParams)? // TODO tree rewriting needed here depending on formal affix params, see [DeWeKaKr] S.23, Erster Pass
@@ -39,10 +33,21 @@ HyperTerm:
 	  (FormalParams)? 
 	)* 
 ;
-HyperExpr:
-	(FormalParams)? HyperTerm (ActualParams)?
-	( "|" (FormalParams)? HyperTerm (ActualParams)? )*
+
+// Affix forms
+FormalParams:
+	"<"   ("+" | "-" ) AffixForm ":" ident 
+	( "," ("+" | "-" ) AffixForm ":" ident )* ">" 
 ;
-HyperRule:
-	ident ("*")? (FormalParams)? ":" HyperExpr "."
+ActualParams:
+	"<" AffixForm ( "," AffixForm )* ">" 
 ;
+AffixForm:
+	(("#")? ident (number)? | STRING )* 
+;
+
+ident: ID ;
+number: INT ;
+
+@Override terminal ML_COMMENT : '(*' -> '*)';
+@Override terminal SL_COMMENT : '!' !('\n'|'\r')* ('\r'? '\n')?;
