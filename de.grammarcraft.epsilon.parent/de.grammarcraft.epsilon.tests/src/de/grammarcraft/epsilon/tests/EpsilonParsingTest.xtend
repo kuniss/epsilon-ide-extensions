@@ -4,7 +4,7 @@
 package de.grammarcraft.epsilon.tests
 
 import com.google.inject.Inject
-import de.grammarcraft.epsilon.epsilon.Model
+import de.grammarcraft.epsilon.epsilon.Specification
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.extensions.InjectionExtension
 import org.eclipse.xtext.testing.util.ParseHelper
@@ -16,12 +16,44 @@ import org.junit.jupiter.api.^extension.ExtendWith
 @InjectWith(EpsilonInjectorProvider)
 class EpsilonParsingTest {
 	@Inject
-	ParseHelper<Model> parseHelper
+	ParseHelper<Specification> parseHelper
 	
 	@Test
-	def void loadModel() {
+	def void parseRedcutedExample() {
 		val result = parseHelper.parse('''
-			Hello Xtext!
+			! DeclAppl
+			
+			Tab = | id ";" Tab.
+
+			DeclAppl <+ Tab: Tab> :
+				<, Tab >
+				{ <- Tab : Tab, + Tab1: Tab>
+					"DECL" id < id > Find <id, Tab, "FALSE" >
+					<id ";" Tab, Tab1 >
+				| <- Tab : Tab, + Tab1: Tab>
+					"APPL" id < id > Find <id, Tab, "TRUE" >
+					<Tab, Tab1 >
+				} <- Tab : Tab, + Tab: Tab> .
+			
+			x = "a" | "b".
+			id* = x | id x.
+			
+			x <+ "a": x> : "a".
+			x <+ "b": x> : "b".
+			
+			id* <+ id: id> :
+				x < x >
+				<x, id >
+				{ <- id : id, + id1: id>
+					x < x > <id x, id1 >
+				} <- id : id, + id: id> .
+				
+			Bool = "TRUE" | "FALSE".
+			
+			Find <- id: id, - : Tab, + "FALSE": Bool>: .
+			Find <- id: id, - id ";" Tab : Tab, + "TRUE": Bool>: .
+			Find <- id: id, - #id ";" Tab : Tab, + Bool: Bool>:
+				Find <id, Tab, Bool >.
 		''')
 		Assertions.assertNotNull(result)
 		val errors = result.eResource.errors
