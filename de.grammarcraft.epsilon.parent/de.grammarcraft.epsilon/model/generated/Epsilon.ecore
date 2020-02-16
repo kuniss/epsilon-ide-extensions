@@ -22,11 +22,42 @@
   <eClassifiers xsi:type="ecore:EClass" name="MetaSymbol"/>
   <eClassifiers xsi:type="ecore:EClass" name="HyperRule">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="formalParams" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hyperExpr" eType="#//HyperExpr"
+        containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyperExpr">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="alternatives" upperBound="-1"
+        eType="#//HyperAlternative" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyperAlternative">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="formalParams" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hyperTerm" eType="#//HyperTerm"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="actualParams" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyperTerm">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hyperSymbols" upperBound="-1"
+        eType="#//HyperSymbol" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyperSymbol"/>
   <eClassifiers xsi:type="ecore:EClass" name="MetaNonterminal" eSuperTypes="#//MetaSymbol">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="#//MetaRule"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MetaTerminal" eSuperTypes="#//MetaSymbol">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyperNonterminal" eSuperTypes="#//HyperSymbol">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="#//HyperRule"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="actualParams" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyperString" eSuperTypes="#//HyperSymbol">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AynonymHyperNonterminal" eSuperTypes="#//HyperSymbol">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="actualParams" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hyperExpr" eType="#//HyperExpr"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="formalParams" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>

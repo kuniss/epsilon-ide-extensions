@@ -22,12 +22,38 @@
     <genClasses ecoreClass="Epsilon.ecore#//MetaSymbol"/>
     <genClasses ecoreClass="Epsilon.ecore#//HyperRule">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//HyperRule/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//HyperRule/formalParams"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epsilon.ecore#//HyperRule/hyperExpr"/>
     </genClasses>
+    <genClasses ecoreClass="Epsilon.ecore#//HyperExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epsilon.ecore#//HyperExpr/alternatives"/>
+    </genClasses>
+    <genClasses ecoreClass="Epsilon.ecore#//HyperAlternative">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//HyperAlternative/formalParams"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epsilon.ecore#//HyperAlternative/hyperTerm"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//HyperAlternative/actualParams"/>
+    </genClasses>
+    <genClasses ecoreClass="Epsilon.ecore#//HyperTerm">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epsilon.ecore#//HyperTerm/hyperSymbols"/>
+    </genClasses>
+    <genClasses ecoreClass="Epsilon.ecore#//HyperSymbol"/>
     <genClasses ecoreClass="Epsilon.ecore#//MetaNonterminal">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epsilon.ecore#//MetaNonterminal/ref"/>
     </genClasses>
     <genClasses ecoreClass="Epsilon.ecore#//MetaTerminal">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//MetaTerminal/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Epsilon.ecore#//HyperNonterminal">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epsilon.ecore#//HyperNonterminal/ref"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//HyperNonterminal/actualParams"/>
+    </genClasses>
+    <genClasses ecoreClass="Epsilon.ecore#//HyperString">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//HyperString/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Epsilon.ecore#//AynonymHyperNonterminal">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//AynonymHyperNonterminal/actualParams"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epsilon.ecore#//AynonymHyperNonterminal/hyperExpr"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//AynonymHyperNonterminal/formalParams"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

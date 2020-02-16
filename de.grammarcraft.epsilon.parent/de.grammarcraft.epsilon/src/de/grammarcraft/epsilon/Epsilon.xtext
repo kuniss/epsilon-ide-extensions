@@ -21,23 +21,26 @@ MetaSymbol:
 	| {MetaTerminal} value=STRING 
 ;
 
-// Hyper grammer rules
+// Hyper grammar rules
 HyperRule:
-	name=ident ("*")? (FormalParams)? ":" HyperExpr "."
+	name=ident ("*")? formalParams=(FormalParams)? ":" hyperExpr=HyperExpr "."
 ;
 HyperExpr:
-	(FormalParams)? HyperTerm (ActualParams)?
-	( "|" (FormalParams)? HyperTerm (ActualParams)? )*
+	alternatives+=HyperAlternative ( "|" alternatives+=HyperAlternative )*
+;
+HyperAlternative:
+	{HyperAlternative} formalParams=(FormalParams)? hyperTerm=HyperTerm actualParams=(ActualParams)?
 ;
 HyperTerm:
-	( HyperSymbol )* 
+	{HyperTerm} ( hyperSymbols+=HyperSymbol )* 
 ;
 HyperSymbol:
-	  ident (=> ActualParams)? // TODO tree rewriting needed here depending on formal affix params, see [DeWeKaKr] S.23, Erster Pass
-	| STRING 
-	| (ActualParams)? 
-	  ( "(" | "[" | "{" ) HyperExpr ( ")" | "]" | "}" ) 
-	  (FormalParams)? 
+	  {HyperNonterminal} ref=[HyperRule] (=> actualParams=ActualParams)? // TODO tree rewriting needed here depending on formal affix params, see [DeWeKaKr] S.23, Erster Pass
+	| {HyperString} value=STRING 
+	| {AynonymHyperNonterminal}
+	  actualParams=(ActualParams)? 
+	  ( "(" | "[" | "{" ) hyperExpr=HyperExpr ( ")" | "]" | "}" ) 
+	  formalParams=(FormalParams)? 
 ;
 
 // Affix forms grammar rules
