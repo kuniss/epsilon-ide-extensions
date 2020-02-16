@@ -3,7 +3,30 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="epsilon" nsURI="http://www.grammarcraft.de/epsilon/Epsilon"
     nsPrefix="epsilon">
   <eClassifiers xsi:type="ecore:EClass" name="Specification">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rules" unique="false" upperBound="-1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rules" upperBound="-1"
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MetaRule">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metaExpr" eType="#//MetaExpr"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MetaExpr">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="alternatives" upperBound="-1"
+        eType="#//MetaTerm" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MetaTerm">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metaTerm" upperBound="-1"
+        eType="#//MetaSymbol" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MetaSymbol"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyperRule">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MetaNonterminal" eSuperTypes="#//MetaSymbol">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="#//MetaRule"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MetaTerminal" eSuperTypes="#//MetaSymbol">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>

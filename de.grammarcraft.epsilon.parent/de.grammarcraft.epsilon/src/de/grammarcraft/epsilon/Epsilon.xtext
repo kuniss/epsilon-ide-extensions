@@ -6,24 +6,24 @@ Specification:
 	{Specification} rules += ( MetaRule | HyperRule )*
 ;
 
-// Meta rules
+// Meta grammar rules
 MetaRule:
-	ident ("*")? "=" MetaExpr "."
+	name=ident ("*")? "=" metaExpr=MetaExpr "."
 ;
 MetaExpr:
-	MetaTerm ( "|" MetaTerm )*
+	alternatives+=MetaTerm ( "|" alternatives+=MetaTerm )*
 ;
 MetaTerm:
-	( MetaSymbol )* 
+	{MetaTerm} ( metaTerm+=MetaSymbol )* 
 ;
 MetaSymbol:
-	  ident 
-	| STRING 
+	  {MetaNonterminal} ref=[MetaRule] 
+	| {MetaTerminal} value=STRING 
 ;
 
-// Hyper rules
+// Hyper grammer rules
 HyperRule:
-	ident ("*")? (FormalParams)? ":" HyperExpr "."
+	name=ident ("*")? (FormalParams)? ":" HyperExpr "."
 ;
 HyperExpr:
 	(FormalParams)? HyperTerm (ActualParams)?
@@ -40,7 +40,7 @@ HyperSymbol:
 	  (FormalParams)? 
 ;
 
-// Affix forms
+// Affix forms grammar rules
 FormalParams:
 	"<"   ("+" | "-" ) AffixForm ":" ident 
 	( "," ("+" | "-" ) AffixForm ":" ident )* ">" 

@@ -7,7 +7,27 @@
   <genPackages prefix="Epsilon" basePackage="de.grammarcraft.epsilon" disposableProviderFactory="true"
       fileExtensions="eps" ecorePackage="Epsilon.ecore#/">
     <genClasses ecoreClass="Epsilon.ecore#//Specification">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//Specification/rules"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epsilon.ecore#//Specification/rules"/>
+    </genClasses>
+    <genClasses ecoreClass="Epsilon.ecore#//MetaRule">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//MetaRule/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epsilon.ecore#//MetaRule/metaExpr"/>
+    </genClasses>
+    <genClasses ecoreClass="Epsilon.ecore#//MetaExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epsilon.ecore#//MetaExpr/alternatives"/>
+    </genClasses>
+    <genClasses ecoreClass="Epsilon.ecore#//MetaTerm">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epsilon.ecore#//MetaTerm/metaTerm"/>
+    </genClasses>
+    <genClasses ecoreClass="Epsilon.ecore#//MetaSymbol"/>
+    <genClasses ecoreClass="Epsilon.ecore#//HyperRule">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//HyperRule/name"/>
+    </genClasses>
+    <genClasses ecoreClass="Epsilon.ecore#//MetaNonterminal">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epsilon.ecore#//MetaNonterminal/ref"/>
+    </genClasses>
+    <genClasses ecoreClass="Epsilon.ecore#//MetaTerminal">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//MetaTerminal/value"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
