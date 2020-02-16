@@ -1,10 +1,13 @@
 grammar de.grammarcraft.epsilon.Epsilon with org.eclipse.xtext.common.Terminals
-
+	
 generate epsilon "http://www.grammarcraft.de/epsilon/Epsilon"
 
 Specification:
 	rules += ( MetaRule | HyperRule )+
 ;
+
+@Override terminal ML_COMMENT : '(*' -> '*)';
+@Override terminal SL_COMMENT : '!' !('\n'|'\r')* ('\r'? '\n')?;
 
 ident: ID ;
 number: INT ;
