@@ -6,17 +6,32 @@ package de.grammarcraft.epsilon.tests
 import com.google.inject.Inject
 import de.grammarcraft.epsilon.epsilon.Specification
 import org.eclipse.xtext.testing.InjectWith
-import org.eclipse.xtext.testing.extensions.InjectionExtension
+import org.eclipse.xtext.testing.XtextRunner
 import org.eclipse.xtext.testing.util.ParseHelper
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.^extension.ExtendWith
+import org.junit.Assert
+import org.junit.Test
+import org.junit.runner.RunWith
 
-@ExtendWith(InjectionExtension)
+@RunWith(XtextRunner)
 @InjectWith(EpsilonInjectorProvider)
 class EpsilonParsingTest {
 	@Inject
 	ParseHelper<Specification> parseHelper
+	
+	
+	@Test
+	def void parseSimpleExample() {
+		val result = parseHelper.parse('''
+			! simpl example
+			
+			x = "a" | "b".
+			
+			x <+ "a": x> : "a".
+		''')
+		Assert.assertNotNull(result)
+		val errors = result.eResource.errors
+		Assert.assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+	}
 	
 	@Test
 	def void parseRedcutedExample() {
@@ -55,8 +70,8 @@ class EpsilonParsingTest {
 			Find <- id: id, - #id ";" Tab : Tab, + Bool: Bool>:
 				Find <id, Tab, Bool >.
 		''')
-		Assertions.assertNotNull(result)
+		Assert.assertNotNull(result)
 		val errors = result.eResource.errors
-		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
+		Assert.assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
 	}
 }
