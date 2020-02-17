@@ -45,18 +45,20 @@ HyperSymbol:
 
 // Affix forms grammar rules
 FormalParams:
-	"<"   ("+" | "-" ) AffixForm ":" ident 
-	( "," ("+" | "-" ) AffixForm ":" ident )* ">" 
+	"<" list+=FormalParam ( "," list+=FormalParam )* ">" 
+;
+FormalParam:
+	("+" | "-" ) affixForm=AffixForm ":" affixType=[MetaRule]
 ;
 ActualParams:
-	"<" AffixForm ( "," AffixForm )* ">" 
+	"<" list+=AffixForm ( "," list+=AffixForm )* ">" 
 ;
 AffixForm:
-	( Affix )* 
+	{AffixForm} ( affixes+=Affix )* 
 ;
 Affix:
-	  ("#")? ident (number)? 
-	| STRING 
+	  {AffixVariable} ("#")? ref=[MetaRule] affixNumber=(number)? 
+	| {AffixLiteral} value=STRING 
 ;
 
 ident: ID ;
