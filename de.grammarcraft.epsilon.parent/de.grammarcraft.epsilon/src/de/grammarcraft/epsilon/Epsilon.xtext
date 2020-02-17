@@ -8,7 +8,7 @@ Specification:
 
 // Meta grammar rules
 MetaRule:
-	name=ident ("*")? "=" metaExpr=MetaExpr "."
+	name=ID ("*")? "=" metaExpr=MetaExpr "."
 ;
 MetaExpr:
 	alternatives+=MetaTerm ( "|" alternatives+=MetaTerm )*
@@ -23,7 +23,7 @@ MetaSymbol:
 
 // Hyper grammar rules
 HyperRule:
-	name=ident ("*")? formalParams=(FormalParams)? ":" hyperExpr=HyperExpr "."
+	name=ID ("*")? formalParams=(FormalParams)? ":" hyperExpr=HyperExpr "."
 ;
 HyperExpr:
 	alternatives+=HyperAlternative ( "|" alternatives+=HyperAlternative )*
@@ -57,12 +57,9 @@ AffixForm:
 	{AffixForm} ( affixes+=Affix )* 
 ;
 Affix:
-	  {AffixVariable} ("#")? ref=[MetaRule] affixNumber=(number)? 
+	  {AffixVariable} ("#")? ref=[MetaRule] affixNumber=(INT)? 
 	| {AffixLiteral} value=STRING 
 ;
-
-ident: ID ;
-number: INT ;
 
 @Override terminal ML_COMMENT : '(*' -> '*)';
 @Override terminal SL_COMMENT : '!' !('\n'|'\r')* ('\r'? '\n')?;
