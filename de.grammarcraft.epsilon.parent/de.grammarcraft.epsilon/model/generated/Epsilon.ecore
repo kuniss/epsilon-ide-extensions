@@ -8,6 +8,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MetaRule">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isToken" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="metaExpr" eType="#//MetaExpr"
         containment="true"/>
   </eClassifiers>
@@ -22,6 +23,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="MetaSymbol"/>
   <eClassifiers xsi:type="ecore:EClass" name="HyperRule">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isToken" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="formalParams" eType="#//FormalParams"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hyperExpr" eType="#//HyperExpr"
@@ -43,12 +45,27 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="hyperSymbols" upperBound="-1"
         eType="#//HyperSymbol" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EbnfOpeningBracket">
+    <eLiterals name="PARENTHESIS" literal="("/>
+    <eLiterals name="SQUARE_BRACKET" value="1" literal="["/>
+    <eLiterals name="CURLY_BRACKET" value="2" literal="{"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EbnfClosingBracket">
+    <eLiterals name="PARENTHESIS" literal=")"/>
+    <eLiterals name="SQUARE_BRACKET" value="1" literal="]"/>
+    <eLiterals name="CURLY_BRACKET" value="2" literal="}"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="HyperSymbol"/>
   <eClassifiers xsi:type="ecore:EClass" name="FormalParams">
     <eStructuralFeatures xsi:type="ecore:EReference" name="list" upperBound="-1" eType="#//FormalParam"
         containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="AffixDirection">
+    <eLiterals name="OUT" literal="+"/>
+    <eLiterals name="IN" value="1" literal="-"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FormalParam">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" eType="#//AffixDirection"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="affixForm" eType="#//AffixForm"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="affixType" eType="#//MetaRule"/>
@@ -79,12 +96,15 @@
   <eClassifiers xsi:type="ecore:EClass" name="AynonymHyperNonterminal" eSuperTypes="#//HyperSymbol">
     <eStructuralFeatures xsi:type="ecore:EReference" name="actualParams" eType="#//ActualParams"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="openingBracket" eType="#//EbnfOpeningBracket"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hyperExpr" eType="#//HyperExpr"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="closingBracket" eType="#//EbnfClosingBracket"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="formalParams" eType="#//FormalParams"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AffixVariable" eSuperTypes="#//Affix">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isNegated" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="#//MetaRule"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="affixNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>

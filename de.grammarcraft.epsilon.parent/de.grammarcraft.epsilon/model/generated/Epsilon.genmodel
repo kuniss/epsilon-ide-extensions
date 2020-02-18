@@ -6,11 +6,26 @@
     complianceLevel="8.0" copyrightFields="false" runtimeVersion="2.12">
   <genPackages prefix="Epsilon" basePackage="de.grammarcraft.epsilon" disposableProviderFactory="true"
       fileExtensions="eps" ecorePackage="Epsilon.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Epsilon.ecore#//EbnfOpeningBracket">
+      <genEnumLiterals ecoreEnumLiteral="Epsilon.ecore#//EbnfOpeningBracket/PARENTHESIS"/>
+      <genEnumLiterals ecoreEnumLiteral="Epsilon.ecore#//EbnfOpeningBracket/SQUARE_BRACKET"/>
+      <genEnumLiterals ecoreEnumLiteral="Epsilon.ecore#//EbnfOpeningBracket/CURLY_BRACKET"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Epsilon.ecore#//EbnfClosingBracket">
+      <genEnumLiterals ecoreEnumLiteral="Epsilon.ecore#//EbnfClosingBracket/PARENTHESIS"/>
+      <genEnumLiterals ecoreEnumLiteral="Epsilon.ecore#//EbnfClosingBracket/SQUARE_BRACKET"/>
+      <genEnumLiterals ecoreEnumLiteral="Epsilon.ecore#//EbnfClosingBracket/CURLY_BRACKET"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Epsilon.ecore#//AffixDirection">
+      <genEnumLiterals ecoreEnumLiteral="Epsilon.ecore#//AffixDirection/OUT"/>
+      <genEnumLiterals ecoreEnumLiteral="Epsilon.ecore#//AffixDirection/IN"/>
+    </genEnums>
     <genClasses ecoreClass="Epsilon.ecore#//Specification">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epsilon.ecore#//Specification/rules"/>
     </genClasses>
     <genClasses ecoreClass="Epsilon.ecore#//MetaRule">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//MetaRule/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//MetaRule/isToken"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epsilon.ecore#//MetaRule/metaExpr"/>
     </genClasses>
     <genClasses ecoreClass="Epsilon.ecore#//MetaExpr">
@@ -22,6 +37,7 @@
     <genClasses ecoreClass="Epsilon.ecore#//MetaSymbol"/>
     <genClasses ecoreClass="Epsilon.ecore#//HyperRule">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//HyperRule/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//HyperRule/isToken"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epsilon.ecore#//HyperRule/formalParams"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epsilon.ecore#//HyperRule/hyperExpr"/>
     </genClasses>
@@ -41,6 +57,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epsilon.ecore#//FormalParams/list"/>
     </genClasses>
     <genClasses ecoreClass="Epsilon.ecore#//FormalParam">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//FormalParam/direction"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epsilon.ecore#//FormalParam/affixForm"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epsilon.ecore#//FormalParam/affixType"/>
     </genClasses>
@@ -66,10 +83,13 @@
     </genClasses>
     <genClasses ecoreClass="Epsilon.ecore#//AynonymHyperNonterminal">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epsilon.ecore#//AynonymHyperNonterminal/actualParams"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//AynonymHyperNonterminal/openingBracket"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epsilon.ecore#//AynonymHyperNonterminal/hyperExpr"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//AynonymHyperNonterminal/closingBracket"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epsilon.ecore#//AynonymHyperNonterminal/formalParams"/>
     </genClasses>
     <genClasses ecoreClass="Epsilon.ecore#//AffixVariable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//AffixVariable/isNegated"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epsilon.ecore#//AffixVariable/ref"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//AffixVariable/affixNumber"/>
     </genClasses>

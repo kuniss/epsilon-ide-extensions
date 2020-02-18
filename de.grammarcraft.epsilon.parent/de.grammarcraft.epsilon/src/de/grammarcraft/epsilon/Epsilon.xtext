@@ -8,7 +8,7 @@ Specification:
 
 // Meta grammar rules
 MetaRule:
-	name=ID ("*")? "=" metaExpr=MetaExpr "."
+	name=ID isToken?=("*")? "=" metaExpr=MetaExpr "."
 ;
 MetaExpr:
 	alternatives+=MetaTerm ( "|" alternatives+=MetaTerm )*
@@ -23,7 +23,7 @@ MetaSymbol:
 
 // Hyper grammar rules
 HyperRule:
-	name=ID ("*")? formalParams=(FormalParams)? ":" hyperExpr=HyperExpr "."
+	name=ID isToken?=("*")? formalParams=(FormalParams)? ":" hyperExpr=HyperExpr "."
 ;
 HyperExpr:
 	alternatives+=HyperAlternative ( "|" alternatives+=HyperAlternative )*
@@ -34,12 +34,18 @@ HyperAlternative:
 HyperTerm:
 	{HyperTerm} ( hyperSymbols+=HyperSymbol )* 
 ;
+enum EbnfOpeningBracket:
+	PARENTHESIS="(" | SQUARE_BRACKET="[" | CURLY_BRACKET="{" 
+;
+enum EbnfClosingBracket:
+	PARENTHESIS=")" | SQUARE_BRACKET="]" | CURLY_BRACKET="}" 
+;
 HyperSymbol:
 	  {HyperNonterminal} ref=[HyperRule] (=> actualParams=ActualParams)? // TODO tree rewriting needed here depending on formal affix params, see [DeWeKaKr] S.23, Erster Pass
 	| {HyperString} value=STRING 
 	| {AynonymHyperNonterminal}
 	  actualParams=(ActualParams)? 
-	  ( "(" | "[" | "{" ) hyperExpr=HyperExpr ( ")" | "]" | "}" ) 
+	  openingBracket=EbnfOpeningBracket hyperExpr=HyperExpr closingBracket=EbnfClosingBracket 
 	  formalParams=(FormalParams)? 
 ;
 
@@ -47,8 +53,11 @@ HyperSymbol:
 FormalParams:
 	"<" list+=FormalParam ( "," list+=FormalParam )* ">" 
 ;
+enum AffixDirection:
+	OUT="+" | IN="-"
+;
 FormalParam:
-	("+" | "-" ) affixForm=AffixForm ":" affixType=[MetaRule]
+	direction=AffixDirection affixForm=AffixForm ":" affixType=[MetaRule]
 ;
 ActualParams:
 	"<" list+=AffixForm ( "," list+=AffixForm )* ">" 
@@ -57,7 +66,7 @@ AffixForm:
 	{AffixForm} ( affixes+=Affix )* 
 ;
 Affix:
-	  {AffixVariable} ("#")? ref=[MetaRule] affixNumber=(INT)? 
+	  {AffixVariable} isNegated?=("#")? ref=[MetaRule] affixNumber=(INT)? 
 	| {AffixLiteral} value=STRING 
 ;
 
