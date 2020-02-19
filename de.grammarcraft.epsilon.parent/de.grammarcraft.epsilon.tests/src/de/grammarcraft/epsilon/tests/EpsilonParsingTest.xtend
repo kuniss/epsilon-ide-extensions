@@ -5,12 +5,15 @@ package de.grammarcraft.epsilon.tests
 
 import com.google.inject.Inject
 import de.grammarcraft.epsilon.epsilon.Specification
+import java.io.File
+import java.nio.file.Files
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.eclipse.xtext.testing.util.ParseHelper
-import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
+
+import static org.junit.Assert.*
 
 @RunWith(XtextRunner)
 @InjectWith(EpsilonInjectorProvider)
@@ -27,9 +30,25 @@ class EpsilonParsingTest {
 			(* some nested comment *)
 			x <+ "a": x> : "a".
 		''')
-		Assert.assertNotNull(result)
+		assertNotNull(result)
 		val errors = result.eResource.errors
-		Assert.assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+	}
+
+
+// java.lang.AssertionError: Unexpected errors:
+// 1 extraneous input '>' expecting ':'
+// 1 mismatched input '<' expecting '>'
+// 1 missing ':' at 'Code'
+// 1 no viable alternative at input '>'
+	@Test
+	def void parseFormalParamsWithOutExplicitAffixType() {
+		val result = parseHelper.parse('''
+			OberonO <+ Code>: Module <Code>.
+		''')
+		assertNotNull(result)
+		val errors = result.eResource.errors
+		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
 	}
 	
 	@Test
@@ -69,8 +88,39 @@ class EpsilonParsingTest {
 			Find <- id: id, - #id ";" Tab : Tab, + Bool: Bool>:
 				Find <id, Tab, Bool >.
 		''')
-		Assert.assertNotNull(result)
+		assertNotNull(result)
 		val errors = result.eResource.errors
-		Assert.assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
 	}
+	
+	@Test
+	def void parseExample1() {
+		val specFile = new File(class.getResource('example1.eps').file)
+		val spec = Files.readAllLines(specFile.toPath).join('\n')
+		val result = parseHelper.parse(spec)
+		assertNotNull(result)
+		val errors = result.eResource.errors
+		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+	}
+	
+	@Test
+	def void parseExample2() {
+		val specFile = new File(class.getResource('example2.eps').file)
+		val spec = Files.readAllLines(specFile.toPath).join('\n')
+		val result = parseHelper.parse(spec)
+		assertNotNull(result)
+		val errors = result.eResource.errors
+		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+	}
+	
+	@Test
+	def void parseOberon0Spec() {
+		val obern0SpecFile = new File(class.getResource('oberon0.eps').file)
+		val oberon0Spec = Files.readAllLines(obern0SpecFile.toPath).join('\n')
+		val result = parseHelper.parse(oberon0Spec)
+		assertNotNull(result)
+		val errors = result.eResource.errors
+		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+	}
+
 }

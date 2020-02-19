@@ -57,7 +57,7 @@ enum AffixDirection:
 	OUT="+" | IN="-"
 ;
 FormalParam:
-	direction=AffixDirection affixForm=AffixForm ":" affixType=[MetaRule]
+	direction=AffixDirection affixForm=AffixForm (":" affixType=[MetaRule])?
 ;
 ActualParams:
 	"<" list+=AffixForm ( "," list+=AffixForm )* ">" 
