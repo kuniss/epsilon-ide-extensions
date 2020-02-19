@@ -35,12 +35,6 @@ class EpsilonParsingTest {
 		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
 	}
 
-
-// java.lang.AssertionError: Unexpected errors:
-// 1 extraneous input '>' expecting ':'
-// 1 mismatched input '<' expecting '>'
-// 1 missing ':' at 'Code'
-// 1 no viable alternative at input '>'
 	@Test
 	def void parseFormalParamsWithOutExplicitAffixType() {
 		val result = parseHelper.parse('''
@@ -52,7 +46,88 @@ class EpsilonParsingTest {
 	}
 	
 	@Test
-	def void parseRedcutedExample() {
+	def void parseHelloWorld() {
+		val result = parseHelper.parse('''
+			! ------------------------   Hello World!
+			
+			N= 'Hello World!'.
+			S <+ 'Hello World!': N>: .
+		''')
+		assertNotNull(result)
+		val errors = result.eResource.errors
+		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+	}
+
+	@Test
+	def void parseNonContextFreeGrammarWithEBNF() {
+		val result = parseHelper.parse('''
+			!  ------------------------   a^n b^n  -> i^n  with EBNF
+			
+			N= "i" N | .
+			
+			S: <+ N: N>
+				<N>{<+"i" N : N> 'a' <N> } <+ : N>
+				<N>{<-"i" N : N> 'b' <N> } <- : N> .
+		''')
+		assertNotNull(result)
+		val errors = result.eResource.errors
+		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+	}
+
+	@Test
+	def void parseNonContextFreeGrammarWithoutEBNF() {
+		val result = parseHelper.parse('''
+			!  ------------------------   a^n b^n  -> i^n  without EBNF
+			
+			N = "i" N | .
+			
+			S: <+ N : N> A <N> B <N>.
+			A: <+ "i" N : N> 'a' A <N> | <+ : N> .
+			B: <- "i" N : N> 'b' B <N> | <- : N> .
+		''')
+		assertNotNull(result)
+		val errors = result.eResource.errors
+		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+	}
+
+	@Test
+	def void parseNonContextFreeGrammar() {
+		val result = parseHelper.parse('''
+			! ------------------------   a^n b^n c^n -> i^n
+			
+			n = | n "i".
+			
+			S <+ n: n>:
+			  <n> { <+ n "i": n> "a"  <n> } <+ : n>
+			  <n> { <+ n "i": n> "b"  <n> } <+ : n>
+			  <n> { <+ n "i": n> "c"  <n> } <+ : n>.
+  		''')
+		assertNotNull(result)
+		val errors = result.eResource.errors
+		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+	}
+
+	@Test
+	def void parseNumberCounterGrammer() {
+		val result = parseHelper.parse('''
+			! ------------------------   i^n --> n
+			
+			N = N D | "Number" .
+			D = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" .
+			
+			S : <+ N: N><"Number" "0", N> {<- N: N,+ N2: N> 'i' INC <N, N1> <N1, N2> } <- N: N, + N: N> .
+			
+			INC: <- N "0": N, + N "1": N> | <- N "1": N, + N "2": N> | <- N "2": N, + N "3": N> | <- N "3": N, + N "4": N>  
+				| <- N "4": N, + N "5": N> | <- N "5": N, + N "6": N> | <- N "6": N, + N "7": N> | <- N "7": N, + N "8": N> 
+				| <- N "8": N, + N "9": N> | <- N "9": N, + N1 "0": N> INC <N, N1> | <- "Number": N, + "Number" "1": N>.
+		''')
+		assertNotNull(result)
+		val errors = result.eResource.errors
+		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+	}
+
+	@Test
+	def void parseReducedExample() {
 		val result = parseHelper.parse('''
 			! DeclAppl
 			
@@ -113,6 +188,46 @@ class EpsilonParsingTest {
 		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
 	}
 	
+	@Test
+	def void parseExample3() {
+		val specFile = new File(class.getResource('example3.eps').file)
+		val spec = Files.readAllLines(specFile.toPath).join('\n')
+		val result = parseHelper.parse(spec)
+		assertNotNull(result)
+		val errors = result.eResource.errors
+		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+	}
+	
+	@Test
+	def void parseExample4() {
+		val specFile = new File(class.getResource('example4.eps').file)
+		val spec = Files.readAllLines(specFile.toPath).join('\n')
+		val result = parseHelper.parse(spec)
+		assertNotNull(result)
+		val errors = result.eResource.errors
+		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+	}
+	
+	@Test
+	def void parseExample5() {
+		val specFile = new File(class.getResource('example5.eps').file)
+		val spec = Files.readAllLines(specFile.toPath).join('\n')
+		val result = parseHelper.parse(spec)
+		assertNotNull(result)
+		val errors = result.eResource.errors
+		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+	}
+	
+	@Test
+	def void parseExample6() {
+		val specFile = new File(class.getResource('example6.eps').file)
+		val spec = Files.readAllLines(specFile.toPath).join('\n')
+		val result = parseHelper.parse(spec)
+		assertNotNull(result)
+		val errors = result.eResource.errors
+		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+	}
+
 	@Test
 	def void parseOberon0Spec() {
 		val obern0SpecFile = new File(class.getResource('oberon0.eps').file)
