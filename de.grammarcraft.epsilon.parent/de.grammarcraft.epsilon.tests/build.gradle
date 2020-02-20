@@ -7,3 +7,7 @@ dependencies {
 //this is an eclipse plugin project
 eclipseClasspath.enabled=false
 cleanEclipseClasspath.enabled=false
+
+sourceSets {
+	test.resources.srcDir 'examples'
+}

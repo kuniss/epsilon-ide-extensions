@@ -170,7 +170,7 @@ class EpsilonParsingTest {
 	
 	@Test
 	def void parseExample1() {
-		val specFile = new File(class.getResource('example1.eps').file)
+		val specFile = new File(class.getResource('/example1.eps').file)
 		val spec = Files.readAllLines(specFile.toPath).join('\n')
 		val result = parseHelper.parse(spec)
 		assertNotNull(result)
@@ -180,7 +180,7 @@ class EpsilonParsingTest {
 	
 	@Test
 	def void parseExample2() {
-		val specFile = new File(class.getResource('example2.eps').file)
+		val specFile = new File(class.getResource('/example2.eps').file)
 		val spec = Files.readAllLines(specFile.toPath).join('\n')
 		val result = parseHelper.parse(spec)
 		assertNotNull(result)
@@ -190,7 +190,7 @@ class EpsilonParsingTest {
 	
 	@Test
 	def void parseExample3() {
-		val specFile = new File(class.getResource('example3.eps').file)
+		val specFile = new File(class.getResource('/example3.eps').file)
 		val spec = Files.readAllLines(specFile.toPath).join('\n')
 		val result = parseHelper.parse(spec)
 		assertNotNull(result)
@@ -200,7 +200,7 @@ class EpsilonParsingTest {
 	
 	@Test
 	def void parseExample4() {
-		val specFile = new File(class.getResource('example4.eps').file)
+		val specFile = new File(class.getResource('/example4.eps').file)
 		val spec = Files.readAllLines(specFile.toPath).join('\n')
 		val result = parseHelper.parse(spec)
 		assertNotNull(result)
@@ -210,7 +210,7 @@ class EpsilonParsingTest {
 	
 	@Test
 	def void parseExample5() {
-		val specFile = new File(class.getResource('example5.eps').file)
+		val specFile = new File(class.getResource('/example5.eps').file)
 		val spec = Files.readAllLines(specFile.toPath).join('\n')
 		val result = parseHelper.parse(spec)
 		assertNotNull(result)
@@ -220,7 +220,47 @@ class EpsilonParsingTest {
 	
 	@Test
 	def void parseExample6() {
-		val specFile = new File(class.getResource('example6.eps').file)
+		val specFile = new File(class.getResource('/example6.eps').file)
+		val spec = Files.readAllLines(specFile.toPath).join('\n')
+		val result = parseHelper.parse(spec)
+		assertNotNull(result)
+		val errors = result.eResource.errors
+		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+	}
+
+	@Test
+	def void parseNotOeag1() {
+		val specFile = new File(class.getResource('/not-oeag-1.eps').file)
+		val spec = Files.readAllLines(specFile.toPath).join('\n')
+		val result = parseHelper.parse(spec)
+		assertNotNull(result)
+		val errors = result.eResource.errors
+		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+	}
+
+	@Test
+	def void parseNotOeag2() {
+		val specFile = new File(class.getResource('/not-oeag-2.eps').file)
+		val spec = Files.readAllLines(specFile.toPath).join('\n')
+		val result = parseHelper.parse(spec)
+		assertNotNull(result)
+		val errors = result.eResource.errors
+		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+	}
+
+	@Test
+	def void parseNotOeag3() {
+		val specFile = new File(class.getResource('/not-oeag-3.eps').file)
+		val spec = Files.readAllLines(specFile.toPath).join('\n')
+		val result = parseHelper.parse(spec)
+		assertNotNull(result)
+		val errors = result.eResource.errors
+		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+	}
+
+	@Test
+	def void parseNotOeag4() {
+		val specFile = new File(class.getResource('/not-oeag-4.eps').file)
 		val spec = Files.readAllLines(specFile.toPath).join('\n')
 		val result = parseHelper.parse(spec)
 		assertNotNull(result)
@@ -230,7 +270,77 @@ class EpsilonParsingTest {
 
 	@Test
 	def void parseOberon0Spec() {
-		val obern0SpecFile = new File(class.getResource('oberon0.eps').file)
+		val obern0SpecFile = new File(class.getResource('/oberon0.eps').file)
+		val oberon0Spec = Files.readAllLines(obern0SpecFile.toPath).join('\n')
+		val result = parseHelper.parse(oberon0Spec)
+		assertNotNull(result)
+		val errors = result.eResource.errors
+		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+	}
+
+	@Test
+	def void parseOberon0AbstractSyntaxSpec() {
+		val obern0SpecFile = new File(class.getResource('/oberon0-abstract-syntax.eps').file)
+		val oberon0Spec = Files.readAllLines(obern0SpecFile.toPath).join('\n')
+		val result = parseHelper.parse(oberon0Spec)
+		assertNotNull(result)
+		val errors = result.eResource.errors
+		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+	}
+
+	@Test
+	def void parseOberon0FrontendSpec() {
+		val obern0SpecFile = new File(class.getResource('/oberon0-frontend.eps').file)
+		val oberon0Spec = Files.readAllLines(obern0SpecFile.toPath).join('\n')
+		val result = parseHelper.parse(oberon0Spec)
+		assertNotNull(result)
+		val errors = result.eResource.errors
+		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+	}
+
+	@Test
+	def void parseOberon0SymbolResolutionSpec() {
+		val obern0SpecFile = new File(class.getResource('/oberon0-symbol-resolution.eps').file)
+		val oberon0Spec = Files.readAllLines(obern0SpecFile.toPath).join('\n')
+		val result = parseHelper.parse(oberon0Spec)
+		assertNotNull(result)
+		val errors = result.eResource.errors
+		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+	}
+
+	@Test
+	def void parseOberon0SymbolTableSpec() {
+		val obern0SpecFile = new File(class.getResource('/oberon0-symbol-tables.eps').file)
+		val oberon0Spec = Files.readAllLines(obern0SpecFile.toPath).join('\n')
+		val result = parseHelper.parse(oberon0Spec)
+		assertNotNull(result)
+		val errors = result.eResource.errors
+		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+	}
+
+	@Test
+	def void parseOberon0TypeCheckSpec() {
+		val obern0SpecFile = new File(class.getResource('/oberon0-type-check.eps').file)
+		val oberon0Spec = Files.readAllLines(obern0SpecFile.toPath).join('\n')
+		val result = parseHelper.parse(oberon0Spec)
+		assertNotNull(result)
+		val errors = result.eResource.errors
+		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+	}
+
+	@Test
+	def void parseOberon0TypeTablesSpec() {
+		val obern0SpecFile = new File(class.getResource('/oberon0-type-tables.eps').file)
+		val oberon0Spec = Files.readAllLines(obern0SpecFile.toPath).join('\n')
+		val result = parseHelper.parse(oberon0Spec)
+		assertNotNull(result)
+		val errors = result.eResource.errors
+		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+	}
+
+	@Test
+	def void parseOberon0UnequalSpec() {
+		val obern0SpecFile = new File(class.getResource('/oberon0-unequal.eps').file)
 		val oberon0Spec = Files.readAllLines(obern0SpecFile.toPath).join('\n')
 		val result = parseHelper.parse(oberon0Spec)
 		assertNotNull(result)
