@@ -3,7 +3,10 @@
  */
 package de.grammarcraft.epsilon.ui.labeling;
 
+import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.ui.label.DefaultDescriptionLabelProvider;
+
+import de.grammarcraft.epsilon.epsilon.MetaRule;
 
 /**
  * Provides labels for IEObjectDescriptions and IResourceDescriptions.
@@ -14,11 +17,15 @@ public class EpsilonDescriptionLabelProvider extends DefaultDescriptionLabelProv
 
 	// Labels and icons can be computed like this:
 	
-//	String text(IEObjectDescription ele) {
-//		return ele.getName().toString();
-//	}
-//	 
-//	String image(IEObjectDescription ele) {
-//		return ele.getEClass().getName() + ".gif";
-//	}
+	public String text(IEObjectDescription ele) {
+		return ele.getName().toString();
+	}
+	 
+	public String image(IEObjectDescription ele) {
+		if (MetaRule.class.getSimpleName().equals(ele.getClass().getName()))
+			return "meta.gif";
+		else // if (HyperRule.class.getSimpleName().equals(ele.getClass().getName())) {
+			return "hyper.gif";
+	}
+	
 }
