@@ -65,10 +65,11 @@ ActualParams:
 AffixForm:
 	{AffixForm} ( affixes+=Affix )* 
 ;
-Affix:
+Affix hidden():
 	  {AffixVariable} isNegated?=("#")? ref=[MetaRule] affixNumber=(INT)? 
 	| {AffixLiteral} value=STRING 
 ;
 
+@Override terminal ID: ('a'..'z'|'A'..'Z') ('a'..'z'|'A'..'Z')*;
 @Override terminal ML_COMMENT : '(*' -> '*)';
 @Override terminal SL_COMMENT : '!' !('\n'|'\r')* ('\r'? '\n')?;
