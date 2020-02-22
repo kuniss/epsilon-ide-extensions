@@ -10,6 +10,7 @@ import java.nio.file.Files
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.eclipse.xtext.testing.util.ParseHelper
+import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -20,7 +21,16 @@ import static org.junit.Assert.*
 class EpsilonParsingTest {
 	@Inject
 	ParseHelper<Specification> parseHelper
+	@Inject extension ValidationTestHelper
 	
+	private def assertNoSyntaxErrors(Specification specification) {
+		val errors = specification.eResource.errors
+		assertTrue('''Unexpected syntax errors: «errors.join(", ")»''', errors.isEmpty)
+	}
+	
+	private def assertNoValidationErrors(Specification specification) {
+		specification.assertNoErrors
+	}
 	
 	@Test
 	def void parseSimpleExample() {
@@ -31,18 +41,34 @@ class EpsilonParsingTest {
 			x <+ "a": x> : "a".
 		''')
 		assertNotNull(result)
-		val errors = result.eResource.errors
-		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
 	}
 
 	@Test
 	def void parseFormalParamsWithOutExplicitAffixType() {
 		val result = parseHelper.parse('''
+			Code = "empty".
 			OberonO <+ Code>: Module <Code>.
+			Module<- "empty": Code>: .
+		''')
+		assertNotNull(result)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
+	}
+
+	@Test
+	def void parseActualParamsWithSpaceBetweenAffixandAffixNumber() {
+		val result = parseHelper.parse('''
+			Code = "empty".
+			OberonO <+ Code 1>: Module <Code1>.
+			Module<- "empty": Code>: .
 		''')
 		assertNotNull(result)
 		val errors = result.eResource.errors
-		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		assertEquals('Syntax error expected before affix number due to space but not encountered', 1, errors.size)
+		assertEquals(2, errors.head.line)
+		assertEquals(17, errors.head.column)
 	}
 	
 	@Test
@@ -54,8 +80,8 @@ class EpsilonParsingTest {
 			S <+ 'Hello World!': N>: .
 		''')
 		assertNotNull(result)
-		val errors = result.eResource.errors
-		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
 	}
 
 	@Test
@@ -70,8 +96,8 @@ class EpsilonParsingTest {
 				<N>{<-"i" N : N> 'b' <N> } <- : N> .
 		''')
 		assertNotNull(result)
-		val errors = result.eResource.errors
-		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
 	}
 
 	@Test
@@ -86,8 +112,8 @@ class EpsilonParsingTest {
 			B: <- "i" N : N> 'b' B <N> | <- : N> .
 		''')
 		assertNotNull(result)
-		val errors = result.eResource.errors
-		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
 	}
 
 	@Test
@@ -103,8 +129,8 @@ class EpsilonParsingTest {
 			  <n> { <+ n "i": n> "c"  <n> } <+ : n>.
   		''')
 		assertNotNull(result)
-		val errors = result.eResource.errors
-		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
 	}
 
 	@Test
@@ -122,8 +148,8 @@ class EpsilonParsingTest {
 				| <- N "8": N, + N "9": N> | <- N "9": N, + N1 "0": N> INC <N, N1> | <- "Number": N, + "Number" "1": N>.
 		''')
 		assertNotNull(result)
-		val errors = result.eResource.errors
-		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
 	}
 
 	@Test
@@ -164,8 +190,8 @@ class EpsilonParsingTest {
 				Find <id, Tab, Bool >.
 		''')
 		assertNotNull(result)
-		val errors = result.eResource.errors
-		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
 	}
 	
 	@Test
@@ -174,8 +200,8 @@ class EpsilonParsingTest {
 		val spec = Files.readAllLines(specFile.toPath).join('\n')
 		val result = parseHelper.parse(spec)
 		assertNotNull(result)
-		val errors = result.eResource.errors
-		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
 	}
 	
 	@Test
@@ -184,8 +210,8 @@ class EpsilonParsingTest {
 		val spec = Files.readAllLines(specFile.toPath).join('\n')
 		val result = parseHelper.parse(spec)
 		assertNotNull(result)
-		val errors = result.eResource.errors
-		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
 	}
 	
 	@Test
@@ -194,8 +220,8 @@ class EpsilonParsingTest {
 		val spec = Files.readAllLines(specFile.toPath).join('\n')
 		val result = parseHelper.parse(spec)
 		assertNotNull(result)
-		val errors = result.eResource.errors
-		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
 	}
 	
 	@Test
@@ -204,8 +230,8 @@ class EpsilonParsingTest {
 		val spec = Files.readAllLines(specFile.toPath).join('\n')
 		val result = parseHelper.parse(spec)
 		assertNotNull(result)
-		val errors = result.eResource.errors
-		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
 	}
 	
 	@Test
@@ -214,8 +240,8 @@ class EpsilonParsingTest {
 		val spec = Files.readAllLines(specFile.toPath).join('\n')
 		val result = parseHelper.parse(spec)
 		assertNotNull(result)
-		val errors = result.eResource.errors
-		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
 	}
 	
 	@Test
@@ -224,8 +250,8 @@ class EpsilonParsingTest {
 		val spec = Files.readAllLines(specFile.toPath).join('\n')
 		val result = parseHelper.parse(spec)
 		assertNotNull(result)
-		val errors = result.eResource.errors
-		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
 	}
 
 	@Test
@@ -234,8 +260,8 @@ class EpsilonParsingTest {
 		val spec = Files.readAllLines(specFile.toPath).join('\n')
 		val result = parseHelper.parse(spec)
 		assertNotNull(result)
-		val errors = result.eResource.errors
-		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
 	}
 
 	@Test
@@ -244,8 +270,8 @@ class EpsilonParsingTest {
 		val spec = Files.readAllLines(specFile.toPath).join('\n')
 		val result = parseHelper.parse(spec)
 		assertNotNull(result)
-		val errors = result.eResource.errors
-		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
 	}
 
 	@Test
@@ -254,8 +280,8 @@ class EpsilonParsingTest {
 		val spec = Files.readAllLines(specFile.toPath).join('\n')
 		val result = parseHelper.parse(spec)
 		assertNotNull(result)
-		val errors = result.eResource.errors
-		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
 	}
 
 	@Test
@@ -264,8 +290,8 @@ class EpsilonParsingTest {
 		val spec = Files.readAllLines(specFile.toPath).join('\n')
 		val result = parseHelper.parse(spec)
 		assertNotNull(result)
-		val errors = result.eResource.errors
-		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
 	}
 
 	@Test
@@ -274,8 +300,8 @@ class EpsilonParsingTest {
 		val oberon0Spec = Files.readAllLines(obern0SpecFile.toPath).join('\n')
 		val result = parseHelper.parse(oberon0Spec)
 		assertNotNull(result)
-		val errors = result.eResource.errors
-		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
 	}
 
 	@Test
@@ -284,8 +310,8 @@ class EpsilonParsingTest {
 		val oberon0Spec = Files.readAllLines(obern0SpecFile.toPath).join('\n')
 		val result = parseHelper.parse(oberon0Spec)
 		assertNotNull(result)
-		val errors = result.eResource.errors
-		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
 	}
 
 	@Test
@@ -294,8 +320,8 @@ class EpsilonParsingTest {
 		val oberon0Spec = Files.readAllLines(obern0SpecFile.toPath).join('\n')
 		val result = parseHelper.parse(oberon0Spec)
 		assertNotNull(result)
-		val errors = result.eResource.errors
-		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
 	}
 
 	@Test
@@ -304,8 +330,8 @@ class EpsilonParsingTest {
 		val oberon0Spec = Files.readAllLines(obern0SpecFile.toPath).join('\n')
 		val result = parseHelper.parse(oberon0Spec)
 		assertNotNull(result)
-		val errors = result.eResource.errors
-		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
 	}
 
 	@Test
@@ -314,8 +340,8 @@ class EpsilonParsingTest {
 		val oberon0Spec = Files.readAllLines(obern0SpecFile.toPath).join('\n')
 		val result = parseHelper.parse(oberon0Spec)
 		assertNotNull(result)
-		val errors = result.eResource.errors
-		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
 	}
 
 	@Test
@@ -324,8 +350,8 @@ class EpsilonParsingTest {
 		val oberon0Spec = Files.readAllLines(obern0SpecFile.toPath).join('\n')
 		val result = parseHelper.parse(oberon0Spec)
 		assertNotNull(result)
-		val errors = result.eResource.errors
-		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
 	}
 
 	@Test
@@ -334,8 +360,8 @@ class EpsilonParsingTest {
 		val oberon0Spec = Files.readAllLines(obern0SpecFile.toPath).join('\n')
 		val result = parseHelper.parse(oberon0Spec)
 		assertNotNull(result)
-		val errors = result.eResource.errors
-		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
 	}
 
 	@Test
@@ -344,8 +370,8 @@ class EpsilonParsingTest {
 		val oberon0Spec = Files.readAllLines(obern0SpecFile.toPath).join('\n')
 		val result = parseHelper.parse(oberon0Spec)
 		assertNotNull(result)
-		val errors = result.eResource.errors
-		assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
 	}
 
 }
