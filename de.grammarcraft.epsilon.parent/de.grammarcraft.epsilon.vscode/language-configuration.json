@@ -30,5 +30,10 @@
         ["'", "'"],
         [":", "."],
         ["=", "."]
-    ]
+    ],
+    // for auto indentation on the right hand side of a grammar rule and of alternatives inside of {}, (), and []
+    "indentationRules": {
+		"increaseIndentPattern": "^.*[=:][^\\.]*$",
+		"decreaseIndentPattern": "^\\s*\\.\\s*$"
+	}
 }
