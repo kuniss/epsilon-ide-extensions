@@ -1,0 +1,312 @@
+#################################################################
+## Iro
+################################################################ 
+##
+## * Press Ctrl + '+'/'-' To Zoom in
+## * Press Ctrl + S to save and recalculate... 
+## * Documents are saved to web storage.
+## * Only one save slot supported.
+## * Matches cannot span lines.
+## * Unicode chars must be defined in \u0000 to \uffff format.
+## * All matches must be contained by a single group ( ... )
+## * Look behinds not permitted, (?<= or (?<!
+## * Look forwards are permitted (?= or (?!
+## * Constants are defined as __my_const = (......)
+## * The \= format allows unescaped regular expressions
+## * Constants referenced by match \= $${__my_const}
+## * Constants can reference other constants
+## * You are free to delete all the default scopes.
+## * Twitter : ainslec , Web: http://eeyo.io/iro
+##
+################################################################
+
+name                   = epsilon
+file_extensions []     = eps, epsilon;
+textmate_uuid = 0dae9110-10c1-439f-8de9-dc58cd898f2a
+
+################################################################
+## Styles
+################################################################
+
+styles [] {
+
+.comment_multiline : style {
+   color                 = light_green
+   italic                = true
+   ace_scope             = comment.block
+   textmate_scope        = comment.block
+   pygments_scope        = Comment.Multiline
+}
+
+.comment_singleline : style {
+   color                 = green
+   italic                = true
+   ace_scope             = comment.line.double-slash
+   textmate_scope        = comment.line.double-slash
+   pygments_scope        = Comment.Single
+}
+
+.hypernonterminal : style {
+   color                 = cyan
+   ace_scope             = entity.name.hypernonterminal
+   textmate_scope        = entity.name.hypernonterminal
+   pygments_scope        = Name.Entity
+}
+
+.metanonterminal : style {
+   color                 = light_yellow
+   ace_scope             = entity.name.metanonterminal
+   textmate_scope        = entity.name.metanonterminal
+   pygments_scope        = Name.Entity
+}
+
+.punctuation : style {
+   color                 = white
+   ace_scope             = punctuation
+   textmate_scope        = punctuation
+   pygments_scope        = Punctuation
+}
+
+.operator : style {
+   color                 = orange
+   ace_scope             = keyword.operator
+   textmate_scope        = keyword.operator
+   pygments_scope        = Operator
+}
+
+.hyperterminal_double_quoted : style {
+   color                 = light_blue
+   ace_scope             = string.quoted.double.hyperterminal
+   textmate_scope        = string.quoted.double.hyperterminal
+   pygments_scope        = String.Double
+}
+
+.hyperterminal_single_quoted : style {
+   color                 = light_blue
+   ace_scope             = string.quoted.single.hyperterminal
+   textmate_scope        = string.quoted.single.hyperterminal
+   pygments_scope        = String.Single
+}
+
+.metaterminal_double_quoted : style {
+   color                 = yellow
+   ace_scope             = string.quoted.double.metaterminal
+   textmate_scope        = string.quoted.double.metaterminal
+   pygments_scope        = String.Double
+}
+
+.metaterminal_single_quoted : style {
+   color                 = yellow
+   ace_scope             = string.quoted.single.metaterminal
+   textmate_scope        = string.quoted.single.metaterminal
+   pygments_scope        = String.Single
+}
+
+.illegal : style {
+   color                 = white
+   background_color      = red
+   ace_scope             = invalid
+   textmate_scope        = invalid
+   pygments_scope        = Generic.Error
+}
+
+}
+
+#################################################
+## Parse contexts
+#################################################
+
+contexts [] {
+
+##############################################
+## Main Context - Entry point context
+##############################################
+
+main : context {
+   : include "grammar" ;
+}
+
+grammar : context {
+
+   : include "multi_line_comment";
+   : include "single_line_comment";
+   
+
+   : include "Operators";
+   : include "Punctuation";
+   
+   : include "MetaNonterminalDef";
+   : include "MetaNonterminalRule";
+   : include "HyperNonterminal";
+   : include "AffixDefinition";
+   : include "HyperTerminal";
+
+   : pattern {
+      regex          \= ([^\s])
+      styles []       = .illegal;
+   }
+   
+}
+
+
+Punctuation: context {
+   : pattern { 
+      regex       \= (\.|\,|:)
+      styles []    = .punctuation ;
+   }
+}
+
+Operators: context {
+   : pattern { 
+      regex       \= (\||\(|\)|\{|\}|\[|\]|\*|\+|-)
+      styles []    = .operator ;
+   }
+}
+
+HyperNonterminal : context {
+   : pattern {
+      regex          \= (\b\w+\b)
+      styles []       = .hypernonterminal;
+   }
+}
+
+MetaNonterminalDef : context {
+   : pattern {
+      regex          \= (\b\w+(?=((\s*\*)?\s*\=)))
+      styles []       = .metanonterminal;
+   }
+}
+
+MetaNonterminalRule : context {
+   : push {
+      regex         \= (=)
+      styles []      = .punctuation;
+      context []     = inside_MetaNonterminalRule;
+   } 
+}
+
+inside_MetaNonterminalRule : context {
+   : pop {
+      regex      \= (\.)
+      styles []   = .punctuation;
+   }
+   : include "Operators";
+   : include "MetaTerminal";
+   : include "MetaNonterminal";
+}
+
+MetaNonterminal : context {
+   : pattern {
+      regex          \= (\b\w+\b)
+      styles []       = .metanonterminal;
+   }
+}
+
+
+AffixDefinition : context {
+   description        = affix definition in between <>
+   : push {
+      regex          \= (<)
+      styles []       = .punctuation;
+      context []      = inside_AffixDefinition;
+   }
+}
+
+inside_AffixDefinition : context {
+   : pop {
+      regex      \= (>)
+      styles []   = .punctuation;
+   }   
+   : include "Operators";
+   : include "MetaTerminal";
+   : include "Affix";
+}
+
+Affix : context {
+   : pattern {
+      regex          \= (\b\w+\d*\b)
+      styles []       = .metanonterminal;
+   }
+}
+
+
+###########################################
+## Terminals
+###########################################
+
+single_line_comment : context {
+   description        = singleline comment
+   : pattern {
+      regex          \= (!.*)
+      styles []       = .comment_singleline;
+   }
+}
+
+
+multi_line_comment : context {
+   description        = multiline comment
+   : push {
+      regex          \= (\(\*)
+      styles []       = .comment_multiline;
+      context []      = inside_multiline_comment;
+   }
+}
+
+inside_multiline_comment : context {
+   : pop {
+      regex       \= (\*\))
+      styles []    = .comment_multiline;
+   }
+   : include "multi_line_comment";
+   : pattern {
+      regex      \= ([^\*])
+      styles [] = .comment_multiline;
+   }   
+}
+
+HyperTerminal : context {
+   description       = hyper terminal as quoted string
+   : inline_push {
+      regex          \= (\")
+      styles []       = .hyperterminal_double_quoted;
+      default_style   = .hyperterminal_double_quoted
+      : pop {
+         regex       \= (\")
+         styles []    = .hyperterminal_double_quoted;
+      }
+   }
+   : inline_push {
+      regex          \= (\')
+      styles []       = .hyperterminal_single_quoted;
+      default_style   = .hyperterminal_single_quoted
+      : pop {
+         regex       \= (\')
+         styles []    = .hyperterminal_single_quoted;
+      }
+   }
+}
+
+MetaTerminal : context {
+   description       = meta terminal as quoted string
+   : inline_push {
+      regex          \= (\")
+      styles []       = .metaterminal_double_quoted;
+      default_style   = .metaterminal_double_quoted
+      : pop {
+         regex       \= (\")
+         styles []    = .metaterminal_double_quoted;
+      }
+   }
+   : inline_push {
+      regex          \= (\')
+      styles []       = .metaterminal_single_quoted;
+      default_style   = .metaterminal_single_quoted
+      : pop {
+         regex       \= (\')
+         styles []    = .metaterminal_single_quoted;
+      }
+   }
+}
+   
+   
+}

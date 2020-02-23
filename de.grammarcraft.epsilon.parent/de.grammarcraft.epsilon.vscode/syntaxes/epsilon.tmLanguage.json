@@ -1,32 +1,300 @@
 {
-	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-	"name": "Epsilon EAG Grammar",
+	"fileTypes": [
+		"eps",
+		"epsilon"
+	],
+	"name": "epsilon",
 	"patterns": [
 		{
-			"include": "#keywords"
-		},
-		{
-			"include": "#strings"
+			"include": "#main"
 		}
 	],
+	"scopeName": "source.epsilon",
+	"uuid": "0dae9110-10c1-439f-8de9-dc58cd898f2a",
 	"repository": {
-		"keywords": {
-			"patterns": [{
-				"name": "keyword.control.epsilon",
-				"match": "\\b(if|while|for|return)\\b"
-			}]
-		},
-		"strings": {
-			"name": "string.quoted.double.epsilon",
-			"begin": "\"",
-			"end": "\"",
+		"main": {
 			"patterns": [
 				{
-					"name": "constant.character.escape.epsilon",
-					"match": "\\\\."
+					"include": "#grammar"
+				}
+			]
+		},
+		"Affix": {
+			"patterns": [
+				{
+					"match": "(\\b\\w+\\d*\\b)",
+					"name": "entity.name.metanonterminal.epsilon"
+				}
+			]
+		},
+		"AffixDefinition": {
+			"patterns": [
+				{
+					"begin": "(<)",
+					"beginCaptures": {
+						"1": {
+							"name": "punctuation.epsilon"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#inside_AffixDefinition"
+						}
+					],
+					"end": "(>)",
+					"endCaptures": {
+						"1": {
+							"name": "punctuation.epsilon"
+						}
+					}
+				}
+			]
+		},
+		"HyperNonterminal": {
+			"patterns": [
+				{
+					"match": "(\\b\\w+\\b)",
+					"name": "entity.name.hypernonterminal.epsilon"
+				}
+			]
+		},
+		"HyperTerminal": {
+			"patterns": [
+				{
+					"begin": "(\\\")",
+					"beginCaptures": {
+						"1": {
+							"name": "string.quoted.double.hyperterminal.epsilon"
+						}
+					},
+					"contentName": "string.quoted.double.hyperterminal.epsilon",
+					"end": "(\\\")",
+					"endCaptures": {
+						"1": {
+							"name": "string.quoted.double.hyperterminal.epsilon"
+						}
+					}
+				},
+				{
+					"begin": "(\\')",
+					"beginCaptures": {
+						"1": {
+							"name": "string.quoted.single.hyperterminal.epsilon"
+						}
+					},
+					"contentName": "string.quoted.single.hyperterminal.epsilon",
+					"end": "(\\')",
+					"endCaptures": {
+						"1": {
+							"name": "string.quoted.single.hyperterminal.epsilon"
+						}
+					}
+				}
+			]
+		},
+		"HyperTerminal__1": {
+			"patterns": []
+		},
+		"HyperTerminal__2": {
+			"patterns": []
+		},
+		"MetaNonterminal": {
+			"patterns": [
+				{
+					"match": "(\\b\\w+\\b)",
+					"name": "entity.name.metanonterminal.epsilon"
+				}
+			]
+		},
+		"MetaNonterminalDef": {
+			"patterns": [
+				{
+					"match": "(\\b\\w+(?=((\\s*\\*)?\\s*\\=)))",
+					"name": "entity.name.metanonterminal.epsilon"
+				}
+			]
+		},
+		"MetaNonterminalRule": {
+			"patterns": [
+				{
+					"begin": "(=)",
+					"beginCaptures": {
+						"1": {
+							"name": "punctuation.epsilon"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#inside_MetaNonterminalRule"
+						}
+					],
+					"end": "(\\.)",
+					"endCaptures": {
+						"1": {
+							"name": "punctuation.epsilon"
+						}
+					}
+				}
+			]
+		},
+		"MetaTerminal": {
+			"patterns": [
+				{
+					"begin": "(\\\")",
+					"beginCaptures": {
+						"1": {
+							"name": "string.quoted.double.metaterminal.epsilon"
+						}
+					},
+					"contentName": "string.quoted.double.metaterminal.epsilon",
+					"end": "(\\\")",
+					"endCaptures": {
+						"1": {
+							"name": "string.quoted.double.metaterminal.epsilon"
+						}
+					}
+				},
+				{
+					"begin": "(\\')",
+					"beginCaptures": {
+						"1": {
+							"name": "string.quoted.single.metaterminal.epsilon"
+						}
+					},
+					"contentName": "string.quoted.single.metaterminal.epsilon",
+					"end": "(\\')",
+					"endCaptures": {
+						"1": {
+							"name": "string.quoted.single.metaterminal.epsilon"
+						}
+					}
+				}
+			]
+		},
+		"MetaTerminal__1": {
+			"patterns": []
+		},
+		"MetaTerminal__2": {
+			"patterns": []
+		},
+		"Operators": {
+			"patterns": [
+				{
+					"match": "(\\||\\(|\\)|\\{|\\}|\\[|\\]|\\*|\\+|-)",
+					"name": "keyword.operator.epsilon"
+				}
+			]
+		},
+		"Punctuation": {
+			"patterns": [
+				{
+					"match": "(\\.|\\,|:)",
+					"name": "punctuation.epsilon"
+				}
+			]
+		},
+		"grammar": {
+			"patterns": [
+				{
+					"include": "#multi_line_comment"
+				},
+				{
+					"include": "#single_line_comment"
+				},
+				{
+					"include": "#Operators"
+				},
+				{
+					"include": "#Punctuation"
+				},
+				{
+					"include": "#MetaNonterminalDef"
+				},
+				{
+					"include": "#MetaNonterminalRule"
+				},
+				{
+					"include": "#HyperNonterminal"
+				},
+				{
+					"include": "#AffixDefinition"
+				},
+				{
+					"include": "#HyperTerminal"
+				},
+				{
+					"match": "([^\\s])",
+					"name": "invalid.epsilon"
+				}
+			]
+		},
+		"inside_AffixDefinition": {
+			"patterns": [
+				{
+					"include": "#Operators"
+				},
+				{
+					"include": "#MetaTerminal"
+				},
+				{
+					"include": "#Affix"
+				}
+			]
+		},
+		"inside_MetaNonterminalRule": {
+			"patterns": [
+				{
+					"include": "#Operators"
+				},
+				{
+					"include": "#MetaTerminal"
+				},
+				{
+					"include": "#MetaNonterminal"
+				}
+			]
+		},
+		"inside_multiline_comment": {
+			"patterns": [
+				{
+					"include": "#multi_line_comment"
+				},
+				{
+					"match": "([^\\*])",
+					"name": "comment.block.epsilon"
+				}
+			]
+		},
+		"multi_line_comment": {
+			"patterns": [
+				{
+					"begin": "(\\(\\*)",
+					"beginCaptures": {
+						"1": {
+							"name": "comment.block.epsilon"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#inside_multiline_comment"
+						}
+					],
+					"end": "(\\*\\))",
+					"endCaptures": {
+						"1": {
+							"name": "comment.block.epsilon"
+						}
+					}
+				}
+			]
+		},
+		"single_line_comment": {
+			"patterns": [
+				{
+					"match": "(!.*)",
+					"name": "comment.line.double-slash.epsilon"
 				}
 			]
 		}
-	},
-	"scopeName": "source.epsilon"
+	}
 }
