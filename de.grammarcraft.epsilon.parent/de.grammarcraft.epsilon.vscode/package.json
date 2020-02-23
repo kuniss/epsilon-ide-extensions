@@ -1,0 +1,25 @@
+{
+    "name": "epsilon-eag",
+    "displayName": "EpsilonEAG",
+    "description": "Specification Language for Extended Affix Grammars",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.42.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "epsilon",
+            "aliases": ["Epsilon EAG Grammar", "epsilon"],
+            "extensions": [".eps",".epsilon"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "epsilon",
+            "scopeName": "source.epsilon",
+            "path": "./syntaxes/epsilon.tmLanguage.json"
+        }]
+    }
+}
