@@ -81,10 +81,24 @@ styles [] {
    pygments_scope        = String.Double
 }
 
+.hyperterminal_double_quote : style {
+   color                 = white
+   ace_scope             = string.quoted.double.hyperterminal.quote
+   textmate_scope        = string.quoted.double.hyperterminal.quote
+   pygments_scope        = String.Double
+}
+
 .hyperterminal_single_quoted : style {
    color                 = light_blue
    ace_scope             = string.quoted.single.hyperterminal
    textmate_scope        = string.quoted.single.hyperterminal
+   pygments_scope        = String.Single
+}
+
+.hyperterminal_single_quote : style {
+   color                 = white
+   ace_scope             = string.quoted.single.hyperterminal.quote
+   textmate_scope        = string.quoted.single.hyperterminal.quote
    pygments_scope        = String.Single
 }
 
@@ -95,10 +109,24 @@ styles [] {
    pygments_scope        = String.Double
 }
 
+.metaterminal_double_quote : style {
+   color                 = white
+   ace_scope             = string.quoted.double.metaterminal.quote
+   textmate_scope        = string.quoted.double.metaterminal.quote
+   pygments_scope        = String.Double
+}
+
 .metaterminal_single_quoted : style {
    color                 = yellow
    ace_scope             = string.quoted.single.metaterminal
    textmate_scope        = string.quoted.single.metaterminal
+   pygments_scope        = String.Single
+}
+
+.metaterminal_single_quote : style {
+   color                 = white
+   ace_scope             = string.quoted.single.metaterminal.quote
+   textmate_scope        = string.quoted.single.metaterminal.quote
    pygments_scope        = String.Single
 }
 
@@ -158,7 +186,7 @@ Punctuation: context {
 
 Operators: context {
    : pattern { 
-      regex       \= (\||\(|\)|\{|\}|\[|\]|\*|\+|-)
+      regex       \= (\||\(|\)|\{|\}|\[|\]|\*|\+|-|#)
       styles []    = .operator ;
    }
 }
@@ -268,20 +296,20 @@ HyperTerminal : context {
    description       = hyper terminal as quoted string
    : inline_push {
       regex          \= (\")
-      styles []       = .hyperterminal_double_quoted;
+      styles []       = .hyperterminal_double_quote;
       default_style   = .hyperterminal_double_quoted
       : pop {
          regex       \= (\")
-         styles []    = .hyperterminal_double_quoted;
+         styles []    = .hyperterminal_double_quote;
       }
    }
    : inline_push {
       regex          \= (\')
-      styles []       = .hyperterminal_single_quoted;
+      styles []       = .hyperterminal_single_quote;
       default_style   = .hyperterminal_single_quoted
       : pop {
          regex       \= (\')
-         styles []    = .hyperterminal_single_quoted;
+         styles []    = .hyperterminal_single_quote;
       }
    }
 }
@@ -290,20 +318,20 @@ MetaTerminal : context {
    description       = meta terminal as quoted string
    : inline_push {
       regex          \= (\")
-      styles []       = .metaterminal_double_quoted;
+      styles []       = .metaterminal_double_quote;
       default_style   = .metaterminal_double_quoted
       : pop {
          regex       \= (\")
-         styles []    = .metaterminal_double_quoted;
+         styles []    = .metaterminal_double_quote;
       }
    }
    : inline_push {
       regex          \= (\')
-      styles []       = .metaterminal_single_quoted;
+      styles []       = .metaterminal_single_quote;
       default_style   = .metaterminal_single_quoted
       : pop {
          regex       \= (\')
-         styles []    = .metaterminal_single_quoted;
+         styles []    = .metaterminal_single_quote;
       }
    }
 }

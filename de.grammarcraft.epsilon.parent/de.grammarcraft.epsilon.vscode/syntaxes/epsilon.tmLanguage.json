@@ -64,14 +64,14 @@
 					"begin": "(\\\")",
 					"beginCaptures": {
 						"1": {
-							"name": "string.quoted.double.hyperterminal.epsilon"
+							"name": "string.quoted.double.hyperterminal.quote.epsilon"
 						}
 					},
 					"contentName": "string.quoted.double.hyperterminal.epsilon",
 					"end": "(\\\")",
 					"endCaptures": {
 						"1": {
-							"name": "string.quoted.double.hyperterminal.epsilon"
+							"name": "string.quoted.double.hyperterminal.quote.epsilon"
 						}
 					}
 				},
@@ -79,14 +79,14 @@
 					"begin": "(\\')",
 					"beginCaptures": {
 						"1": {
-							"name": "string.quoted.single.hyperterminal.epsilon"
+							"name": "string.quoted.single.hyperterminal.quote.epsilon"
 						}
 					},
 					"contentName": "string.quoted.single.hyperterminal.epsilon",
 					"end": "(\\')",
 					"endCaptures": {
 						"1": {
-							"name": "string.quoted.single.hyperterminal.epsilon"
+							"name": "string.quoted.single.hyperterminal.quote.epsilon"
 						}
 					}
 				}
@@ -143,14 +143,14 @@
 					"begin": "(\\\")",
 					"beginCaptures": {
 						"1": {
-							"name": "string.quoted.double.metaterminal.epsilon"
+							"name": "string.quoted.double.metaterminal.quote.epsilon"
 						}
 					},
 					"contentName": "string.quoted.double.metaterminal.epsilon",
 					"end": "(\\\")",
 					"endCaptures": {
 						"1": {
-							"name": "string.quoted.double.metaterminal.epsilon"
+							"name": "string.quoted.double.metaterminal.quote.epsilon"
 						}
 					}
 				},
@@ -158,14 +158,14 @@
 					"begin": "(\\')",
 					"beginCaptures": {
 						"1": {
-							"name": "string.quoted.single.metaterminal.epsilon"
+							"name": "string.quoted.single.metaterminal.quote.epsilon"
 						}
 					},
 					"contentName": "string.quoted.single.metaterminal.epsilon",
 					"end": "(\\')",
 					"endCaptures": {
 						"1": {
-							"name": "string.quoted.single.metaterminal.epsilon"
+							"name": "string.quoted.single.metaterminal.quote.epsilon"
 						}
 					}
 				}
@@ -180,7 +180,7 @@
 		"Operators": {
 			"patterns": [
 				{
-					"match": "(\\||\\(|\\)|\\{|\\}|\\[|\\]|\\*|\\+|-)",
+					"match": "(\\||\\(|\\)|\\{|\\}|\\[|\\]|\\*|\\+|-|#)",
 					"name": "keyword.operator.epsilon"
 				}
 			]
