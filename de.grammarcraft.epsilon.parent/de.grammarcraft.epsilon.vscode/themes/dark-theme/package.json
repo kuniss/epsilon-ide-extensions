@@ -1,0 +1,21 @@
+{
+    "name": "epsilon-eag-dark-theme",
+    "displayName": "Epsilon EAG Dark Theme",
+    "description": "Dark Theme for Epsilon Affix Grammars (based on Dark+)",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.42.0"
+    },
+    "categories": [
+        "Themes"
+    ],
+    "contributes": {
+        "themes": [
+            {
+                "label": "Epsilon EAG (dark)",
+                "uiTheme": "vs-dark",
+                "path": "./themes/Epsilon EAG (dark)-color-theme.json"
+            }
+        ]
+    }
+}

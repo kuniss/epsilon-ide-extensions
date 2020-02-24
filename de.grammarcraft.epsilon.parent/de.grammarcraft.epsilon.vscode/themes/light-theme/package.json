@@ -1,0 +1,21 @@
+{
+    "name": "epsilon-eag-light-theme",
+    "displayName": "Epsilon EAG Light Theme",
+    "description": "Light Thema for Epsilon Extended Affix Grammars (based on Light+)",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.42.0"
+    },
+    "categories": [
+        "Themes"
+    ],
+    "contributes": {
+        "themes": [
+            {
+                "label": "Epsilon EAG (light)",
+                "uiTheme": "vs",
+                "path": "./themes/Epsilon EAG (light)-color-theme.json"
+            }
+        ]
+    }
+}
