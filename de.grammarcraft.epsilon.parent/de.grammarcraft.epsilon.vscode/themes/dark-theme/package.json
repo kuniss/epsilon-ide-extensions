@@ -3,6 +3,7 @@
     "displayName": "Epsilon EAG Dark Theme",
     "description": "Dark Theme for Epsilon Affix Grammars (based on Dark+)",
     "version": "0.0.1",
+    "publisher": "grammarcraft",
     "engines": {
         "vscode": "^1.42.0"
     },

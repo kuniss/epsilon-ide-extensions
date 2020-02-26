@@ -1,13 +1,9 @@
 # README
-## This is the README for your extension "epsilon-eag-light-theme"
-You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
+This is the light theme for the Epsilon EAG language extension.
 
-### For more information
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+It provides a special syntax coloring for Extended Affix Grammars to clearly differentiat between the meta and the hyper parts of the grammar.
 
-**Enjoy!**
+This theme makes especially sense if the Epsilon EAG language extension is installed and an Epsilon EAG grammar specification is loaded.
+
+The theme is originated from Visual Studio Code Light+ theme and extended for scopes provided by the Epsilon EAG language extension for Epsilon grammar specifications.

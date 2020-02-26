@@ -3,6 +3,7 @@
     "displayName": "Epsilon EAG Light Theme",
     "description": "Light Thema for Epsilon Extended Affix Grammars (based on Light+)",
     "version": "0.0.1",
+    "publisher": "grammarcraft",
     "engines": {
         "vscode": "^1.42.0"
     },
