@@ -1,6 +1,6 @@
 # README
 
-This is the light theme for the Epsilon EAG language extension.
+This is the light theme for the [Epsilon EAG language extension](https://link).
 
 It provides a special syntax coloring for Extended Affix Grammars to clearly differentiat between the meta and the hyper parts of the grammar.
 
