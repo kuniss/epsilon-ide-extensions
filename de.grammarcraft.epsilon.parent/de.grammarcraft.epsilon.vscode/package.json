@@ -5,6 +5,14 @@
     "version": "0.0.1",
     "publisher": "grammarcraft",
     "license": "SEE LICENSE IN 'LICENSE' FILE",
+    "homepage": "https://github.com/kuniss/epsilon-ide-support/blob/master/epsilon-ide-support/de.grammarcraft.epsilon.parent/de.grammarcraft.epsilon.vscode/README.md",
+    "bugs": {
+        "url": "https://github.com/kuniss/epsilon-ide-support/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/kuniss/epsilon-ide-support.git"
+    },
     "engines": {
         "vscode": "^1.42.0"
     },
