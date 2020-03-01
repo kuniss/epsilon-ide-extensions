@@ -3,6 +3,8 @@
     "displayName": "EpsilonEAG",
     "description": "Specification Language for Extended Affix Grammars",
     "version": "0.0.1",
+    "publisher": "grammarcraft",
+    "license": "SEE LICENSE IN 'LICENSE' FILE",
     "engines": {
         "vscode": "^1.42.0"
     },
@@ -10,16 +12,43 @@
         "Programming Languages"
     ],
     "contributes": {
-        "languages": [{
-            "id": "epsilon",
-            "aliases": ["Epsilon EAG Grammar", "epsilon"],
-            "extensions": [".eps",".epsilon"],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "epsilon",
-            "scopeName": "source.epsilon",
-            "path": "./syntaxes/epsilon.tmLanguage.json"
-        }]
+        "languages": [
+            {
+                "id": "epsilon",
+                "aliases": [
+                    "Epsilon EAG Grammar",
+                    "epsilon"
+                ],
+                "extensions": [
+                    ".eps",
+                    ".epsilon"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "epsilon",
+                "scopeName": "source.epsilon",
+                "path": "./syntaxes/epsilon.tmLanguage.json"
+            }
+        ]
+    },
+    "activationEvents": [
+        "onLanguage:epsilon"
+    ],
+    "main": "./out/extension",
+    "scripts": {
+        "vscode:prepublish": "tsc -p ./client",
+        "compile": "tsc -watch -p ./client",
+        "postinstall": "node ./node_modules/vscode/bin/install"
+    },
+    "devDependencies": {
+        "@types/node": "^8.10.48",
+        "typescript": "^3.8.3",
+        "vscode": "^1.1.36"
+    },
+    "dependencies": {
+        "vscode-languageclient": "^3.1.0"
     }
 }

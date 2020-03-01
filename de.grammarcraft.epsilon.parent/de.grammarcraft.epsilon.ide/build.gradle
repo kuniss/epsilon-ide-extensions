@@ -24,3 +24,17 @@ shadowJar {
 //this is an eclipse plugin project
 eclipseClasspath.enabled=false
 cleanEclipseClasspath.enabled=false
+
+task handoverToVSCodeExtension(type: Copy) {
+	description = 'unzips the language server zip distribution for handing it over to the VS code extension building'
+	dependsOn shadowDistZip
+	
+    from (zipTree(shadowDistZip.archiveFile)) {
+    	// drop zip name root directory
+	    eachFile { fcd ->
+	    	fcd.relativePath = new RelativePath(true, fcd.relativePath.segments.drop(1))  
+	    }
+	    includeEmptyDirs = false
+    }
+    into '../de.grammarcraft.epsilon.vscode/server'
+}
