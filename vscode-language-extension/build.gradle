@@ -1,0 +1,32 @@
+task copyLanguageServer(type: Sync) {
+    def installDistTask = project(':de.grammarcraft.epsilon.ide').tasks.installDist
+    dependsOn installDistTask
+    from installDistTask.outputs
+    into 'server'
+}
+
+clean {
+    doLast {
+        delete copyLanguageServer.outputs
+    }
+}
+
+npmInstall.dependsOn copyLanguageServer
+
+task installExtension(type: Exec, dependsOn: vscodeExtension) {
+    if (System.properties['os.name'].toLowerCase().contains('windows')) {
+        commandLine 'code.cmd'
+    } else {
+        commandLine 'code'
+    }
+    args '--install-extension', vscodeExtension.destPath
+}
+
+task startCode(type:Exec, dependsOn: installExtension) {
+    if (System.properties['os.name'].toLowerCase().contains('windows')) {
+        commandLine 'code.cmd'
+    } else {
+        commandLine 'code'
+    }
+    args "${project(':de.grammarcraft.epsilon.tests').projectDir}/examples", '--new-window'
+}
