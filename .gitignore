@@ -1,4 +1,4 @@
-/.gradle/
+**/.gradle/
 **/bin/
 **/build/
 **/target/
@@ -7,3 +7,4 @@
 **/*.xtextbin
 **/src-gen/
 **/xtend-gen/
+node_modules/**
