@@ -1,6 +1,9 @@
 .vscode/**
 .vscode-test/**
 .gitignore
+.gradle/**
+.settings/**
+.project
 **/*.ts
 **/*.map
 **/tsconfig.json

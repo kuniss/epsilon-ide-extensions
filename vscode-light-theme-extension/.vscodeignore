@@ -1,4 +1,7 @@
 .vscode/**
 .vscode-test/**
 .gitignore
+.gradle/**
+.settings/**
+.project
 vsc-extension-quickstart.md
