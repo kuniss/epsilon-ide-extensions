@@ -1,5 +1,5 @@
 task copyLanguageServer(type: Sync) {
-    def installDistTask = project(':de.grammarcraft.epsilon.ide').tasks.installDist
+    def installDistTask = project(':de.grammarcraft.epsilon.ide').tasks.installShadowDist
     dependsOn installDistTask
     from installDistTask.outputs
     into 'server'
