@@ -128,9 +128,9 @@ updateVersion {
 		def versionPattern = /\d+.\d+(.\d+)?/
 		def encoding = 'UTF-8'
 		def filesToUpdate = [
-			new File('vscode-language-extension', 'package.json'),
-			new File('vscode-dark-theme-extension', 'package.json'),
-			new File('vscode-light-theme-extension', 'package.json'),
+			file('vscode-language-extension/package.json'),
+			file('vscode-dark-theme-extension/package.json'),
+			file('vscode-light-theme-extension/package.json'),
 		]
 
 		// String replacements - isn't long enough to justify advanced code ;)
