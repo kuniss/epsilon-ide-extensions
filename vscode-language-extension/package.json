@@ -5,7 +5,7 @@
     "version": "0.0.1",
     "publisher": "grammarcraft",
     "license": "SEE LICENSE IN 'LICENSE' FILE",
-    "homepage": "https://github.com/kuniss/epsilon-ide-support/blob/master/epsilon-ide-support/de.grammarcraft.epsilon.parent/de.grammarcraft.epsilon.vscode/README.md",
+    "homepage": "https://github.com/kuniss/epsilon-ide-extensions/blob/master/vscode-language-extension/README.md",
     "bugs": {
         "url": "https://github.com/kuniss/epsilon-ide-support/issues"
     },
