@@ -97,9 +97,9 @@ configure(subprojects.findAll { it.name.startsWith('vscode') }) {
 		}
 	}
 
-	task publish(dependsOn: vscodeExtension, type: NodeTask) {
+	task publishToVSMarketplace(dependsOn: vscodeExtension, type: NodeTask) {
 	    script = file("$rootProject.projectDir/node_modules/vsce/out/vsce")
-	    args = [ 'publish', '-p', System.getenv('ACCESS_TOKEN'), "--packagePath", project.tasks.vscodeExtension.destPath]
+	    args = [ 'publish', "--packagePath", project.tasks.vscodeExtension.destPath] // needs to be enabled on travis: , '-p', System.getenv('VSCE_ACCESS_TOKEN'), 
 	    execOverrides {
 	        workingDir = projectDir
 	    }
