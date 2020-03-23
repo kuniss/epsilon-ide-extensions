@@ -9,4 +9,4 @@ The extension and plugins has been implemented using the Xtext language framewor
 * VS Code themes (dark and light)
 * Eclipse plugin
 * Web editor
-* Gitpod support via the VS Code extension from above
+* Gitpod support via the VS Code extension available from [Eclipse Open VSX Registry](https://open-vsx.org/) 
