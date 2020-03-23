@@ -31,4 +31,4 @@ The specifations cannot be executed, currently. There is no parser and evaluator
 
 ## Release Notes
 
-See [CHANGELOG](CHANGELOG.md)
+See [CHANGELOG](vscode-language-extension/CHANGELOG.md)
