@@ -106,7 +106,7 @@ configure(subprojects.findAll { it.name.startsWith('vscode') }) {
 	}
 	
 	task publishToOpenVSXMarketplace(dependsOn: vscodeExtension, type: Exec) {
-		commandLine 'npx', 'ovsx', 'publish', "--packagePath", projectDir, '--pat', System.getenv('OPENVSX_ACCESS_TOKEN')
+		commandLine 'npx', 'ovsx', '--debug', 'publish', "--packagePath", projectDir, '--pat', System.getenv('OPENVSX_ACCESS_TOKEN')
 	}
 
 	task clean {
