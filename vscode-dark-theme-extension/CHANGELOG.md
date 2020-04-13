@@ -1,6 +1,7 @@
 # Change Log
 
 ## 0.0.4
+- release build logic corrected
 
 ## 0.0.3
 - Prepared for building and publishing with travis-ci.org

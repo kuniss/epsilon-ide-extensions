@@ -151,8 +151,8 @@ updateVersion {
 		// Adds a "## <prject.version" just after # Change Log
 		changeLogFilesToUpdate.forEach { file ->
 			String text = file.getText(encoding)
-			text = text.replaceAll("# Change Log\n(\n)?([-#])") { all, ignored, firstChar ->
-				"# Change Log\n\n## $project.version\n$firstChar"
+			text = text.replaceAll("# Change Log\n(\n)?") { all, ignored ->
+				"# Change Log\n\n## $project.version\n\n"
 			}
 			file.setText(text, encoding)
 		}
