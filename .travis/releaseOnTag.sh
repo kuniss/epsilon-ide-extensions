@@ -1,5 +1,5 @@
 #!/bin/bash
 set -ev
 if [ -n "${TRAVIS_TAG}" ]; then
-  ./gradlew publishToOpenVSXMarketplace
+  ./gradlew publishToVSMarketplace
 fi
