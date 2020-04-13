@@ -1,5 +1,6 @@
 # Change Log
 
+## 0.0.4
 - Prepared for building and publishing with travis-ci.org
 
 ## 0.0.2
