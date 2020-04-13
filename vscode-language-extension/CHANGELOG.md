@@ -1,6 +1,7 @@
 # Change Log
 
 ## 0.0.5
+- corrected repository links in the readme 
 
 ## 0.0.4
 - release build logic corrected
