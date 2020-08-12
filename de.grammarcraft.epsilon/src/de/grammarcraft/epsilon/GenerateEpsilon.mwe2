@@ -35,7 +35,7 @@ Workflow {
 		}
 		language = StandardLanguage {
 			name = "de.grammarcraft.epsilon.Epsilon"
-			fileExtensions = "eps"
+			fileExtensions = "eps,epsilon,eag"
 
 			serializer = {
 				generateStub = false
