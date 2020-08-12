@@ -29,7 +29,8 @@
                 ],
                 "extensions": [
                     ".eps",
-                    ".epsilon"
+                    ".epsilon",
+                    ".eag"
                 ],
                 "configuration": "./language-configuration.json"
             }

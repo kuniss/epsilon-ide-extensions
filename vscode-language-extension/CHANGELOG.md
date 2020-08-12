@@ -1,6 +1,7 @@
 # Change Log
 
 ## 0.0.6
+- added .eag as supported language extension
 
 ## 0.0.5
 - corrected repository links in the readme 
