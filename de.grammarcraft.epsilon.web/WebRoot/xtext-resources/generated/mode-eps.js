@@ -2,8 +2,8 @@ define(["ace/lib/oop", "ace/mode/text", "ace/mode/text_highlight_rules"], functi
 	var HighlightRules = function() {
 		this.$rules = {
 			"start": [
-				{token: "comment", regex: "\\!.*$"},
-				{token: "comment", regex: "\\()\\*", next : "comment"},
+				{token: "comment", regex: "\\/\\/.*$"},
+				{token: "comment", regex: "\\/\\*", next : "comment"},
 				{token: "string", regex: '["](?:(?:\\\\.)|(?:[^"\\\\]))*?["]'},
 				{token: "string", regex: "['](?:(?:\\\\.)|(?:[^'\\\\]))*?[']"},
 				{token: "constant.numeric", regex: "[+-]?\\d+(?:(?:\\.\\d*)?(?:[eE][+-]?\\d+)?)?\\b"},
@@ -11,7 +11,7 @@ define(["ace/lib/oop", "ace/mode/text", "ace/mode/text_highlight_rules"], functi
 				{token: "rparen", regex: "[\\])}]"}
 			],
 			"comment": [
-				{token: "comment", regex: ".*?\\*\\)", next : "start"},
+				{token: "comment", regex: ".*?\\*\\/", next : "start"},
 				{token: "comment", regex: ".+"}
 			]
 		};
