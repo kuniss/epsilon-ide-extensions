@@ -98,6 +98,8 @@ configure(subprojects.findAll { it.name.startsWith('vscode') }) {
 	}
 
 	task publishToVSMarketplace(dependsOn: vscodeExtension, type: NodeTask) {
+		group = 'Publish'
+		description = 'Publishs the plugin to the VS Code Marketplace'
 	    script = file("$rootProject.projectDir/node_modules/vsce/out/vsce")
 	    args = [ 'publish', "--packagePath", project.tasks.vscodeExtension.destPath, '-p', System.getenv('MSVSX_ACCESS_TOKEN') ] 
 	    execOverrides {
@@ -106,6 +108,8 @@ configure(subprojects.findAll { it.name.startsWith('vscode') }) {
 	}
 	
 	task publishToOpenVSXMarketplace(dependsOn: vscodeExtension, type: Exec) {
+		group = 'Publish'
+		description = 'Publishs the plugin to the Open VSX Registry'
 		commandLine 'npx', 'ovsx', '--debug', 'publish', "--packagePath", projectDir, '--pat', System.getenv('OPENVSX_ACCESS_TOKEN')
 	}
 
