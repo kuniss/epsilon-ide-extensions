@@ -1,6 +1,7 @@
 # Change Log
 
 ## 0.0.9
+- try to publish to Open VSX via travis-ci
 
 ## 0.0.8
 - added the .eag and .epsilon as supported language extension to the Xtext generated Epsilon language server

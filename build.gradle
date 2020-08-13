@@ -107,6 +107,13 @@ configure(subprojects.findAll { it.name.startsWith('vscode') }) {
 	    }
 	}
 	
+	task publishToOpenVSXRegistry(type: NpxTask) {
+		group = 'Publish'
+		description = 'Publishs the plugin to the Open VSX Registry'
+  		command = 'ovsx'
+  		args = ['--debug', 'publish', "--packagePath", projectDir, '--pat', System.getenv('OPENVSX_ACCESS_TOKEN')]
+	}
+
 	task publishToOpenVSXMarketplace(dependsOn: vscodeExtension, type: Exec) {
 		group = 'Publish'
 		description = 'Publishs the plugin to the Open VSX Registry'
