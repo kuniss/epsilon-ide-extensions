@@ -114,12 +114,6 @@ configure(subprojects.findAll { it.name.startsWith('vscode') }) {
   		args = ['--debug', 'publish', "--packagePath", projectDir, '--pat', System.getenv('OPENVSX_ACCESS_TOKEN')]
 	}
 
-	task publishToOpenVSXMarketplace(dependsOn: vscodeExtension, type: Exec) {
-		group = 'Publish'
-		description = 'Publishs the plugin to the Open VSX Registry'
-		commandLine 'npx', 'ovsx', '--debug', 'publish', "--packagePath", projectDir, '--pat', System.getenv('OPENVSX_ACCESS_TOKEN')
-	}
-
 	task clean {
 		doLast {
 			delete vscodeExtension.destDir
