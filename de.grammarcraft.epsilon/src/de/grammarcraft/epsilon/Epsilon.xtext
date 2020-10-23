@@ -71,5 +71,9 @@ Affix hidden():
 ;
 
 @Override terminal ID: ('a'..'z'|'A'..'Z') ('a'..'z'|'A'..'Z')*;
-@Override terminal ML_COMMENT : '(*' -> '*)';
-@Override terminal SL_COMMENT : '!' !('\n'|'\r')* ('\r'? '\n')?;
+
+@Override terminal ML_COMMENT: '/*' MLC_BODY;
+terminal fragment MLC_BODY   : ( MLC_ANY | MLC_SLASH | MLC_STAR )* '*'+ '/';
+terminal fragment MLC_ANY    : !( '*' | '/' );
+terminal fragment MLC_SLASH  : '/'+ ( '*' MLC_BODY | MLC_ANY );
+terminal fragment MLC_STAR   : '*'+ ( MLC_ANY );

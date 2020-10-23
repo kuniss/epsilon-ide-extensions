@@ -35,10 +35,46 @@ class EpsilonParsingTest {
 	@Test
 	def void parseSimpleExample() {
 		val result = parseHelper.parse('''
-			! simple example
+			// simple example
 			x = "a" | "b".
-			(* some nested comment *)
+			/* some multiline comment */
 			x <+ "a": x> : "a".
+		''')
+		assertNotNull(result)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
+	}
+	
+	@Test
+	def void nestedMultilineComment() {
+		val result = parseHelper.parse('''
+			/*
+			 /* nested block comment
+			 */
+			 */
+		''')
+		assertNotNull(result)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
+	}
+
+	@Test
+	def void nestedSingleLineCommentInMultilineComment() {
+		val result = parseHelper.parse('''
+			/* block comment
+			// line comment is skipped */
+		''')
+		assertNotNull(result)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
+	}
+
+	@Test
+	def void singleLineComment() {
+		val result = parseHelper.parse('''
+			// single line comment
+			Code = "empty". // single line comment at end of file
+			                // single line comment with preceeding white spaces
 		''')
 		assertNotNull(result)
 		result.assertNoSyntaxErrors
@@ -74,7 +110,7 @@ class EpsilonParsingTest {
 	@Test
 	def void parseHelloWorld() {
 		val result = parseHelper.parse('''
-			! ------------------------   Hello World!
+			// ------------------------   Hello World!
 			
 			N= 'Hello World!'.
 			S <+ 'Hello World!': N>: .
@@ -87,7 +123,7 @@ class EpsilonParsingTest {
 	@Test
 	def void parseNonContextFreeGrammarWithEBNF() {
 		val result = parseHelper.parse('''
-			!  ------------------------   a^n b^n  -> i^n  with EBNF
+			//  ------------------------   a^n b^n  -> i^n  with EBNF
 			
 			N= "i" N | .
 			
@@ -103,7 +139,7 @@ class EpsilonParsingTest {
 	@Test
 	def void parseNonContextFreeGrammarWithoutEBNF() {
 		val result = parseHelper.parse('''
-			!  ------------------------   a^n b^n  -> i^n  without EBNF
+			//  ------------------------   a^n b^n  -> i^n  without EBNF
 			
 			N = "i" N | .
 			
@@ -119,7 +155,7 @@ class EpsilonParsingTest {
 	@Test
 	def void parseNonContextFreeGrammar() {
 		val result = parseHelper.parse('''
-			! ------------------------   a^n b^n c^n -> i^n
+			// ------------------------   a^n b^n c^n -> i^n
 			
 			n = | n "i".
 			
@@ -136,7 +172,7 @@ class EpsilonParsingTest {
 	@Test
 	def void parseNumberCounterGrammer() {
 		val result = parseHelper.parse('''
-			! ------------------------   i^n --> n
+			// ------------------------   i^n --> n
 			
 			N = N D | "Number" .
 			D = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" .
@@ -155,7 +191,7 @@ class EpsilonParsingTest {
 	@Test
 	def void parseReducedExample() {
 		val result = parseHelper.parse('''
-			! DeclAppl
+			// DeclAppl
 			
 			Tab = | id ";" Tab.
 
