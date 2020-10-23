@@ -107,6 +107,32 @@ class EpsilonParsingTest {
 	}
 	
 	@Test
+	def void parseUnicodeIdentifiers() {
+		val result = parseHelper.parse('''
+			_output = word "\n" word.
+			
+			word = | letter word.
+			
+			letter = "α" | "β".
+			
+			word:
+			    { <+ letter word: word>
+			        <letter> ( <+ "α": letter> "α" | <+ "β": letter> "β" )  <word>
+			    } <+ : word>.
+			
+			π:
+			      <- /* empty */: word, - word, + word>
+			    | <- "α" word 1: word, - word 2, + "α" word 3: word>
+			        π <word 1, word 2, word 3>
+			    | <- "β" word 1: word, - word 2, + word 3>
+			        π <word 1, "β" word 2, word 3>.
+		''')
+		assertNotNull(result)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
+	}
+
+	@Test
 	def void parseHelloWorld() {
 		val result = parseHelper.parse('''
 			// ------------------------   Hello World!
