@@ -65,7 +65,7 @@ ActualParams:
 AffixForm:
 	{AffixForm} ( affixes+=Affix )* 
 ;
-Affix hidden():
+Affix:
 	  {AffixVariable} isNegated?=("#")? ref=[MetaRule] affixNumber=(INT)? 
 	| {AffixLiteral} value=STRING 
 ;

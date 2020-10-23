@@ -98,13 +98,12 @@ class EpsilonParsingTest {
 		val result = parseHelper.parse('''
 			Code = "empty".
 			OberonO <+ Code 1>: Module <Code1>.
+			OberonO <+ # Code 1>: Module <#Code1>.
 			Module<- "empty": Code>: .
 		''')
 		assertNotNull(result)
-		val errors = result.eResource.errors
-		assertEquals('Syntax error expected before affix number due to space but not encountered', 1, errors.size)
-		assertEquals(2, errors.head.line)
-		assertEquals(17, errors.head.column)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
 	}
 	
 	@Test
