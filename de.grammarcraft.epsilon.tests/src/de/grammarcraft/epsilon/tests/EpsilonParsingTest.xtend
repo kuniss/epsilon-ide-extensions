@@ -48,21 +48,11 @@ class EpsilonParsingTest {
 	@Test
 	def void nestedMultilineComment() {
 		val result = parseHelper.parse('''
-			/*
-			 /* nested block comment
-			 */
-			 */
-		''')
-		assertNotNull(result)
-		result.assertNoSyntaxErrors
-		result.assertNoValidationErrors
-	}
-
-	@Test
-	def void nestedSingleLineCommentInMultilineComment() {
-		val result = parseHelper.parse('''
 			/* block comment
-			// line comment is skipped */
+			/*
+			 * nested block comment
+			 */
+			// not a line comment */
 		''')
 		assertNotNull(result)
 		result.assertNoSyntaxErrors
