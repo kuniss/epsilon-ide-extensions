@@ -425,4 +425,14 @@ class EpsilonParsingTest {
 		result.assertNoValidationErrors
 	}
 
+	@Test
+	def void parseUnicodeExample() {
+		val obern0SpecFile = new File(class.getResource('/unicode-example.eag').file)
+		val oberon0Spec = Files.readAllLines(obern0SpecFile.toPath).join('\n')
+		val result = parseHelper.parse(oberon0Spec)
+		assertNotNull(result)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
+	}
+
 }
