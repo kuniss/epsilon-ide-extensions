@@ -116,7 +116,7 @@ Expression <+ Expr: Expr>:
   <Expr1, Expr>
     [ <- Expr1: Expr, + "(" Expr1 Op Expr2 ")": Expr>
         <Op>
-          ( <+ "=": Op> "=" | <+ "#": Op> "#"
+          ( <+ "=": Op> "=" | <+ "!": Op> "!"
           | <+ "<": Op> "<" | <+ "<=": Op> "<=" | <+ ">": Op> ">" | <+ ">=": Op> ">="
           )
         SimpleExpression <Expr2>

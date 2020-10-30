@@ -88,7 +88,7 @@ class EpsilonParsingTest {
 		val result = parseHelper.parse('''
 			Code = "empty".
 			OberonO <+ Code 1>: Module <Code1>.
-			OberonO <+ # Code 1>: Module <#Code1>.
+			OberonO <+ ! Code 1>: Module <!Code1>.
 			Module<- "empty": Code>: .
 		''')
 		assertNotNull(result)
@@ -237,7 +237,7 @@ class EpsilonParsingTest {
 			
 			Find <- id: id, - : Tab, + "FALSE": Bool>: .
 			Find <- id: id, - id ";" Tab : Tab, + "TRUE": Bool>: .
-			Find <- id: id, - #id ";" Tab : Tab, + Bool: Bool>:
+			Find <- id: id, - !id ";" Tab : Tab, + Bool: Bool>:
 				Find <id, Tab, Bool >.
 		''')
 		assertNotNull(result)
