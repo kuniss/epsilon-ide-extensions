@@ -130,30 +130,49 @@ plugins.withType(com.moowork.gradle.node.NodePlugin) {
 	}
 }
 
-updateVersion {
-	doLast {
-		// custom code
-		def versionPattern = /\d+.\d+(.\d+)?/
-		def encoding = 'UTF-8'
-		def packageFilesToUpdate = [
-			file('vscode-language-extension/package.json'),
-			file('vscode-dark-theme-extension/package.json'),
-			file('vscode-light-theme-extension/package.json'),
-		]
-		def changeLogFilesToUpdate = [
-			file('vscode-language-extension/CHANGELOG.md'),
-			file('vscode-dark-theme-extension/CHANGELOG.md'),
-			file('vscode-light-theme-extension/CHANGELOG.md'),
-		]
+ext.versionPattern = /\d+.\d+(.\d+)?/
+ext.encoding = 'UTF-8'
+def packageFilesToUpdate = [
+	file('vscode-language-extension/package.json'),
+	file('vscode-dark-theme-extension/package.json'),
+	file('vscode-light-theme-extension/package.json'),
+]
+def changeLogFilesToUpdate = [
+	file('vscode-language-extension/CHANGELOG.md'),
+	file('vscode-dark-theme-extension/CHANGELOG.md'),
+	file('vscode-light-theme-extension/CHANGELOG.md'),
+]
 
-		// String replacements - isn't long enough to justify advanced code ;)
-		packageFilesToUpdate.forEach { file ->
+def updatePackageFiles(packageFilesToUpdate) {
+	// String replacements - isn't long enough to justify advanced code ;)
+	packageFilesToUpdate.forEach { file ->
+		String text = file.getText(encoding)
+		text = text.replaceAll("\"version\": \"$versionPattern\",", "\"version\": \"$project.version\",")
+		file.setText(text, encoding)
+	}
+}
+
+confirmReleaseVersion {
+	doLast {
+		updatePackageFiles(packageFilesToUpdate)
+
+		// Replaces the "## <version>" just after # Change Log with "## <project.version>" 
+		changeLogFilesToUpdate.forEach { file ->
 			String text = file.getText(encoding)
-			text = text.replaceAll("\"version\": \"$versionPattern\",", "\"version\": \"$project.version\",")
+			text = text.replaceFirst("# Change Log\n(\n)?## \\d+\\.\\d+\\.\\d+") { all, ignored ->
+				"# Change Log\n\n## $project.version"
+			}
 			file.setText(text, encoding)
 		}
-		
-		// Adds a "## <prject.version" just after # Change Log
+	}
+}
+
+updateVersion {
+	doLast {
+
+		updatePackageFiles(packageFilesToUpdate)
+
+		// Adds a "## <project.version>" just after # Change Log
 		changeLogFilesToUpdate.forEach { file ->
 			String text = file.getText(encoding)
 			text = text.replaceAll("# Change Log\n(\n)?") { all, ignored ->
