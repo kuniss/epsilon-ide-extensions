@@ -1,6 +1,7 @@
 # Change Log
 
 ## 1.0.0
+- no changes
 
 ## 0.0.9
 - try to publish to Open VSX via travis-ci

@@ -1,6 +1,12 @@
 # Change Log
 
 ## 1.0.0
+- syntax adaptations for the Epsilon language according to changes made by @linkrope to the new lexer in the Epsilon root project, including
+    - enabled Unicode for nonterminals
+    - switched from # to ! as "unequal" predicate
+    - switched to C-like comment style
+    - allowing comments inside affix definitions
+- breaks backward compatibility in the Epsilon language due to changed comment style and changed "unequal" predicate sign
 
 ## 0.0.9
 - try to publish to Open VSX via travis-ci
