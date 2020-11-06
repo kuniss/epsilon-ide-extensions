@@ -1,5 +1,7 @@
 # Change Log
 
+## 1.0.1
+
 ## 1.0.0
 - syntax adaptations for the Epsilon language according to changes made by @linkrope to the new lexer in the Epsilon root project, including
     - enabled Unicode for nonterminals
