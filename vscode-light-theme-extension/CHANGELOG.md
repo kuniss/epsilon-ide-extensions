@@ -1,6 +1,7 @@
 # Change Log
 
-## 1.0.1
+## 1.1.0
+- no changes (published together with EpsilonEAG language extension which has changes)
 
 ## 1.0.0
 - no changes
