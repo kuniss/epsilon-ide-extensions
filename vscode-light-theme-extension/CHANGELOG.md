@@ -16,7 +16,7 @@
 - no changes (published together with EpsilonEAG language extension which has changes)
 
 ## 0.0.6
-- no changes (published together with EpsilonEAG language extension which has changes)
+- no changes
 
 ## 0.0.5
 - corrected repository links in the readme 
