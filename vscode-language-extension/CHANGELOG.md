@@ -1,5 +1,7 @@
 # Change Log
 
+## 1.1.1-SNAPSHOT
+
 ## 1.1.0
 - does not resolve undefined nonterminals as cross references from other Epsilon files anymore and thus creates proper linkage errors (solves GitHub issue [#1](https://github.com/kuniss/epsilon-ide-extensions/issues/1))
 
