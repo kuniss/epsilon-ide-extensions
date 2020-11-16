@@ -4,19 +4,19 @@
 - no changes (published together with EpsilonEAG language extension which has changes)
 
 ## 1.0.0
-- no changes
+- no changes (published together with EpsilonEAG language extension which has changes)
 
 ## 0.0.9
 - try to publish to Open VSX via travis-ci
 
 ## 0.0.8
-- no changes
+- no changes (published together with EpsilonEAG language extension which has changes)
 
 ## 0.0.7
-- no changes
+- no changes (published together with EpsilonEAG language extension which has changes)
 
 ## 0.0.6
-- no changes
+- no changes (published together with EpsilonEAG language extension which has changes)
 
 ## 0.0.5
 - corrected repository links in the readme 
