@@ -1,6 +1,6 @@
 # README
 
-This is the light theme for the [Epsilon EAG language extension](https://link).
+This is the light theme for the [Epsilon EAG language extension](https://open-vsx.org/extension/grammarcraft/epsilon-eag) (on [MS Marketplace](https://marketplace.visualstudio.com/items?itemName=Grammarcraft.epsilon-eag)).
 
 It provides a special syntax coloring for Extended Affix Grammars to clearly differentiat between the meta and the hyper parts of the grammar.
 
