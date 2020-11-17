@@ -1,6 +1,7 @@
 # Change Log
 
 ## 1.1.1-SNAPSHOT
+- no changes (published together with other extensions as part of the Epsilon EAG extension pack, other parts of the pack may have changes)
 
 ## 1.1.0
 - no changes (published together with EpsilonEAG language extension which has changes)

@@ -1,6 +1,7 @@
 # Change Log
 
 ## 1.1.1-SNAPSHOT
+- no changes (published together with other extensions as part of the Epsilon EAG extension pack, other parts of the pack may have changes)
 
 ## 1.1.0
 - does not resolve undefined nonterminals as cross references from other Epsilon files anymore and thus creates proper linkage errors (solves GitHub issue [#1](https://github.com/kuniss/epsilon-ide-extensions/issues/1))
