@@ -136,11 +136,13 @@ def packageFilesToUpdate = [
 	file('vscode-language-extension/package.json'),
 	file('vscode-dark-theme-extension/package.json'),
 	file('vscode-light-theme-extension/package.json'),
+	file('vscode-extension-pack/package.json'),
 ]
 def changeLogFilesToUpdate = [
 	file('vscode-language-extension/CHANGELOG.md'),
 	file('vscode-dark-theme-extension/CHANGELOG.md'),
 	file('vscode-light-theme-extension/CHANGELOG.md'),
+	file('vscode-extension-pack/CHANGELOG.md'),
 ]
 
 def updatePackageFiles(packageFilesToUpdate) {

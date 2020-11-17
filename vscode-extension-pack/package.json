@@ -1,0 +1,27 @@
+{
+    "name": "epsilon-eag-extension-pack",
+    "displayName": "Epsilon EAG Extension Pack",
+    "description": "Installs the Epsilon EAG language extension and specialized themes for EAG grammar specification coloring.",
+    "version": "1.1.1-SNAPSHOT",
+    "publisher": "grammarcraft",
+    "license": "SEE LICENSE IN 'LICENSE' FILE",
+    "homepage": "https://github.com/kuniss/epsilon-ide-extensions/blob/master/vscode-extension-pack/README.md",
+    "bugs": {
+        "url": "https://github.com/kuniss/epsilon-ide-extensions/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/kuniss/epsilon-ide-extensions.git"
+    },
+    "engines": {
+        "vscode": "^1.42.0"
+    },
+    "categories": [
+        "Extension Packs"
+    ],
+    "extensionPack": [
+        "grammarcraft.epsilon-eag",
+        "grammarcraft.epsilon-eag-dark-theme",
+        "grammarcraft.epsilon-eag-light-theme"
+    ]
+}
