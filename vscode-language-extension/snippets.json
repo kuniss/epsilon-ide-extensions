@@ -1,0 +1,65 @@
+{
+	"meta rule": {
+		"prefix": ["meta,meta-rule", "="],
+		"body": [
+            "${1:name} = ${2:nonterminal} $0."
+		],
+		"description": "Creates a meta rule"
+    },
+	"meta terminal alternative": {
+		"prefix": "|",
+		"body": [
+            "| \"${1:terminal}\" $0"
+		],
+		"description": "Creates a alternative with a meta terminlal inside"
+    },
+	"meta nonterminal alternative": {
+		"prefix": "|",
+		"body": [
+            "| ${nonterminal} $0"
+		],
+		"description": "Creates a alternative with a meta nonterminlal inside"
+    },
+	"hyper rule": {
+		"prefix": ["hyper-rule", ":"],
+		"body": [
+            "${1:name}: <${2|+,-|} ${3:affix-form-left}: ${4:affix-type}> ${5:nonterminal}<${6:affix-form-right}> $0."
+		],
+		"description": "Creates a hyper rule"
+    },
+	"formal-affix-parameter-start": {
+		"prefix": "<",
+		"body": [
+            "<${1|+,-|} ${2:affix-form}: ${3:affix-type}>$0"
+		],
+		"description": "Inserts a first formal affix parameter"
+    },
+	"formal-affix-parameter-subsequent": {
+		"prefix": ",",
+		"body": [
+            ", ${1|+,-|} ${2:affix-form}: ${3:affix-type}$0"
+		],
+		"description": "Inserts a second or more formal affix parameter"
+    },
+	"hyper nonterminal alternative": {
+		"prefix": ["hyper-nonterminal-alternative", "|"],
+		"body": [
+            "| <${1|+,-|} ${2:affix-form-left}: ${3:affix-type}> ${4:nonterminal}<${5:affix-form-right}> $0"
+		],
+		"description": "Inserts a alternative witha hyper nonterminal reference"
+	},
+	"repeatition": {
+		"prefix": ["{", "repeatition"],
+		"body": [
+            "<${1:affix-form-anonym-actual}> { <${2|+,-|} ${3:affix-form-annym-formal}: ${4:affix-type-anonym}> $0 <${5:affix-form-repeatition}> } <${6|+,-|} ${7:affix-form-anonym-final}: ${4:affix-type-anonym}>"
+		],
+		"description": "Creates a hyper rule"
+    },
+	"option": {
+		"prefix": ["[", "option"],
+		"body": [
+            "<${1:affix-form-anonym-actual}> [ <${2|+,-|} ${3:affix-form-annym-formal}: ${4:affix-type-anonym}> $0 ] <${5|+,-|} ${6:affix-form-anonym-final}: ${4:affix-type-anonym}>"
+		],
+		"description": "Creates a hyper rule"
+    }
+}
