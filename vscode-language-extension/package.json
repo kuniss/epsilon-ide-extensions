@@ -4,7 +4,7 @@
     "description": "Specification Language for Extended Affix Grammars",
     "version": "1.1.2",
     "publisher": "grammarcraft",
-    "license": "SEE LICENSE IN 'LICENSE' FILE",
+    "license": "EPL-2.0",
     "homepage": "https://github.com/kuniss/epsilon-ide-extensions/blob/master/vscode-language-extension/README.md",
     "bugs": {
         "url": "https://github.com/kuniss/epsilon-ide-extensions/issues"
@@ -40,6 +40,12 @@
                 "language": "epsilon",
                 "scopeName": "source.epsilon",
                 "path": "./syntaxes/epsilon.tmLanguage.json"
+            }
+        ],
+        "snippets": [
+            {
+                "language": "epsilon",
+                "path": "./snippets.json"
             }
         ]
     },
