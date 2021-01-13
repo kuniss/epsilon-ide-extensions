@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.1.2
+## 1.2.0
 - added sophisticated snippets for rules, alternatives, affix parameters and EBNF constructs
 - corrected comment toggling to the new C-like syntax
 - license file packaged to fullfill OpenVSX legal requirements
