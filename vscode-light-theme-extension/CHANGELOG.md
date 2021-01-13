@@ -1,6 +1,7 @@
 # Change Log
 
 ## 1.1.2
+- license file packaged to fullfill OpenVSX legal requirements
 
 ## 1.1.1
 - no changes (published together with other extensions as part of the Epsilon EAG extension pack, other parts of the pack may have changes)

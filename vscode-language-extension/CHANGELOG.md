@@ -1,6 +1,9 @@
 # Change Log
 
 ## 1.1.2
+- added sophisticated snippets for rules, alternatives, affix parameters and EBNF constructs
+- corrected comment toggling to the new C-like syntax
+- license file packaged to fullfill OpenVSX legal requirements
 
 ## 1.1.1
 - no changes (published together with other extensions as part of the Epsilon EAG extension pack, other parts of the pack may have changes)
