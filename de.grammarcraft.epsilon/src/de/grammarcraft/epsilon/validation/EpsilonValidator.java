@@ -12,7 +12,6 @@ import org.eclipse.xtext.validation.CheckType;
 import de.grammarcraft.epsilon.epsilon.EpsilonPackage;
 import de.grammarcraft.epsilon.epsilon.Specification;
 import de.grammarcraft.epsilon.validation.EpsilonExecutor.EpsilonIssue;
-import de.grammarcraft.epsilon.validation.EpsilonExecutor.IssueLocation;
 
 /**
  * This class contains custom validation rules. 
@@ -30,7 +29,7 @@ public class EpsilonValidator extends AbstractEpsilonValidator {
 			boolean isLinux = System.getProperty("os.name").toLowerCase().startsWith("linux");
 			
 			if (isLinux) {
-				List<EpsilonIssue> issues = EpsilonExecutor.executeOn2(specification);
+				List<EpsilonIssue> issues = EpsilonExecutor.executeOn(specification);
 				addMarkersForIssues2(issues);
 			}
 			else
@@ -58,26 +57,6 @@ public class EpsilonValidator extends AbstractEpsilonValidator {
 					warning(issue.getMessage(), EpsilonPackage.eINSTANCE.getSpecification_Rules(),
 							EPSILON_COMPILER_GENERATOR_DETECTED_ISSUE, "1", "1");
 					break;
-				default:
-					break;
-				}
-			});
-	}
-	
-	private void addMarkersForIssues(List<IssueLocation> issues) {
-		issues.stream()
-			.filter(issue -> issue.getServerity() != Diagnostic.OK)
-			.forEach(issue -> {
-				switch (issue.getServerity()) {
-				case Diagnostic.ERROR:
-					if (issue.getLine() != 1)
-						error(String.format("error at %d,%d: %s", issue.getLine(), issue.getColumn(), issue.getMessage()), 
-								EpsilonPackage.eINSTANCE.getSpecification_Rules());
-					else
-						error(issue.getMessage(), EpsilonPackage.eINSTANCE.getSpecification_Rules());
-					break;
-				case Diagnostic.WARNING:
-					warning(issue.getMessage(), EpsilonPackage.eINSTANCE.getSpecification_Rules());
 				default:
 					break;
 				}
