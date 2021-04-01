@@ -1,8 +1,10 @@
 package de.grammarcraft.epsilon.validation
 
-import org.junit.Test
-import static org.junit.Assert.*
+import java.io.File
 import org.eclipse.emf.common.util.Diagnostic
+import org.junit.Test
+
+import static org.junit.Assert.*
 
 class EpsilonExecutorTest {
 	
@@ -86,6 +88,51 @@ class EpsilonExecutorTest {
 	}
 	
 	
+	@Test
+	def void determineEpsilonTargetDirDefault() {
+		val result = EpsilonExecutor.determineEpsilonTargetDir
+		assertEquals(new File('./'), result)
+	}
+
+	@Test
+	def void determineEpsilonTargetDirFromSysProp() {
+		val file = new File('./build')
+		System.properties.setProperty(EpsilonExecutor.EPSILON_TARGET_DIR_SYSPROP_NAME, file.absolutePath)
+		val result = EpsilonExecutor.determineEpsilonTargetDir
+		assertEquals(file.absolutePath, result.absolutePath)
+	}
 	
+	@Test
+	def void determineEpsilonTargetDirFallBackOnError() {
+		val file = File.createTempFile('determineEpsilonTargetDirFallBackOnError', 'build')
+		System.properties.setProperty(EpsilonExecutor.EPSILON_TARGET_DIR_SYSPROP_NAME, file.absolutePath)
+		try {
+			val result = EpsilonExecutor.determineEpsilonTargetDir
+			assertEquals(new File('./').absolutePath, result.absolutePath)
+		}
+		finally {
+			System.properties.remove(EpsilonExecutor.EPSILON_EXE_SYSPROP_NAME)
+		}
+	}
+	
+
+	@Test
+	def void determineEpsilonExecutableDefault() {
+		val result = EpsilonExecutor.determineEpsilonExecutable
+		assertEquals(new File('./epsilon'), result)
+	}
+
+	@Test
+	def void determineEpsilonExecutableFromSysProp() {
+		val file = new File('./build/epsilon')
+		System.properties.setProperty(EpsilonExecutor.EPSILON_EXE_SYSPROP_NAME, file.absolutePath)
+		try {
+			val result = EpsilonExecutor.determineEpsilonExecutable
+			assertEquals(file.absolutePath, result.absolutePath)			
+		}
+		finally {
+			System.properties.remove(EpsilonExecutor.EPSILON_EXE_SYSPROP_NAME)
+		}
+	}
 
 }

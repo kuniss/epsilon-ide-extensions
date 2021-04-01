@@ -20,9 +20,13 @@ package class EpsilonExecutor {
 	
 	static val logger = Logger.getLogger(EpsilonValidator.name);
 	
-	static val EPSILON_EXE_SYSPROP_NAME = 'epsilon.executable'
-	static val EPSILON_EXE_ENVVAR_NAME = 'EPSILON_EXE'
+	package static val EPSILON_EXE_SYSPROP_NAME = 'de.grammarcraft.epsilon.executable'
+	package static val EPSILON_EXE_ENVVAR_NAME = 'EPSILON_EXE'
 	static val EPSILON_EXE_DEFAULT = './epsilon'
+	
+	package static val EPSILON_TARGET_DIR_SYSPROP_NAME = 'de.grammarcraft.epsilon.target.dir'
+	package static val EPSILON_TARGET_DIR_ENVVAR_NAME = 'EPSILON_TARGET_DIR'
+	static val EPSILON_TARGET_DIR_DEFAULT = './'
 	
 	static val TAG_ERROR = 'error:'
 	static val TAG_WARN  = 'warn:'
@@ -54,8 +58,10 @@ package class EpsilonExecutor {
 			return empytIssueList
 		}
 		
+		val epsilonTargetDir = determineEpsilonTargetDir();		
+		
 		val builder = new ProcessBuilder();
-		builder.command(epsilonExecutableFile.getAbsolutePath(), eagSrcFile.getAbsolutePath());
+		builder.command(epsilonExecutableFile.getAbsolutePath(), '--output-directory', epsilonTargetDir.absolutePath, eagSrcFile.getAbsolutePath());
 		builder.directory(eagSrcFile.getParentFile());
 		val process = builder.start();
 
@@ -128,7 +134,7 @@ package class EpsilonExecutor {
 	 * expr-bnf.eag:4:26     Term &lt;Code1&gt; ExprTail&lt;Code1&gt;.
 	 */
 	static val EPSILON_ISSUE_POSITION_LINE_PATTERN = Pattern.compile("(?<file>[^:]*):(?<line>\\d+):(?<column>\\d+).*")
-
+	
 	private static def int asSeverity(String tag) {
 		switch (tag) {
 			case TAG_ERROR: return Diagnostic.ERROR
@@ -155,16 +161,16 @@ package class EpsilonExecutor {
 		return new File(srcFile);
 	}
 
-	private def static File determineEpsilonExecutable() {
+	package def static File determineEpsilonExecutable() {
 		var epsilonExecutable = EPSILON_EXE_DEFAULT
-		if (System.getProperty('epsilon.executable') !== null) {
+		if (System.getProperty(EPSILON_EXE_SYSPROP_NAME) !== null) {
 			
 			epsilonExecutable = System.getProperty(EPSILON_EXE_SYSPROP_NAME)
-			logger.info(String.format("system property %s exists, take Epsilon executable from it", EPSILON_EXE_SYSPROP_NAME))
+			logger.info(String.format("system property %s defined, take Epsilon executable from it", EPSILON_EXE_SYSPROP_NAME))
 		}
-		else if (System.getenv(EpsilonExecutor.EPSILON_EXE_ENVVAR_NAME) !== null) {
-			epsilonExecutable = System.getenv(EpsilonExecutor.EPSILON_EXE_ENVVAR_NAME)
-			logger.info(String.format("environment variable %s exists, take Epsilon executable from it", EPSILON_EXE_ENVVAR_NAME))
+		else if (System.getenv(EPSILON_EXE_ENVVAR_NAME) !== null) {
+			epsilonExecutable = System.getenv(EPSILON_EXE_ENVVAR_NAME)
+			logger.info(String.format("environment variable %s defined, take Epsilon executable from it", EPSILON_EXE_ENVVAR_NAME))
 		}
 		else {
 			logger.info(String.format("Neither system property '%s' nor environment variable '%s' are defined, use the default path '%s' as Epsilon executable", 
@@ -172,9 +178,45 @@ package class EpsilonExecutor {
 			));
 		}
 			
-		logger.info("Epsilon plugin will use the following Epsilon executable: " + epsilonExecutable)
+		logger.info("The following Epsilon executable will be used for generation and validation: " + epsilonExecutable)
 		return new File(epsilonExecutable);
 	}
+
+	package static def determineEpsilonTargetDir() {
+		var epsilonTargetDir = EPSILON_TARGET_DIR_DEFAULT
+		if (System.getProperty(EPSILON_TARGET_DIR_SYSPROP_NAME) !== null) {
+			
+			epsilonTargetDir = System.getProperty(EPSILON_TARGET_DIR_SYSPROP_NAME)
+			logger.info(String.format("system property %s defined, use it as Epsilon generation target directory", EPSILON_TARGET_DIR_SYSPROP_NAME))
+		}
+		else if (System.getenv(EPSILON_TARGET_DIR_ENVVAR_NAME) !== null) {
+			epsilonTargetDir = System.getenv(EPSILON_TARGET_DIR_ENVVAR_NAME)
+			logger.info(String.format("environment variable %s defined, use it as Epsilon generation target directory", EPSILON_TARGET_DIR_ENVVAR_NAME))
+		}
+		else {
+			logger.info(String.format(
+				"Neither system property '%s' nor environment variable '%s' are defined, use the default path '%s' as Epsilon generation target directory", 
+				EPSILON_TARGET_DIR_SYSPROP_NAME, EPSILON_TARGET_DIR_ENVVAR_NAME, epsilonTargetDir
+			));
+		}
+		
+		var result = new File(epsilonTargetDir);
+		
+		if (!result.exists()) {
+			logger.warn(String.format("Epsilon generation target directory '%s' does not exist - hopefully the Epsilon executable will create it",
+					result.absolutePath))
+		}
+		else if (!result.isDirectory) {
+			logger.error(String.format("Epsilon generation target directory '%s' is not a directory - going to use the current working directory instead",
+					result.absolutePath))
+			result = new File('./')
+		}
+		
+			
+		logger.info("The following Epsilon generation target directory will be used: " + result.absolutePath)
+		return result
+	}
+	
 	
 	
 	
