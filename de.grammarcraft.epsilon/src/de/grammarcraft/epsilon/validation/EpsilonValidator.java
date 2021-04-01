@@ -3,6 +3,16 @@
  */
 package de.grammarcraft.epsilon.validation;
 
+import java.util.List;
+
+import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.xtext.validation.Check;
+import org.eclipse.xtext.validation.CheckType;
+
+import de.grammarcraft.epsilon.epsilon.EpsilonPackage;
+import de.grammarcraft.epsilon.epsilon.Specification;
+import de.grammarcraft.epsilon.validation.EpsilonExecutor.EpsilonIssue;
+import de.grammarcraft.epsilon.validation.EpsilonExecutor.IssueLocation;
 
 /**
  * This class contains custom validation rules. 
@@ -11,15 +21,67 @@ package de.grammarcraft.epsilon.validation;
  */
 public class EpsilonValidator extends AbstractEpsilonValidator {
 	
-//	public static final INVALID_NAME = 'invalidName'
-//
-//	@Check
-//	public void checkGreetingStartsWithCapital(Greeting greeting) {
-//		if (!Character.isUpperCase(greeting.getName().charAt(0))) {
-//			warning("Name should start with a capital",
-//					EpsilonPackage.Literals.GREETING__NAME,
-//					INVALID_NAME);
-//		}
-//	}
+	protected static String ISSUE_CODE_PREFIX = "de.grammarcraft.epsilon.";
+	public static String EPSILON_COMPILER_GENERATOR_DETECTED_ISSUE = ISSUE_CODE_PREFIX + "EpsilonCGIssue";
+
+	// perform this check only on file save
+	@Check(CheckType.NORMAL)
+	public void runEpsilonExecutable(Specification specification) {
+			boolean isLinux = System.getProperty("os.name").toLowerCase().startsWith("linux");
+			
+			if (isLinux) {
+				List<EpsilonIssue> issues = EpsilonExecutor.executeOn2(specification);
+				addMarkersForIssues2(issues);
+			}
+			else
+				info("Runnig the epsilon compiler generator under Windows is not supported yet, unfortunately. "
+						+ "So, the correctness of some affix paramters could not be checked.",
+						EpsilonPackage.eINSTANCE.getSpecification_Rules());
+	}
 	
+	private void addMarkersForIssues2(List<EpsilonIssue> issues) {
+		issues.stream()
+			.filter(issue -> issue.getSeverity() != Diagnostic.OK)
+			.forEach(issue -> {
+				switch (issue.getSeverity()) {
+				case Diagnostic.ERROR:
+					if (issue.getLine().isEmpty())						
+						error(issue.getMessage(), EpsilonPackage.eINSTANCE.getSpecification_Rules(),
+								EPSILON_COMPILER_GENERATOR_DETECTED_ISSUE, "1", "1");
+					else
+						error(String.format("%s (%s,%s)", issue.getMessage(), issue.getLine(), issue.getColumn()), 
+								EpsilonPackage.eINSTANCE.getSpecification_Rules(),
+								EPSILON_COMPILER_GENERATOR_DETECTED_ISSUE,
+								issue.getLine(), issue.getColumn());
+					break;
+				case Diagnostic.WARNING:
+					warning(issue.getMessage(), EpsilonPackage.eINSTANCE.getSpecification_Rules(),
+							EPSILON_COMPILER_GENERATOR_DETECTED_ISSUE, "1", "1");
+					break;
+				default:
+					break;
+				}
+			});
+	}
+	
+	private void addMarkersForIssues(List<IssueLocation> issues) {
+		issues.stream()
+			.filter(issue -> issue.getServerity() != Diagnostic.OK)
+			.forEach(issue -> {
+				switch (issue.getServerity()) {
+				case Diagnostic.ERROR:
+					if (issue.getLine() != 1)
+						error(String.format("error at %d,%d: %s", issue.getLine(), issue.getColumn(), issue.getMessage()), 
+								EpsilonPackage.eINSTANCE.getSpecification_Rules());
+					else
+						error(issue.getMessage(), EpsilonPackage.eINSTANCE.getSpecification_Rules());
+					break;
+				case Diagnostic.WARNING:
+					warning(issue.getMessage(), EpsilonPackage.eINSTANCE.getSpecification_Rules());
+				default:
+					break;
+				}
+			});
+	}
+
 }

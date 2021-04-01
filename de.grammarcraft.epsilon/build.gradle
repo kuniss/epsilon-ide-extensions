@@ -1,6 +1,7 @@
 dependencies {
 	compile "org.eclipse.xtext:org.eclipse.xtext:${xtextVersion}"
 	compile "org.eclipse.xtext:org.eclipse.xtext.xbase:${xtextVersion}"
+	compile "org.eclipse.platform:org.eclipse.core.resources"
 }
 configurations {
 	mwe2 {
