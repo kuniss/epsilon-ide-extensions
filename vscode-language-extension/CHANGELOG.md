@@ -1,6 +1,8 @@
 # Change Log
 
 ## 1.3.1
+- added syntax highlighting support for backtick strings (was forgotten to be added in 1.3.0...)
+- corrected the meta nontermal alternative snippet to get rid of a VS code snippet warning notification
 
 ## 1.3.0
 - added backtick string support as this will come with gamma, the successor of epsilon; backtick strings are not evaluated for escaped characters (like \n) and are in that sense "raw" strings
