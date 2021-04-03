@@ -2,7 +2,7 @@
     "name": "epsilon-eag-extension-pack",
     "displayName": "Epsilon EAG Extension Pack",
     "description": "Installs the Epsilon EAG language extension and specialized themes for EAG grammar specification coloring.",
-    "version": "1.3.0",
+    "version": "1.3.1",
     "publisher": "grammarcraft",
     "license": "EPL-2.0",
     "homepage": "https://github.com/kuniss/epsilon-ide-extensions/blob/master/vscode-extension-pack/README.md",
