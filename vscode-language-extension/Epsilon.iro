@@ -318,6 +318,15 @@ HyperTerminal : context {
          styles []    = .hyperterminal_single_quote;
       }
    }
+   : inline_push {
+      regex          \= (\`)
+      styles []       = .hyperterminal_single_quote;
+      default_style   = .hyperterminal_single_quoted
+      : pop {
+         regex       \= (\`)
+         styles []    = .hyperterminal_single_quote;
+      }
+   }
 }
 
 MetaTerminal : context {
@@ -337,6 +346,15 @@ MetaTerminal : context {
       default_style   = .metaterminal_single_quoted
       : pop {
          regex       \= (\')
+         styles []    = .metaterminal_single_quote;
+      }
+   }
+   : inline_push {
+      regex          \= (\`)
+      styles []       = .metaterminal_single_quote;
+      default_style   = .metaterminal_single_quoted
+      : pop {
+         regex       \= (\`)
          styles []    = .metaterminal_single_quote;
       }
    }

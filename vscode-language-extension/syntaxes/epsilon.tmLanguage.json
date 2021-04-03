@@ -91,6 +91,21 @@
 							"name": "string.quoted.single.hyperterminal.quote.epsilon"
 						}
 					}
+				},
+				{
+					"begin": "(\\`)",
+					"beginCaptures": {
+						"1": {
+							"name": "string.quoted.single.hyperterminal.quote.epsilon"
+						}
+					},
+					"contentName": "string.quoted.single.hyperterminal.epsilon",
+					"end": "(\\`)",
+					"endCaptures": {
+						"1": {
+							"name": "string.quoted.single.hyperterminal.quote.epsilon"
+						}
+					}
 				}
 			]
 		},
@@ -98,6 +113,9 @@
 			"patterns": []
 		},
 		"HyperTerminal__2": {
+			"patterns": []
+		},
+		"HyperTerminal__3": {
 			"patterns": []
 		},
 		"MetaNonterminal": {
@@ -170,6 +188,21 @@
 							"name": "string.quoted.single.metaterminal.quote.epsilon"
 						}
 					}
+				},
+				{
+					"begin": "(\\`)",
+					"beginCaptures": {
+						"1": {
+							"name": "string.quoted.single.metaterminal.quote.epsilon"
+						}
+					},
+					"contentName": "string.quoted.single.metaterminal.epsilon",
+					"end": "(\\`)",
+					"endCaptures": {
+						"1": {
+							"name": "string.quoted.single.metaterminal.quote.epsilon"
+						}
+					}
 				}
 			]
 		},
@@ -177,6 +210,9 @@
 			"patterns": []
 		},
 		"MetaTerminal__2": {
+			"patterns": []
+		},
+		"MetaTerminal__3": {
 			"patterns": []
 		},
 		"Operators": {
