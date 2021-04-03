@@ -1,5 +1,8 @@
 # Change Log
 
+## 2.0.0
+- epsilon language extension updated, for others nothing has changed
+
 ## 1.3.1
 - updated epsilon language extension, other extensions of the pack has not been changed but got new version 
 
