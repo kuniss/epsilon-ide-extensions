@@ -31,7 +31,9 @@ package class EpsilonExecutor {
 	static val TAG_ERROR = 'error:'
 	static val TAG_WARN  = 'warn:'
 	static val TAG_INFO  = 'info:'
-	
+
+	static val File epsilonExecutableFile = determineEpsilonExecutable();
+	static val File epsilonTargetDir = determineEpsilonTargetDir();		
 	
 	@Accessors protected static class EpsilonIssue {
 		@Accessors(PACKAGE_GETTER) val int severity
@@ -45,7 +47,6 @@ package class EpsilonExecutor {
 	package static def List<EpsilonIssue> executeOn(Specification specification) {
 		val empytIssueList = new ArrayList<EpsilonIssue>
 		
-		val epsilonExecutableFile = determineEpsilonExecutable();
 		if (!epsilonExecutableFile.exists()) {
 			logger.warn(String.format("no Epsilon executable found at '%s' - consider setting environment variable %s properly",
 					epsilonExecutableFile.getAbsolutePath(), EPSILON_EXE_ENVVAR_NAME));
@@ -60,8 +61,6 @@ package class EpsilonExecutor {
 			logger.warn(String.format("Epsilon source file '%s' to be processed does not exist", eagSrcFile.getAbsolutePath()));
 			return empytIssueList
 		}
-		
-		val epsilonTargetDir = determineEpsilonTargetDir();		
 		
 		val builder = new ProcessBuilder();
 		builder.command(epsilonExecutableFile.getAbsolutePath(), '--output-directory', epsilonTargetDir.absolutePath, eagSrcFile.getAbsolutePath());
@@ -198,7 +197,7 @@ package class EpsilonExecutor {
 		return new File(epsilonExecutable);
 	}
 
-	package static def determineEpsilonTargetDir() {
+	package static def File determineEpsilonTargetDir() {
 		var epsilonTargetDir = EPSILON_TARGET_DIR_DEFAULT
 		if (System.getProperty(EPSILON_TARGET_DIR_SYSPROP_NAME) !== null) {
 			
