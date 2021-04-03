@@ -16,7 +16,7 @@
 	"meta nonterminal alternative": {
 		"prefix": "|",
 		"body": [
-            "| ${nonterminal} $0"
+            "| ${1:nonterminal} $0"
 		],
 		"description": "Creates a alternative with a meta nonterminlal inside"
     },
