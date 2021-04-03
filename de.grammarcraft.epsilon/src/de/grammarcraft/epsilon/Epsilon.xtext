@@ -18,7 +18,7 @@ MetaTerm:
 ;
 MetaSymbol:
 	  {MetaNonterminal} ref=[MetaRule] 
-	| {MetaTerminal} value=STRING 
+	| {MetaTerminal} value=EpsilonString 
 ;
 
 // Hyper grammar rules
@@ -42,7 +42,7 @@ enum EbnfClosingBracket:
 ;
 HyperSymbol:
 	  {HyperNonterminal} ref=[HyperRule] (=> actualParams=ActualParams)? // TODO tree rewriting needed here depending on formal affix params, see [DeWeKaKr] S.23, Erster Pass
-	| {HyperString} value=STRING 
+	| {HyperString} value=EpsilonString 
 	| {AynonymHyperNonterminal}
 	  actualParams=(ActualParams)? 
 	  openingBracket=EbnfOpeningBracket hyperExpr=HyperExpr closingBracket=EbnfClosingBracket 
@@ -67,7 +67,13 @@ AffixForm:
 ;
 Affix:
 	  {AffixVariable} isNegated?=("!")? ref=[MetaRule] affixNumber=(INT)? 
-	| {AffixLiteral} value=STRING 
+	| {AffixLiteral} value=EpsilonString 
+;
+
+EpsilonString: STRING | BACKTICK_STRING;
+
+terminal BACKTICK_STRING:
+	'`' ( !('`') )* '`'
 ;
 
 

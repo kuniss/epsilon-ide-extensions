@@ -123,6 +123,19 @@ class EpsilonParsingTest {
 	}
 
 	@Test
+	def void parseAllKindsOfStrings() {
+		val result = parseHelper.parse('''
+			// ------------------------   Hello World!
+			
+			N= "'" | '"' | `\`.
+			S <+ 'Hello World!': N>: "'" | '"' | `\`.
+		''')
+		assertNotNull(result)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
+	}
+
+	@Test
 	def void parseHelloWorld() {
 		val result = parseHelper.parse('''
 			// ------------------------   Hello World!
@@ -428,6 +441,16 @@ class EpsilonParsingTest {
 	@Test
 	def void parseUnicodeExample() {
 		val obern0SpecFile = new File(class.getResource('/unicode-example.eag').file)
+		val oberon0Spec = Files.readAllLines(obern0SpecFile.toPath).join('\n')
+		val result = parseHelper.parse(oberon0Spec)
+		assertNotNull(result)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
+	}
+	
+	@Test
+	def void parseLexerTestSpec() {
+		val obern0SpecFile = new File(class.getResource('/lexer-test.eag').file)
 		val oberon0Spec = Files.readAllLines(obern0SpecFile.toPath).join('\n')
 		val result = parseHelper.parse(oberon0Spec)
 		assertNotNull(result)
