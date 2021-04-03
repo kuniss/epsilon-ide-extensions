@@ -97,6 +97,10 @@ configure(subprojects.findAll { it.name.startsWith('vscode') }) {
 		}
 	}
 
+	task build {
+		dependsOn vscodeExtension
+	}
+
 	task publishToVSMarketplace(dependsOn: vscodeExtension, type: NodeTask) {
 		group = 'Publish'
 		description = 'Publishs the plugin to the VS Code Marketplace'
