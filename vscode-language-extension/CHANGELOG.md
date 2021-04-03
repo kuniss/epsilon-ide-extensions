@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.2.1
+## 1.3.0
 - added backtick string support as this will come with gamma, the successor of epsilon; backtick strings are not evaluated for escaped characters (like \n) and are in that sense "raw" strings
 
 ## 1.2.0
