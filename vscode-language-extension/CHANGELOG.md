@@ -1,6 +1,10 @@
 # Change Log
 
-## 1.3.2
+## 2.0.0
+- Linux only: incorporated execution of Epsilon compiler generator which 
+    - adds according problem markers in case errors or warnings are reported by the Epsilon compiler generator; markers are added to first rule of the affected grammar until a more detailed position determination is implemented
+    - generates D source code for specified compilers and compiles them to an executable if a D compiler is installed 
+    - can be configured via property 'epsilon.executable' pointing to a executable path, as well property 'epsilon.target.dir' defining where the compilers are generated too
 
 ## 1.3.1
 - added syntax highlighting support for backtick strings (was forgotten to be added in 1.3.0...)
