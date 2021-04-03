@@ -52,6 +52,9 @@ package class EpsilonExecutor {
 			return empytIssueList
 		}
 		
+		val epsilonExecutableHomeDir = epsilonExecutableFile.parentFile
+		checkEpsilonHomeDirConstraints(epsilonExecutableHomeDir)
+		
 		val eagSrcFile = determineEagSourceFileFrom(specification);
 		if (!eagSrcFile.exists()) {
 			logger.warn(String.format("Epsilon source file '%s' to be processed does not exist", eagSrcFile.getAbsolutePath()));
@@ -62,7 +65,7 @@ package class EpsilonExecutor {
 		
 		val builder = new ProcessBuilder();
 		builder.command(epsilonExecutableFile.getAbsolutePath(), '--output-directory', epsilonTargetDir.absolutePath, eagSrcFile.getAbsolutePath());
-		builder.directory(eagSrcFile.getParentFile());
+		builder.directory(epsilonExecutableHomeDir);
 		val process = builder.start();
 
 		val outputConsumer = new OutputMessagesConsumer(process.inputStream, process.errorStream);
@@ -77,6 +80,14 @@ package class EpsilonExecutor {
 		logger.info(String.format("executing '%s' failed with error code %d", String.join(" ", builder.command()), exitCode));
 		
 		createIssueListFrom(outputConsumer.stderrLines)
+	}
+	
+	private def static checkEpsilonHomeDirConstraints(File epsilonHomeDir) {
+		val fixSubDir = new File(epsilonHomeDir, "fix")
+		if (!fixSubDir.exists || fixSubDir.isFile)
+			logger.warn(String.format("There is not 'fix' sub directory in Eclipse executable home directory '%s' - compiler generation may fail.", 
+				epsilonHomeDir.absolutePath
+			))
 	}
 	
 	package def static createIssueListFrom(List<String> stderrLines) {
@@ -152,11 +163,16 @@ package class EpsilonExecutor {
 		val relativeSrcFileUri = specification.eResource().getURI();
 		
 		var srcFile = "not-determined";
-		if (relativeSrcFileUri.isPlatform()) {
-			srcFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(relativeSrcFileUri.toPlatformString(true))).getRawLocation().toOSString();	
-		}            	
-		else {
-			srcFile = specification.eResource().getResourceSet().getURIConverter().normalize(relativeSrcFileUri).toFileString();
+		try {
+			if (relativeSrcFileUri.isPlatform()) {
+				srcFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(relativeSrcFileUri.toPlatformString(true))).getRawLocation().toOSString();	
+			}            	
+			else {
+				srcFile = specification.eResource().getResourceSet().getURIConverter().normalize(relativeSrcFileUri).toFileString();
+			}			
+		}
+		catch (RuntimeException re) {
+			logger.error("underlying EGA grammar specification file could not be determined from EMF object: " + re.message, re)
 		}
 		return new File(srcFile);
 	}
