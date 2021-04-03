@@ -30,6 +30,15 @@ export function activate(context: ExtensionContext) {
 
     let env = process.env
 
+    let epsilonExecutable = workspace.getConfiguration().get('epsilon.executable')
+    if (epsilonExecutable) {
+        env['JAVA_OPTS'] = ' -Dde.grammarcraft.epsilon.executable=' + epsilonExecutable 
+    }
+    let epsilonTargetDir = workspace.getConfiguration().get('epsilon.target.dir')
+    if (epsilonTargetDir) {
+        env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.target.dir=' + epsilonTargetDir 
+    }
+
     // If the extension is launched in debug mode then the debug server options are used
     // Otherwise the run options are used
     let serverOptions: ServerOptions = {

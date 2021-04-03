@@ -42,6 +42,22 @@
                 "path": "./syntaxes/epsilon.tmLanguage.json"
             }
         ],
+        "configuration": {
+            "type": "object",
+            "title": "Epsilon LS client configuration",
+            "properties": {
+                "epsilon.executable": {
+                    "type": "string",
+                    "default": "./epsilon",
+                    "description": "Defines the path to the Epsilon executable which is used to generated compilers and to validate grammars.\nNote: This may be overwritten if defining an environment variable 'EPSILON_EXE'.\nChanges will be applied after restart. Alternatively, command 'Reload Window' may be executed."
+                },
+                "epsilon.target.dir": {
+                    "type": "string",
+                    "default": "./build/",
+                    "description": "Defines the path to a directory where the generated compiler atrifacts will be written to.\nNote: This may be overwritten if defining an environment variable 'EPSILON_TARGET_DIR'.\nChanges will be applied after restart. Alternatively, command 'Reload Window' may be executed."
+                }
+            }
+        },
         "snippets": [
             {
                 "language": "epsilon",
