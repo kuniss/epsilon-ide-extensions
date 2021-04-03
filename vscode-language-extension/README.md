@@ -31,9 +31,9 @@ No extension settings available, yet.
 
 ## Known Issues
 
-Currently, it is possible to create specifcations with invalid Affix definitions as they are not checked semantically.
+Non Linux systems: Currently, it is possible to create specifcations with invalid Affix definitions as they are not checked semantically.
 
-The specifations cannot be executed, currently. There is no parser and evaluator generator backend implemented yet.
+Non Linux systems: The specifations cannot be executed, currently. There is no parser and evaluator generator backend implemented yet.
 
 ## Release Notes
 
