@@ -1,5 +1,7 @@
 # Change Log
 
+## 1.3.2
+
 ## 1.3.1
 - added syntax highlighting support for backtick strings (was forgotten to be added in 1.3.0...)
 - corrected the meta nontermal alternative snippet to get rid of a VS code snippet warning notification
