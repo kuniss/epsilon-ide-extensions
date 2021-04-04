@@ -30,9 +30,13 @@ export function activate(context: ExtensionContext) {
 
     let env = process.env
 
+    let skipEpsilonExecution = workspace.getConfiguration().get('epsilon.skipExecution')
+    if (skipEpsilonExecution {
+        env['JAVA_OPTS'] = ' -Dde.grammarcraft.epsilon.skipExecution=' + skipEpsilonExecution 
+    }
     let epsilonExecutable = workspace.getConfiguration().get('epsilon.executable')
     if (epsilonExecutable) {
-        env['JAVA_OPTS'] = ' -Dde.grammarcraft.epsilon.executable=' + epsilonExecutable 
+        env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.executable=' + epsilonExecutable 
     }
     let epsilonTargetDir = workspace.getConfiguration().get('epsilon.target.dir')
     if (epsilonTargetDir) {
