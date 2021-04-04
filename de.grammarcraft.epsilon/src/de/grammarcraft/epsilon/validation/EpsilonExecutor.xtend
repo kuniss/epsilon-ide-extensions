@@ -28,6 +28,8 @@ package class EpsilonExecutor {
 	package static val EPSILON_TARGET_DIR_ENVVAR_NAME = 'EPSILON_TARGET_DIR'
 	static val EPSILON_TARGET_DIR_DEFAULT = './'
 	
+	static val SKIP_EXECUTION_SYSPROP_NAME = 'de.grammarcraft.epsilon.skipExecution'
+	
 	static val TAG_ERROR = 'error:'
 	static val TAG_WARN  = 'warn:'
 	static val TAG_INFO  = 'info:'
@@ -46,6 +48,10 @@ package class EpsilonExecutor {
 	
 	package static def List<EpsilonIssue> executeOn(Specification specification) {
 		val empytIssueList = new ArrayList<EpsilonIssue>
+		
+		if (skipEpsilonExecution()) {
+			return empytIssueList			
+		}
 		
 		if (!epsilonExecutableFile.exists()) {
 			logger.warn(String.format("no Epsilon executable found at '%s' - consider setting environment variable %s properly",
@@ -79,6 +85,14 @@ package class EpsilonExecutor {
 		logger.info(String.format("executing '%s' failed with error code %d", String.join(" ", builder.command()), exitCode));
 		
 		createIssueListFrom(outputConsumer.stderrLines)
+	}
+	
+	package def static skipEpsilonExecution() {
+		if (System.getProperty(SKIP_EXECUTION_SYSPROP_NAME) !== null) {	
+			logger.info("Epsilon execution is skipped due to setting of system property " + SKIP_EXECUTION_SYSPROP_NAME);		
+			return Boolean.parseBoolean(System.getProperty(SKIP_EXECUTION_SYSPROP_NAME))
+		}
+		return false
 	}
 	
 	private def static checkEpsilonHomeDirConstraints(File epsilonHomeDir) {
