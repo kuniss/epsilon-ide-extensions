@@ -28,14 +28,21 @@ package class EpsilonExecutor {
 	package static val EPSILON_TARGET_DIR_ENVVAR_NAME = 'EPSILON_TARGET_DIR'
 	static val EPSILON_TARGET_DIR_DEFAULT = './'
 	
+	package static val ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME = 'de.grammarcraft.epsilon.additionalExeOptions'
+	package static val ADDITIONAL_EXE_ARGUMENTS_ENVVAR_NAME = 'EPSILON_EXE_OPTS'
+	static val ADDITIONAL_EXE_ARGUMENTS_DEFAULT = ''
+	
 	static val SKIP_EXECUTION_SYSPROP_NAME = 'de.grammarcraft.epsilon.skipExecution'
+	static val CODE_GENERATION_ONLY_SYSPROP_NAME = 'de.grammarcraft.epsilon.codeGenerationOnly'
 	
 	static val TAG_ERROR = 'error:'
 	static val TAG_WARN  = 'warn:'
 	static val TAG_INFO  = 'info:'
 
 	static val File epsilonExecutableFile = determineEpsilonExecutable();
-	static val File epsilonTargetDir = determineEpsilonTargetDir();		
+	static val File epsilonTargetDir = determineEpsilonTargetDir();
+	static val boolean codeGenerationOnly = determineCodeGenerationOnlyOption()
+	static val String additionalExecutionArgument = determineAdditionalExecutionArgument()
 	
 	@Accessors protected static class EpsilonIssue {
 		@Accessors(PACKAGE_GETTER) val int severity
@@ -58,7 +65,7 @@ package class EpsilonExecutor {
 					epsilonExecutableFile.getAbsolutePath(), EPSILON_EXE_ENVVAR_NAME));
 			return empytIssueList
 		}
-		
+				
 		val epsilonExecutableHomeDir = epsilonExecutableFile.parentFile
 		checkEpsilonHomeDirConstraints(epsilonExecutableHomeDir)
 		
@@ -69,7 +76,12 @@ package class EpsilonExecutor {
 		}
 		
 		val builder = new ProcessBuilder();
-		builder.command(epsilonExecutableFile.getAbsolutePath(), '--output-directory', epsilonTargetDir.absolutePath, eagSrcFile.getAbsolutePath());
+		builder.command(epsilonExecutableFile.getAbsolutePath(), '--output-directory', epsilonTargetDir.absolutePath)
+		if (!additionalExecutionArgument.empty)
+			builder.command.add(additionalExecutionArgument)
+		if (codeGenerationOnly) 
+			builder.command.add('-g') // works only since gamma! But we do not differentiate both.
+		builder.command.add(eagSrcFile.getAbsolutePath());
 		builder.directory(epsilonExecutableHomeDir);
 		val process = builder.start();
 
@@ -93,6 +105,36 @@ package class EpsilonExecutor {
 			return Boolean.parseBoolean(System.getProperty(SKIP_EXECUTION_SYSPROP_NAME))
 		}
 		return false
+	}
+			
+	def static determineCodeGenerationOnlyOption() {
+		if (System.getProperty(CODE_GENERATION_ONLY_SYSPROP_NAME) !== null) {	
+			logger.info("Only source code is generated, not compiled, due to setting of system property " + CODE_GENERATION_ONLY_SYSPROP_NAME);		
+			return Boolean.parseBoolean(System.getProperty(SKIP_EXECUTION_SYSPROP_NAME))
+		}
+		return false
+	}
+	
+	def static determineAdditionalExecutionArgument() {
+		var additionalArgs = ADDITIONAL_EXE_ARGUMENTS_DEFAULT
+		if (System.getProperty(ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME) !== null) {
+			
+			additionalArgs = System.getProperty(ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME)
+			logger.info(String.format("system property %s defined, take additional execution arguments from it", ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME))
+		}
+		else if (System.getenv(ADDITIONAL_EXE_ARGUMENTS_ENVVAR_NAME) !== null) {
+			additionalArgs = System.getenv(ADDITIONAL_EXE_ARGUMENTS_ENVVAR_NAME)
+			logger.info(String.format("environment variable %s defined, take additional execution arguments from it", ADDITIONAL_EXE_ARGUMENTS_ENVVAR_NAME))
+		}
+		else {
+			logger.info(String.format("Neither system property '%s' nor environment variable '%s' are defined, no additional execution arguments will be used", 
+				ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME, ADDITIONAL_EXE_ARGUMENTS_ENVVAR_NAME
+			));
+		}
+		
+		if (!additionalArgs.empty)
+			logger.info("The following additional execution arguments will be used: '" + additionalArgs + "'")
+		return additionalArgs.trim
 	}
 	
 	private def static checkEpsilonHomeDirConstraints(File epsilonHomeDir) {
@@ -158,7 +200,7 @@ package class EpsilonExecutor {
 	 * expr-bnf.eag:4:26     Term &lt;Code1&gt; ExprTail&lt;Code1&gt;.
 	 */
 	static val EPSILON_ISSUE_POSITION_LINE_PATTERN = Pattern.compile("(?<file>[^:]*):(?<line>\\d+):(?<column>\\d+).*")
-	
+		
 	private static def int asSeverity(String tag) {
 		switch (tag) {
 			case TAG_ERROR: return Diagnostic.ERROR
@@ -267,6 +309,7 @@ package class EpsilonExecutor {
 	        new BufferedReader(new InputStreamReader(errorStream))
 	        	.lines()
 	        	.forEach([ line | stderrLines.add(line) ])
+	        // TODO synchronize readiness, before returning stderrLines! add getter
 	    }
 	    
 	}
