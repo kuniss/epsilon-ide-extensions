@@ -135,4 +135,24 @@ class EpsilonExecutorTest {
 		}
 	}
 
+	@Test
+	def void determineAdditionalExecutionArgsDefault() {
+		val result = EpsilonExecutor.determineAdditionalExecutionArgument
+		assertTrue(result.empty)
+	}
+
+	@Test
+	def void determineAdditionalExecutionArgsFromSysProp() {
+		val additionalArgs = '-g -s'
+		System.properties.setProperty(EpsilonExecutor.ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME, additionalArgs)
+		try {
+			val result = EpsilonExecutor.determineAdditionalExecutionArgument
+			assertEquals(additionalArgs, result)			
+		}
+		finally {
+			System.properties.remove(EpsilonExecutor.ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME)
+		}
+	}
+
+
 }

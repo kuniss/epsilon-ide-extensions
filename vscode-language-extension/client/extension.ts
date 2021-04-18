@@ -31,17 +31,27 @@ export function activate(context: ExtensionContext) {
     let env = process.env
 
     let skipEpsilonExecution = workspace.getConfiguration().get('epsilon.skipExecution')
-    if (skipEpsilonExecution {
+    if (skipEpsilonExecution) {
         env['JAVA_OPTS'] = ' -Dde.grammarcraft.epsilon.skipExecution=' + skipEpsilonExecution 
     }
+    let codeGenerationOnly = workspace.getConfiguration().get('epsilon.codeGenerationOnly')
+    if (codeGenerationOnly) {
+        env['JAVA_OPTS'] = ' -Dde.grammarcraft.epsilon.codeGenerationOnly=' + codeGenerationOnly 
+    }
     let epsilonExecutable = workspace.getConfiguration().get('epsilon.executable')
-    if (epsilonExecutable) {
-        env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.executable=' + epsilonExecutable 
+    if (epsilonExecutable && epsilonExecutable !== '') {
+        env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.executable=\'' + epsilonExecutable  + '\''
     }
     let epsilonTargetDir = workspace.getConfiguration().get('epsilon.target.dir')
-    if (epsilonTargetDir) {
-        env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.target.dir=' + epsilonTargetDir 
+    if (epsilonTargetDir && epsilonTargetDir !== '') {
+        env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.target.dir=\'' + epsilonTargetDir + '\''
     }
+    let additionalExeOptions = workspace.getConfiguration().get('epsilon.additionalExeOptions')
+    if (additionalExeOptions && additionalExeOptions !== '') {
+        env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.additionalExeOptions=\'' + additionalExeOptions + '\'' 
+    }
+
+    console.log("JAVA_OPTS: " + env['JAVA_OPTS'])
 
     // If the extension is launched in debug mode then the debug server options are used
     // Otherwise the run options are used
