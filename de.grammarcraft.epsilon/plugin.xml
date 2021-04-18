@@ -2,7 +2,7 @@
 <?eclipse version="3.0"?>
 <plugin>
 	<extension point="org.eclipse.emf.ecore.generated_package">
-		<package 
+		<package
 			uri = "http://www.grammarcraft.de/epsilon/Epsilon"
 			class = "de.grammarcraft.epsilon.epsilon.EpsilonPackage"
 			genModel = "model/generated/Epsilon.genmodel" />
