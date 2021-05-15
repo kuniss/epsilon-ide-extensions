@@ -6,8 +6,12 @@ package de.grammarcraft.epsilon.validation;
 import java.util.List;
 
 import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
+
+import com.google.inject.Inject;
 
 import de.grammarcraft.epsilon.epsilon.EpsilonPackage;
 import de.grammarcraft.epsilon.epsilon.Specification;
@@ -20,6 +24,8 @@ import de.grammarcraft.epsilon.validation.EpsilonExecutor.EpsilonIssue;
  */
 public class EpsilonValidator extends AbstractEpsilonValidator {
 	
+	@Inject IssuePositionHelper issuePosHelper;
+	
 	protected static String ISSUE_CODE_PREFIX = "de.grammarcraft.epsilon.";
 	public static String EPSILON_COMPILER_GENERATOR_DETECTED_ISSUE = ISSUE_CODE_PREFIX + "EpsilonCGIssue";
 
@@ -27,10 +33,9 @@ public class EpsilonValidator extends AbstractEpsilonValidator {
 	@Check(CheckType.NORMAL)
 	public void runEpsilonExecutable(Specification specification) {
 			boolean isLinux = System.getProperty("os.name").toLowerCase().startsWith("linux");
-			
 			if (isLinux) {
 				List<EpsilonIssue> issues = EpsilonExecutor.executeOn(specification);
-				addMarkersForIssues2(issues);
+				addMarkersForIssues(specification.eResource(), issues);
 			}
 			else
 				info("Runnig the epsilon compiler generator under Windows is not supported yet, unfortunately. "
@@ -38,24 +43,28 @@ public class EpsilonValidator extends AbstractEpsilonValidator {
 						EpsilonPackage.eINSTANCE.getSpecification_Rules());
 	}
 	
-	private void addMarkersForIssues2(List<EpsilonIssue> issues) {
+	private void addMarkersForIssues(Resource resource, List<EpsilonIssue> issues) {
 		issues.stream()
 			.filter(issue -> issue.getSeverity() != Diagnostic.OK)
 			.forEach(issue -> {
 				switch (issue.getSeverity()) {
 				case Diagnostic.ERROR:
-					if (issue.getLine().isEmpty())						
+					if (issue.getOffset().isEmpty())						
 						error(issue.getMessage(), EpsilonPackage.eINSTANCE.getSpecification_Rules(),
-								EPSILON_COMPILER_GENERATOR_DETECTED_ISSUE, "1", "1");
-					else
-						error(String.format("%s (%s,%s)", issue.getMessage(), issue.getLine(), issue.getColumn()), 
-								EpsilonPackage.eINSTANCE.getSpecification_Rules(),
-								EPSILON_COMPILER_GENERATOR_DETECTED_ISSUE,
-								issue.getLine(), issue.getColumn());
+								EPSILON_COMPILER_GENERATOR_DETECTED_ISSUE);
+					else {
+						EObject relevantElement = issuePosHelper.getElementAtOffset((org.eclipse.xtext.resource.XtextResource)resource, issue);
+						error(issue.getMessage(), relevantElement, null, EPSILON_COMPILER_GENERATOR_DETECTED_ISSUE);
+					}
 					break;
 				case Diagnostic.WARNING:
-					warning(issue.getMessage(), EpsilonPackage.eINSTANCE.getSpecification_Rules(),
-							EPSILON_COMPILER_GENERATOR_DETECTED_ISSUE, "1", "1");
+					if (issue.getOffset().isEmpty())						
+						warning(issue.getMessage(), EpsilonPackage.eINSTANCE.getSpecification_Rules(),
+								EPSILON_COMPILER_GENERATOR_DETECTED_ISSUE);
+					else {
+						EObject relevantElement = issuePosHelper.getElementAtOffset((org.eclipse.xtext.resource.XtextResource)resource, issue);
+						warning(issue.getMessage(), relevantElement, null, EPSILON_COMPILER_GENERATOR_DETECTED_ISSUE);
+					}
 					break;
 				default:
 					break;
