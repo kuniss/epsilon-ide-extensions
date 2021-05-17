@@ -43,6 +43,7 @@ class EpsilonExecutorTest {
 		val warnMsg = 'nonterminal N is unproductive'
 		val errMsg1 = 'number of affixforms differs from signature'
 		val errFile = 'expr-bnf.eag'
+		val errOffset = '73'
 		val errPosLine = '4'
 		val errPosCol = '26'
 		val errMsg2 = 'errors in Expr'
@@ -50,8 +51,7 @@ class EpsilonExecutorTest {
 			info: «infoMsg»
 			warn: «warnMsg»
 			error: «errMsg1»
-			«errFile»:«errPosLine»:«errPosCol»     Term <Code1> ExprTail<Code1>.
-			                                           ^
+			«errFile»@«errOffset»:«errPosLine»:«errPosCol»  
 			error: «errMsg2»
 		'''.toString.split('\n')
 		
@@ -63,6 +63,7 @@ class EpsilonExecutorTest {
 			assertTrue(file.empty)
 			assertTrue(line.empty)
 			assertTrue(column.empty)
+			assertTrue(offset.empty)
 		]
 		result.get(1) => [
 			assertEquals(Diagnostic.WARNING, severity)
@@ -70,6 +71,7 @@ class EpsilonExecutorTest {
 			assertTrue(file.empty)
 			assertTrue(line.empty)
 			assertTrue(column.empty)
+			assertTrue(offset.empty)
 		]
 		result.get(2) => [
 			assertEquals(Diagnostic.ERROR, severity)
@@ -77,6 +79,7 @@ class EpsilonExecutorTest {
 			assertEquals(errFile, file)
 			assertEquals(errPosLine, line)
 			assertEquals(errPosCol, column)
+			assertEquals(errOffset, offset)
 		]
 		result.get(3) => [
 			assertEquals(Diagnostic.ERROR, severity)
@@ -84,6 +87,7 @@ class EpsilonExecutorTest {
 			assertTrue(file.empty)
 			assertTrue(line.empty)
 			assertTrue(column.empty)
+			assertTrue(offset.empty)
 		]
 	}
 	
@@ -119,7 +123,7 @@ class EpsilonExecutorTest {
 	@Test
 	def void determineEpsilonExecutableDefault() {
 		val result = EpsilonExecutor.determineEpsilonExecutable
-		assertEquals(new File('./epsilon'), result)
+		assertEquals(new File('./gamma'), result)
 	}
 
 	@Test
