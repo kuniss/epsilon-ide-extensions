@@ -50,7 +50,7 @@ class EpsilonValidator extends AbstractEpsilonValidator {
 				switch (issue.getSeverity()) {
 				case Diagnostic.ERROR:
 					if (issue.getOffset().isEmpty())						
-						error(issue.getMessage(), EpsilonPackage.eINSTANCE.getSpecification_Rules(),
+						error("generator: " + issue.getMessage(), EpsilonPackage.eINSTANCE.getSpecification_Rules(),
 								EPSILON_COMPILER_GENERATOR_DETECTED_ISSUE)
 					else {
 						val relevantElement = xtextResource.getElementAtOffset(issue)
@@ -58,7 +58,7 @@ class EpsilonValidator extends AbstractEpsilonValidator {
 					}
 				case Diagnostic.WARNING:
 					if (issue.getOffset().isEmpty())						
-						warning(issue.getMessage(), EpsilonPackage.eINSTANCE.getSpecification_Rules(),
+						warning("generator: " + issue.getMessage(), EpsilonPackage.eINSTANCE.getSpecification_Rules(),
 								EPSILON_COMPILER_GENERATOR_DETECTED_ISSUE)
 					else {
 						val relevantElement = xtextResource.getElementAtOffset(issue);
