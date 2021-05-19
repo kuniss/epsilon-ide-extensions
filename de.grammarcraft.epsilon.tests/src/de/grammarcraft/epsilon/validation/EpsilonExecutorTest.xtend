@@ -44,14 +44,12 @@ class EpsilonExecutorTest {
 		val errMsg1 = 'number of affixforms differs from signature'
 		val errFile = 'expr-bnf.eag'
 		val errOffset = '73'
-		val errPosLine = '4'
-		val errPosCol = '26'
 		val errMsg2 = 'errors in Expr'
 		val outputLines = '''
 			info: «infoMsg»
 			warn: «warnMsg»
 			error: «errMsg1»
-			«errFile»@«errOffset»:«errPosLine»:«errPosCol»  
+			«errFile»@«errOffset»  
 			error: «errMsg2»
 		'''.toString.split('\n')
 		
@@ -61,32 +59,24 @@ class EpsilonExecutorTest {
 			assertEquals(Diagnostic.OK, severity)
 			assertEquals(infoMsg, message)
 			assertTrue(file.empty)
-			assertTrue(line.empty)
-			assertTrue(column.empty)
 			assertTrue(offset.empty)
 		]
 		result.get(1) => [
 			assertEquals(Diagnostic.WARNING, severity)
 			assertEquals(warnMsg, message)
 			assertTrue(file.empty)
-			assertTrue(line.empty)
-			assertTrue(column.empty)
 			assertTrue(offset.empty)
 		]
 		result.get(2) => [
 			assertEquals(Diagnostic.ERROR, severity)
 			assertEquals(errMsg1, message)
 			assertEquals(errFile, file)
-			assertEquals(errPosLine, line)
-			assertEquals(errPosCol, column)
 			assertEquals(errOffset, offset)
 		]
 		result.get(3) => [
 			assertEquals(Diagnostic.ERROR, severity)
 			assertEquals(errMsg2, message)
 			assertTrue(file.empty)
-			assertTrue(line.empty)
-			assertTrue(column.empty)
 			assertTrue(offset.empty)
 		]
 	}
