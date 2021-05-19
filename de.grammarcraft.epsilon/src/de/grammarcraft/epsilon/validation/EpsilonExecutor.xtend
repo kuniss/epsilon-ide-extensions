@@ -53,8 +53,6 @@ package class EpsilonExecutor {
 		@Accessors(PACKAGE_GETTER) val String message
 		@Accessors(PACKAGE_GETTER, PRIVATE_SETTER) String file = ""
 		@Accessors(PACKAGE_GETTER, PRIVATE_SETTER) String offset = ""
-		@Accessors(PACKAGE_GETTER, PRIVATE_SETTER) String line = ""
-		@Accessors(PACKAGE_GETTER, PRIVATE_SETTER) String column = ""
 		
 	}
 	
@@ -80,7 +78,7 @@ package class EpsilonExecutor {
 		}
 		
 		val builder = new ProcessBuilder();
-		builder.command(epsilonExecutableFile.getAbsolutePath(), '--offset', '--output-directory', epsilonTargetDir.absolutePath)
+		builder.command(epsilonExecutableFile.getAbsolutePath(), '--ls', '--output-directory', epsilonTargetDir.absolutePath)
 		if (!additionalExecutionArgument.empty)
 			builder.command.add(additionalExecutionArgument)
 		if (codeGenerationOnly) 
@@ -166,7 +164,6 @@ package class EpsilonExecutor {
 				val last = issues.size()-1
 				if (issuePosLineMatcher.matches() && last >= 0)
 					issues.get(last).addPositionInfoFrom(issuePosLineMatcher) 
-				// else: skip lines with the ^ marker
 			}
 		}
 		return issues
@@ -176,8 +173,6 @@ package class EpsilonExecutor {
 		lastCreatedIssue => [
 			file = issuePosLineMatcher.group('file')
 			offset = issuePosLineMatcher.group('offset')
-			line = issuePosLineMatcher.group('line')
-			column = issuePosLineMatcher.group('column')
 		]
 	}
 		
@@ -208,7 +203,7 @@ package class EpsilonExecutor {
 	 * <br>
 	 * Requires gamma with offset position reporting by cmd line argument --offset being set
 	 */
-	static val EPSILON_ISSUE_POSITION_PATTERN = Pattern.compile("(?<file>[^:@]*)@(?<offset>\\d+):(?<line>\\d+):(?<column>\\d+).*")
+	static val EPSILON_ISSUE_POSITION_PATTERN = Pattern.compile("(?<file>[^:@]*)@(?<offset>\\d+).*")
 		
 	private static def int asSeverity(String tag) {
 		switch (tag) {
