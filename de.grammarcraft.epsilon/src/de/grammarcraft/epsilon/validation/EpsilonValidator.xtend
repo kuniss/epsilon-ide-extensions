@@ -53,7 +53,7 @@ class EpsilonValidator extends AbstractEpsilonValidator {
 						error("generator: " + issue.getMessage(), EpsilonPackage.eINSTANCE.getSpecification_Rules(),
 								EPSILON_COMPILER_GENERATOR_DETECTED_ISSUE)
 					else {
-						val relevantElement = xtextResource.getElementAtOffset(issue)
+						val relevantElement = xtextResource.getElementAt(issue)
 						error(issue.getMessage(), relevantElement, null, EPSILON_COMPILER_GENERATOR_DETECTED_ISSUE)
 					}
 				case Diagnostic.WARNING:
@@ -61,7 +61,7 @@ class EpsilonValidator extends AbstractEpsilonValidator {
 						warning("generator: " + issue.getMessage(), EpsilonPackage.eINSTANCE.getSpecification_Rules(),
 								EPSILON_COMPILER_GENERATOR_DETECTED_ISSUE)
 					else {
-						val relevantElement = xtextResource.getElementAtOffset(issue);
+						val relevantElement = xtextResource.getElementAt(issue);
 						warning(issue.getMessage(), relevantElement, null, EPSILON_COMPILER_GENERATOR_DETECTED_ISSUE);
 					}
 				}

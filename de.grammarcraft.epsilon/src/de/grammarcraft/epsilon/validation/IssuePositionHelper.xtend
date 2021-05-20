@@ -14,7 +14,7 @@ class IssuePositionHelper {
 
 	@Inject extension EObjectAtOffsetHelper
 		
-	def EObject getElementAtOffset(XtextResource resource, EpsilonIssue issue) {
+	def EObject getElementAt(XtextResource resource, EpsilonIssue issue) {
 		val offset = issue.offsetAsInt;
 		val document = resource.parseResult.rootNode.text
 		var offsetAtFirstNonSpace = offset
