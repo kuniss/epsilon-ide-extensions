@@ -23,15 +23,12 @@ package class EpsilonExecutor {
 	static val logger = Logger.getLogger(EpsilonValidator.name);
 	
 	package static val EPSILON_EXE_SYSPROP_NAME = 'de.grammarcraft.epsilon.executable'
-	package static val EPSILON_EXE_ENVVAR_NAME = 'EPSILON_EXE'
 	static val EPSILON_EXE_DEFAULT = './gamma' // the new gamma is the default as it supports offset positions
 	
 	package static val EPSILON_TARGET_DIR_SYSPROP_NAME = 'de.grammarcraft.epsilon.target.dir'
-	package static val EPSILON_TARGET_DIR_ENVVAR_NAME = 'EPSILON_TARGET_DIR'
 	static val EPSILON_TARGET_DIR_DEFAULT = './'
 	
 	package static val ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME = 'de.grammarcraft.epsilon.additionalExeOptions'
-	package static val ADDITIONAL_EXE_ARGUMENTS_ENVVAR_NAME = 'EPSILON_EXE_OPTS'
 	static val ADDITIONAL_EXE_ARGUMENTS_DEFAULT = ''
 	
 	static val SKIP_EXECUTION_SYSPROP_NAME = 'de.grammarcraft.epsilon.skipExecution'
@@ -63,8 +60,7 @@ package class EpsilonExecutor {
 		}
 		
 		if (!epsilonExecutableFile.exists()) {
-			logger.warn(String.format("no Epsilon executable found at '%s' - consider setting environment variable %s properly",
-					epsilonExecutableFile.getAbsolutePath(), EPSILON_EXE_ENVVAR_NAME));
+			logger.warn(String.format("no Epsilon executable found at '%s'", epsilonExecutableFile.getAbsolutePath()));
 			return emptyList
 		}
 				
@@ -126,13 +122,9 @@ package class EpsilonExecutor {
 			additionalArgs = System.getProperty(ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME)
 			logger.info(String.format("system property %s defined, take additional execution arguments from it", ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME))
 		}
-		else if (System.getenv(ADDITIONAL_EXE_ARGUMENTS_ENVVAR_NAME) !== null) {
-			additionalArgs = System.getenv(ADDITIONAL_EXE_ARGUMENTS_ENVVAR_NAME)
-			logger.info(String.format("environment variable %s defined, take additional execution arguments from it", ADDITIONAL_EXE_ARGUMENTS_ENVVAR_NAME))
-		}
 		else {
-			logger.info(String.format("Neither system property '%s' nor environment variable '%s' are defined, no additional execution arguments will be used", 
-				ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME, ADDITIONAL_EXE_ARGUMENTS_ENVVAR_NAME
+			logger.info(String.format("No system property '%s' is defined, no additional execution arguments will be used", 
+				ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME
 			));
 		}
 		
@@ -243,13 +235,9 @@ package class EpsilonExecutor {
 			epsilonExecutable = System.getProperty(EPSILON_EXE_SYSPROP_NAME)
 			logger.info(String.format("system property %s defined, take Epsilon executable from it", EPSILON_EXE_SYSPROP_NAME))
 		}
-		else if (System.getenv(EPSILON_EXE_ENVVAR_NAME) !== null) {
-			epsilonExecutable = System.getenv(EPSILON_EXE_ENVVAR_NAME)
-			logger.info(String.format("environment variable %s defined, take Epsilon executable from it", EPSILON_EXE_ENVVAR_NAME))
-		}
 		else {
-			logger.info(String.format("Neither system property '%s' nor environment variable '%s' are defined, use the default path '%s' as Epsilon executable", 
-				EPSILON_EXE_SYSPROP_NAME, EPSILON_EXE_ENVVAR_NAME, epsilonExecutable
+			logger.info(String.format("No system property '%s' is defined, use the default path '%s' as Epsilon executable", 
+				EPSILON_EXE_SYSPROP_NAME, epsilonExecutable
 			));
 		}
 			
@@ -264,14 +252,10 @@ package class EpsilonExecutor {
 			epsilonTargetDir = System.getProperty(EPSILON_TARGET_DIR_SYSPROP_NAME)
 			logger.info(String.format("system property %s defined, use it as Epsilon generation target directory", EPSILON_TARGET_DIR_SYSPROP_NAME))
 		}
-		else if (System.getenv(EPSILON_TARGET_DIR_ENVVAR_NAME) !== null) {
-			epsilonTargetDir = System.getenv(EPSILON_TARGET_DIR_ENVVAR_NAME)
-			logger.info(String.format("environment variable %s defined, use it as Epsilon generation target directory", EPSILON_TARGET_DIR_ENVVAR_NAME))
-		}
 		else {
 			logger.info(String.format(
-				"Neither system property '%s' nor environment variable '%s' are defined, use the default path '%s' as Epsilon generation target directory", 
-				EPSILON_TARGET_DIR_SYSPROP_NAME, EPSILON_TARGET_DIR_ENVVAR_NAME, epsilonTargetDir
+				"No system property '%s' is defined, use the default path '%s' as Epsilon generation target directory", 
+				EPSILON_TARGET_DIR_SYSPROP_NAME, epsilonTargetDir
 			));
 		}
 		
