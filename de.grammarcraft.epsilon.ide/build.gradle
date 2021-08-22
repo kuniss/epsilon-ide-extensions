@@ -8,6 +8,20 @@ dependencies {
 	compile "org.eclipse.xtext:org.eclipse.xtext.xbase.ide:${xtextVersion}"
 }
 
+// workaround for an Xtext Gradle plugin issue, see https://github.com/eclipse/xtext/issues/1976
+configurations.all {
+    resolutionStrategy { 
+        eachDependency { DependencyResolveDetails details ->
+            if (details.requested.group == 'org.eclipse.platform' && details.requested.name == 'org.eclipse.core.runtime') {
+                details.useVersion "3.19.0"
+            }
+            if (details.requested.group == 'org.eclipse.platform' && details.requested.name == 'org.eclipse.equinox.common') {
+                details.useVersion("3.13.0")
+            }
+        }
+    }
+}
+
 apply plugin: 'application'
 apply plugin: 'com.github.johnrengelman.shadow'
 mainClassName = "org.eclipse.xtext.ide.server.ServerLauncher"
