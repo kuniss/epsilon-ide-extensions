@@ -49,27 +49,27 @@
                 "epsilon.skipExecution": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Controls whether running the Epsilon executable defined below applied on grammar specification to generate a compiler and report errors and warnings is skipped.\nChanges will be applied after restart. Alternatively, command 'Reload Window' may be executed."
+                    "description": "Skip running the Epsilon/Gamma executable defined as epsilon.executable to generate a compiler and report errors and warnings for EAG grammar specifications.\nChanges will be applied after restart. Alternatively, command 'Reload Window' may be executed."
                 },
                 "epsilon.executable": {
                     "type": "string",
                     "default": "./epsilon",
-                    "description": "Defines the path to the Epsilon executable which is used to generated compilers and to validate grammars.\nIn case, a relative path is given then it will be relative to the project's root directory.\nNote: This may be overwritten if defining an environment variable 'EPSILON_EXE'.\nChanges will be applied after restart. Alternatively, command 'Reload Window' may be executed."
+                    "description": "Defines the path to the Epsilon/Gamma executable which is used to generated compilers and to validate grammars.\nIn case, a relative path is given then it will be relative to the project's root directory.\nChanges will be applied after restart. Alternatively, command 'Reload Window' may be executed."
                 },
                 "epsilon.target.dir": {
                     "type": "string",
                     "default": "./build/",
-                    "description": "Defines the path to a directory where the generated compiler atrifacts will be written to.\nIn case, a relative path is given then it will be relative to the project's root directory.\nNote: This may be overwritten if defining an environment variable 'EPSILON_TARGET_DIR'.\nChanges will be applied after restart. Alternatively, command 'Reload Window' may be executed."
+                    "description": "Defines the path to a directory where the generated compiler artifacts will be written to.\nIn case, a relative path is given then it will be relative to the project's root directory.\nChanges will be applied after restart. Alternatively, command 'Reload Window' may be executed."
                 },
                 "epsilon.codeGenerationOnly": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Controls whether only code generation takes place and D compilation with dmd is skipped.\nChanges will be applied after restart. Alternatively, command 'Reload Window' may be executed.\n(Not supported by Epsilon, but by Gamma as '-g' option)"
+                    "description": "Perform code generation only and skip D compilation with DMD (e.g., check if no DMD is installed).\nChanges will be applied after restart. Alternatively, command 'Reload Window' may be executed.\n(Not supported by Epsilon, but by Gamma as '-g' option)"
                 },
                 "epsilon.additionalExeOptions": {
                     "type": "string",
                     "default": "",
-                    "description": "Defines additional execution arguments which will be added to the executable invocation defined by epsilon.executable\nNote: This may be overwritten if defining an environment variable 'EPSILON_TARGET_DIR'.\nChanges will be applied after restart. Alternatively, command 'Reload Window' may be executed."
+                    "description": "Defines additional execution arguments which will be added to the Epsilon/Gamma executable invocation defined by epsilon.executable\nChanges will be applied after restart. Alternatively, command 'Reload Window' may be executed."
                 }
             }
         },
