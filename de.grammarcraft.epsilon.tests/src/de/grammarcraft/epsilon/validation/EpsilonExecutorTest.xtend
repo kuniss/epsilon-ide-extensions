@@ -113,7 +113,7 @@ class EpsilonExecutorTest {
 	@Test
 	def void determineEpsilonExecutableDefault() {
 		val result = EpsilonExecutor.determineEpsilonExecutable
-		assertEquals(new File('./gamma'), result)
+		assertEquals(new File('./build/cg/gamma'), result)
 	}
 
 	@Test

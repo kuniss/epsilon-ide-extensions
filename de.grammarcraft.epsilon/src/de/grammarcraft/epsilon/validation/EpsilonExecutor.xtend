@@ -20,13 +20,13 @@ import org.eclipse.xtend.lib.annotations.Accessors
 
 package class EpsilonExecutor {
 	
-	static val logger = Logger.getLogger(EpsilonValidator.name);
-	
-	package static val EPSILON_EXE_SYSPROP_NAME = 'de.grammarcraft.epsilon.executable'
-	static val EPSILON_EXE_DEFAULT = './gamma' // the new gamma is the default as it supports offset positions
+	static val logger = Logger.getLogger(EpsilonExecutor.name);
 	
 	package static val EPSILON_TARGET_DIR_SYSPROP_NAME = 'de.grammarcraft.epsilon.target.dir'
-	static val EPSILON_TARGET_DIR_DEFAULT = './'
+	static val EPSILON_TARGET_DIR_DEFAULT = './build'
+	
+	package static val EPSILON_EXE_SYSPROP_NAME = 'de.grammarcraft.epsilon.executable'
+	static val EPSILON_EXE_DEFAULT = EPSILON_TARGET_DIR_DEFAULT + '/cg/gamma'
 	
 	package static val ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME = 'de.grammarcraft.epsilon.additionalExeOptions'
 	static val ADDITIONAL_EXE_ARGUMENTS_DEFAULT = ''
