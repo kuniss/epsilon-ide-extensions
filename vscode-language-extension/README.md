@@ -1,10 +1,13 @@
 # Epsilon EAG VS Code Language Extension
 
-This is the VS Code language extension "epsilon-eag" for the grammar specifcation language of Epsilon Extended Affix Grammars.
+This is the VS Code language extension "epsilon-eag" for the grammar specifcation language of Epsilon/Gamma Extended Affix Grammars.
 
-The language server has been development using the Xtext language framework.
+The compiler generator processing these specifications was originally developed under the name *Epsilon* in Oberon-2 and later [migrated to D](https://github.com/linkrope/epsilon).
+Afterwards the development was continued in the [*Gamma* project](https://github.com/linkrope/gamma).
 
-Synatx highlighting support has been developed using the syntax hightlighting "grammar" online editor [*Iro*](https://eeyo.io/iro/) capable to issue "grammars" for Textmate, Atom, Sublime and others. For details see Chris Ainsley's [article](https://medium.com/@model_train/creating-universal-syntax-highlighters-with-iro-549501698fd2) on it.
+The language server has been development using the Xtext language framework to realize name navigation, auto-completion and cross reference resolution. It is backed by the real compiler generator (Linux only yet) which performs deeper semantic checks and code generation on saving.
+
+Syntax highlighting support has been developed using the syntax hightlighting "grammar" online editor [*Iro*](https://eeyo.io/iro/) capable to issue "grammars" for Textmate, Atom, Sublime and others. For details see Chris Ainsley's [article](https://medium.com/@model_train/creating-universal-syntax-highlighters-with-iro-549501698fd2) on it.
 
 In case of Textmate, *Iro* creates .plist files. As it is more convinient and more common to use Textmate grammars in JSON format, the .plist file has been transformed using the service http://json2plist.sinaapp.com/.
 
@@ -18,8 +21,12 @@ Currrently the following features are supported:
 * auto bracket closing and insertion
 * syntax and reference errors for meta and hyper nonterminal
 * nonterminal navigation
-* autocompletion
+* auto-completion
 * auto-indentation
+
+[Experimental] Currently under Linux only:
+* semantic checks by the real compiler generator with position-correct findings shown in the problem report view
+* code generation on saving (if no errors have been found)
 
 ## Requirements
 
@@ -27,7 +34,7 @@ No specific requirements needed.
 
 ## Extension Settings
 
-No extension settings available, yet.
+See VS code settings [Ctr+,], look up for 'eag'.
 
 ## Known Issues
 

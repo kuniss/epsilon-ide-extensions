@@ -1,7 +1,7 @@
 # Change Log
 
 ## 2.0.0
-- Linux only: incorporated execution of Epsilon compiler generator which 
+- [Experimental] Linux only: incorporated execution of Epsilon compiler generator which 
     - adds according problem markers in case errors or warnings are reported by the Epsilon compiler generator; markers are added to first rule of the affected grammar until a more detailed position determination is implemented
     - generates D source code for specified compilers and compiles them to an executable if a D compiler is installed 
     - can be configured via property 'epsilon.executable' pointing to a executable path, as well property 'epsilon.target.dir' defining where the compilers are generated too
@@ -11,7 +11,7 @@
 - corrected the meta nontermal alternative snippet to get rid of a VS code snippet warning notification
 
 ## 1.3.0
-- added backtick string support as this will come with gamma, the successor of epsilon; backtick strings are not evaluated for escaped characters (like \n) and are in that sense "raw" strings
+- added backtick string support as this will come with Gamma, the successor of Epsilon; backtick strings are not evaluated for escaped characters (like \n) and are in that sense "raw" strings
 
 ## 1.2.0
 - added sophisticated snippets for rules, alternatives, affix parameters and EBNF constructs
