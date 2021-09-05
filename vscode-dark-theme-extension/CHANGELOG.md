@@ -7,7 +7,7 @@
 - no changes (published together with other extensions as part of the Epsilon EAG extension pack, other parts of the pack may have changes)
 
 ## 1.3.0
-=======
+- no changes (published together with other extensions as part of the Epsilon EAG extension pack, other parts of the pack may have changes)
 
 ## 1.2.0
 - license file packaged to fullfill OpenVSX legal requirements
