@@ -74,7 +74,7 @@ package class EpsilonExecutor {
 		}
 		
 		val builder = new ProcessBuilder();
-		builder.command(epsilonExecutableFile.getAbsolutePath(), '--language-server', '--output-directory', epsilonTargetDir.absolutePath)
+		builder.command(epsilonExecutableFile.getAbsolutePath(), '--offset', '--output-directory', epsilonTargetDir.absolutePath)
 		if (!additionalExecutionArgument.empty)
 			builder.command.add(additionalExecutionArgument)
 		if (codeGenerationOnly) 
