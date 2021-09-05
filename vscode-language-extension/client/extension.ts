@@ -30,14 +30,17 @@ export function activate(context: ExtensionContext) {
 
     let env = process.env
 
+    env['JAVA_OPTS'] = ''
     let skipEpsilonExecution = workspace.getConfiguration().get('eag.skipExecution')
-    if (skipEpsilonExecution) {
-        env['JAVA_OPTS'] = ' -Dde.grammarcraft.epsilon.skipExecution=' + skipEpsilonExecution 
+    if (skipEpsilonExecution !== undefined) {
+        env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.skipExecution=' + skipEpsilonExecution 
     }
+
     let codeGenerationOnly = workspace.getConfiguration().get('eag.codeGenerationOnly')
-    if (codeGenerationOnly) {
-        env['JAVA_OPTS'] = ' -Dde.grammarcraft.epsilon.codeGenerationOnly=' + codeGenerationOnly 
+    if (codeGenerationOnly !== undefined) {
+        env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.codeGenerationOnly=' + codeGenerationOnly 
     }
+    
     let epsilonExecutable = workspace.getConfiguration().get('eag.executable')
     if (epsilonExecutable && epsilonExecutable !== '') {
         env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.executable=\'' + epsilonExecutable  + '\''
