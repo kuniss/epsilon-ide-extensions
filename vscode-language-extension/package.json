@@ -1,6 +1,6 @@
 {
     "name": "epsilon-eag",
-    "displayName": "EpsilonEAG",
+    "displayName": "EAG Language",
     "description": "Specification Language for Extended Affix Grammars",
     "version": "2.0.0",
     "publisher": "grammarcraft",
@@ -24,8 +24,9 @@
             {
                 "id": "epsilon",
                 "aliases": [
-                    "Epsilon EAG Grammar",
-                    "epsilon"
+                    "EAG Grammar",
+                    "EAG",
+                    "gamma"
                 ],
                 "extensions": [
                     ".eps",
@@ -44,32 +45,32 @@
         ],
         "configuration": {
             "type": "object",
-            "title": "Epsilon LS client configuration",
+            "title": "EAG LS configuration",
             "properties": {
-                "epsilon.skipExecution": {
+                "eag.skipExecution": {
                     "type": "boolean",
-                    "default": false,
-                    "description": "Skip running the Epsilon/Gamma executable defined as epsilon.executable to generate a compiler and report errors and warnings for EAG grammar specifications.\nChanges will be applied after restart. Alternatively, command 'Reload Window' may be executed."
+                    "default": true,
+                    "description": "Skip running the EAG compiler generator executable defined as eag.executable to generate a compiler and report errors and warnings for EAG grammar specifications.\nChanges will be applied after restart. Alternatively, command 'Reload Window' may be executed."
                 },
-                "epsilon.executable": {
+                "eag.executable": {
                     "type": "string",
-                    "default": "./epsilon",
-                    "description": "Defines the path to the Epsilon/Gamma executable which is used to generated compilers and to validate grammars.\nIn case, a relative path is given then it will be relative to the project's root directory.\nChanges will be applied after restart. Alternatively, command 'Reload Window' may be executed."
+                    "default": "./gamma",
+                    "description": "Defines the path to the EAG compiler generator executable which is used to generated compilers and to validate grammars.\nIn case, a relative path is given then it will be relative to the project's root directory.\nChanges will be applied after restart. Alternatively, command 'Reload Window' may be executed."
                 },
-                "epsilon.target.dir": {
+                "eag.targetDir": {
                     "type": "string",
                     "default": "./build/",
                     "description": "Defines the path to a directory where the generated compiler artifacts will be written to.\nIn case, a relative path is given then it will be relative to the project's root directory.\nChanges will be applied after restart. Alternatively, command 'Reload Window' may be executed."
                 },
-                "epsilon.codeGenerationOnly": {
+                "eag.codeGenerationOnly": {
                     "type": "boolean",
-                    "default": false,
-                    "description": "Perform code generation only and skip D compilation with DMD (e.g., check if no DMD is installed).\nChanges will be applied after restart. Alternatively, command 'Reload Window' may be executed.\n(Not supported by Epsilon, but by Gamma as '-g' option)"
+                    "default": true,
+                    "description": "Perform code generation only and skip D compilation with DMD (e.g., check if no DMD is installed).\nChanges will be applied after restart. Alternatively, command 'Reload Window' may be executed.\n(Note: applies the '-g' option)"
                 },
-                "epsilon.additionalExeOptions": {
+                "eag.additionalExeOptions": {
                     "type": "string",
                     "default": "",
-                    "description": "Defines additional execution arguments which will be added to the Epsilon/Gamma executable invocation defined by epsilon.executable\nChanges will be applied after restart. Alternatively, command 'Reload Window' may be executed."
+                    "description": "Defines additional execution arguments which will be added to the EAG compiler generator executable invocation defined by eag.executable\nChanges will be applied after restart. Alternatively, command 'Reload Window' may be executed."
                 }
             }
         },

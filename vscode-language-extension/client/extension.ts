@@ -30,23 +30,23 @@ export function activate(context: ExtensionContext) {
 
     let env = process.env
 
-    let skipEpsilonExecution = workspace.getConfiguration().get('epsilon.skipExecution')
+    let skipEpsilonExecution = workspace.getConfiguration().get('eag.skipExecution')
     if (skipEpsilonExecution) {
         env['JAVA_OPTS'] = ' -Dde.grammarcraft.epsilon.skipExecution=' + skipEpsilonExecution 
     }
-    let codeGenerationOnly = workspace.getConfiguration().get('epsilon.codeGenerationOnly')
+    let codeGenerationOnly = workspace.getConfiguration().get('eag.codeGenerationOnly')
     if (codeGenerationOnly) {
         env['JAVA_OPTS'] = ' -Dde.grammarcraft.epsilon.codeGenerationOnly=' + codeGenerationOnly 
     }
-    let epsilonExecutable = workspace.getConfiguration().get('epsilon.executable')
+    let epsilonExecutable = workspace.getConfiguration().get('eag.executable')
     if (epsilonExecutable && epsilonExecutable !== '') {
         env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.executable=\'' + epsilonExecutable  + '\''
     }
-    let epsilonTargetDir = workspace.getConfiguration().get('epsilon.target.dir')
+    let epsilonTargetDir = workspace.getConfiguration().get('eag.targetDir')
     if (epsilonTargetDir && epsilonTargetDir !== '') {
         env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.target.dir=\'' + epsilonTargetDir + '\''
     }
-    let additionalExeOptions = workspace.getConfiguration().get('epsilon.additionalExeOptions')
+    let additionalExeOptions = workspace.getConfiguration().get('eag.additionalExeOptions')
     if (additionalExeOptions && additionalExeOptions !== '') {
         env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.additionalExeOptions=\'' + additionalExeOptions + '\'' 
     }
@@ -71,18 +71,18 @@ export function activate(context: ExtensionContext) {
     let clientOptions: LanguageClientOptions = {
         // Register the server for plain text documents
         documentSelector: [
-            { language: 'epsilon', pattern: '**/*.{eps,epsilon}' },
+            { language: 'epsilon', pattern: '**/*.{eag,eps,epsilon}' },
             { language: 'epsilon', scheme: 'file' },
             { language: 'epsilon', scheme: 'untitled' }
         ],
         synchronize: {
             // Notify the server about file changes to *.eps and *.epsilon files contain in the workspace
-            fileEvents: workspace.createFileSystemWatcher('**/*.{eps,epsilon}')
+            fileEvents: workspace.createFileSystemWatcher('**/*.{eag,eps,epsilon}')
         }
     }
 
     // Create the language client and start the client.
-    let languageClient = new LanguageClient('epsilonEagLanguageServer', 'Epsilon EAG Language Server', serverOptions, clientOptions);
+    let languageClient = new LanguageClient('epsilonEagLanguageServer', 'EAG Language Server', serverOptions, clientOptions);
     let disposable = languageClient.start()
 
     commands.registerCommand('epsiloneag.show.references', (uri: string, position: LSPosition, locations: LSLocation[]) => {
