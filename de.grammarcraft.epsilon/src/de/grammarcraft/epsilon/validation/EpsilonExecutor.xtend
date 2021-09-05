@@ -110,7 +110,7 @@ package class EpsilonExecutor {
 	def static determineCodeGenerationOnlyOption() {
 		if (System.getProperty(CODE_GENERATION_ONLY_SYSPROP_NAME) !== null) {	
 			logger.info("Only source code is generated, not compiled, due to setting of system property " + CODE_GENERATION_ONLY_SYSPROP_NAME);		
-			return Boolean.parseBoolean(System.getProperty(SKIP_EXECUTION_SYSPROP_NAME))
+			return Boolean.parseBoolean(System.getProperty(CODE_GENERATION_ONLY_SYSPROP_NAME))
 		}
 		return false
 	}
