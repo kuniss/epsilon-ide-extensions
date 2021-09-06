@@ -5,7 +5,7 @@ This is the VS Code language extension "epsilon-eag" for the grammar specifcatio
 The compiler generator processing these specifications was originally developed under the name *Epsilon* in Oberon-2 and later [migrated to D](https://github.com/linkrope/epsilon).
 Afterwards the development was continued in the [*Gamma* project](https://github.com/linkrope/gamma).
 
-The language server has been development using the Xtext language framework to realize name navigation, auto-completion and cross reference resolution. It is backed by the real compiler generator (Linux only yet) which performs deeper semantic checks and code generation on saving.
+The language server has been development using the Xtext language framework to realize name navigation, auto-completion and cross reference resolution. It is backed by the real compiler generator (Linux only yet) which performs deeper semantic checks and code generation on file saving.
 
 Syntax highlighting support has been developed using the syntax hightlighting "grammar" online editor [*Iro*](https://eeyo.io/iro/) capable to issue "grammars" for Textmate, Atom, Sublime and others. For details see Chris Ainsley's [article](https://medium.com/@model_train/creating-universal-syntax-highlighters-with-iro-549501698fd2) on it.
 
@@ -25,8 +25,8 @@ Currrently the following features are supported:
 * auto-indentation
 
 [Experimental] Currently under Linux only:
-* semantic checks by the real compiler generator with position-correct findings shown in the problem report view
-* code generation on saving (if no errors have been found)
+* semantic checks by the real compiler generator with position-correct findings shown in the problem report view (on file saving)
+* code generation on file saving (if no errors have been found)
 
 ## Requirements
 
