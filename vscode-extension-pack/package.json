@@ -1,7 +1,7 @@
 {
     "name": "epsilon-eag-extension-pack",
-    "displayName": "Epsilon EAG Extension Pack",
-    "description": "Installs the Epsilon EAG language extension and specialized themes for EAG grammar specification coloring.",
+    "displayName": "EAG Language Extension Pack",
+    "description": "Installs the EAG language extension and specialized themes for EAG grammar specification coloring.",
     "version": "2.0.0",
     "publisher": "grammarcraft",
     "license": "EPL-2.0",

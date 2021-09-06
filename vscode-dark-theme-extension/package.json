@@ -1,7 +1,7 @@
 {
     "name": "epsilon-eag-dark-theme",
-    "displayName": "Epsilon EAG Dark Theme",
-    "description": "Dark Theme for Epsilon Affix Grammars (based on Dark+)",
+    "displayName": "EAG Dark Theme",
+    "description": "Dark Theme for Extended Affix Grammars (based on Dark+)",
     "version": "2.0.0",
     "publisher": "grammarcraft",
     "license": "EPL-2.0",
@@ -22,7 +22,7 @@
     "contributes": {
         "themes": [
             {
-                "label": "Epsilon EAG (dark)",
+                "label": "EAG (dark)",
                 "uiTheme": "vs-dark",
                 "path": "./themes/Epsilon EAG (dark)-color-theme.json"
             }

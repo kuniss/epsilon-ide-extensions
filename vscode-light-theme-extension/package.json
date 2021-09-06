@@ -1,7 +1,7 @@
 {
     "name": "epsilon-eag-light-theme",
-    "displayName": "Epsilon EAG Light Theme",
-    "description": "Light Thema for Epsilon Extended Affix Grammars (based on Light+)",
+    "displayName": "EAG Light Theme",
+    "description": "Light Theme for Extended Affix Grammars (based on Light+)",
     "version": "2.0.0",
     "publisher": "grammarcraft",
     "license": "EPL-2.0",
@@ -22,7 +22,7 @@
     "contributes": {
         "themes": [
             {
-                "label": "Epsilon EAG (light)",
+                "label": "EAG (light)",
                 "uiTheme": "vs",
                 "path": "./themes/Epsilon EAG (light)-color-theme.json"
             }

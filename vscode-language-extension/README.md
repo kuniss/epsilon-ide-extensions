@@ -1,4 +1,4 @@
-# Epsilon EAG VS Code Language Extension
+# EAG - VS Code Language Extension for Extended Affix Grammar Specifications
 
 This is the VS Code language extension "epsilon-eag" for the grammar specifcation language of Epsilon/Gamma Extended Affix Grammars.
 
