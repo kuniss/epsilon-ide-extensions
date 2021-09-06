@@ -31,25 +31,25 @@ export function activate(context: ExtensionContext) {
     let env = process.env
 
     env['JAVA_OPTS'] = ''
-    let skipEpsilonExecution = workspace.getConfiguration().get('eag.skipExecution')
-    if (skipEpsilonExecution !== undefined) {
-        env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.skipExecution=' + skipEpsilonExecution 
+    let runCompilerGenerator = workspace.getConfiguration().get('eag.runCompilerGenerator')
+    if (runCompilerGenerator !== undefined) {
+        env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.skipExecution=' + !runCompilerGenerator 
     }
 
-    let codeGenerationOnly = workspace.getConfiguration().get('eag.codeGenerationOnly')
+    let codeGenerationOnly = workspace.getConfiguration().get('eag.compilerGenerator.codeGenerationOnly')
     if (codeGenerationOnly !== undefined) {
         env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.codeGenerationOnly=' + codeGenerationOnly 
     }
-    
-    let epsilonExecutable = workspace.getConfiguration().get('eag.executable')
+
+    let epsilonExecutable = workspace.getConfiguration().get('eag.compilerGenerator.executable')
     if (epsilonExecutable && epsilonExecutable !== '') {
         env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.executable=\'' + epsilonExecutable  + '\''
     }
-    let epsilonTargetDir = workspace.getConfiguration().get('eag.targetDir')
+    let epsilonTargetDir = workspace.getConfiguration().get('eag.compilerGenerator.targetDir')
     if (epsilonTargetDir && epsilonTargetDir !== '') {
         env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.target.dir=\'' + epsilonTargetDir + '\''
     }
-    let additionalExeOptions = workspace.getConfiguration().get('eag.additionalExeOptions')
+    let additionalExeOptions = workspace.getConfiguration().get('eag.compilerGenerator.additionalExeOptions')
     if (additionalExeOptions && additionalExeOptions !== '') {
         env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.additionalExeOptions=\'' + additionalExeOptions + '\'' 
     }
