@@ -1,5 +1,8 @@
 # Change Log
 
+## 2.0.3
+- corrected OpenVSX publsihing task to get it published finally
+
 ## 2.0.2
 - ensure publishing to OpenVSX does not repackage the extension as node modules are left out that way  
 
