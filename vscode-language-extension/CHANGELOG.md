@@ -1,5 +1,8 @@
 # Change Log
 
+## 2.0.1
+- no changes, just new publishing via GitHub actions
+
 ## 2.0.0
 - [Experimental] Linux only: incorporated execution of Gamma compiler generator which 
     - adds according problem markers in case errors or warnings are reported by the compiler generator; markers are correct regarding the position determined by the compiler generator (requires Gamma compiler generator with '--offset' argument support)

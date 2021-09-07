@@ -1,5 +1,8 @@
 # Change Log
 
+## 2.0.1
+- no changes, just new publishing via GitHub actions
+
 ## 2.0.0
 - epsilon language extension updated, for others nothing has changed
 

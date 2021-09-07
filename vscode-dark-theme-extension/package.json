@@ -2,7 +2,7 @@
     "name": "epsilon-eag-dark-theme",
     "displayName": "EAG Dark Theme",
     "description": "Dark Theme for Extended Affix Grammars (based on Dark+)",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "publisher": "grammarcraft",
     "license": "EPL-2.0",
     "homepage": "https://github.com/kuniss/epsilon-ide-extensions/blob/master/vscode-dark-theme-extension/README.md",
