@@ -26,13 +26,4 @@ jobs:
         with: 
           arguments: publishToVSMarketplace publishToOpenVSXRegistry
           dependencies-cache-enabled: true
-      - name: Store HTML test report
-        uses: actions/upload-artifact@v2
-        with:
-          name: test-report-html
-          path: "**/reports/tests/"
-      - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1
-        if: always()
-        with:
-          files: "**/test-results/**/*.xml"
+
