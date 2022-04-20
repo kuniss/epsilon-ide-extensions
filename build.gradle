@@ -6,7 +6,7 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath 'org.xtext:xtext-gradle-plugin:2.0.8'
+		classpath 'org.xtext:xtext-gradle-plugin:3.0.2'
 		classpath 'com.github.node-gradle:gradle-node-plugin:2.2.0'
 		classpath 'net.researchgate:gradle-release:2.8.1'
 	}
@@ -90,7 +90,7 @@ configure(subprojects.findAll { it.name.startsWith('vscode') }) {
 		doFirst {
 			destDir.mkdirs()
 		}
-		script = file("$npmInstallVsce.destPath/out/vsce")
+		script = file("$npmInstallVsce.destPath/vsce")
 		args = [ 'package', '--out', destPath ]
 		execOverrides {
 			workingDir = projectDir
