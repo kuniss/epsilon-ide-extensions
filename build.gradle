@@ -15,8 +15,8 @@ buildscript {
 apply plugin: 'com.github.node-gradle.node'
 apply plugin: 'net.researchgate.release'
 
-def nodeVersion = '10.15.3'
-def npmVersion_ = '6.4.1'
+def nodeVersion = '16.14.2'
+def npmVersion_ = '8.7.0'
 node {
 	version = nodeVersion
 	npmVersion = npmVersion_
