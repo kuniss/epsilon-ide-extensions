@@ -259,6 +259,47 @@ class EpsilonParsingTest {
 	}
 	
 	@Test
+	def void parseWhiteSpaceDefinition() {
+		val result = parseHelper.parse('''
+			: '\t' | ' ' | '\n' . // the obvious white spaces
+		''')
+		assertNotNull(result)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
+	}
+	
+	@Test
+	def void parseSingleLineCommentDefinition() {
+		val result = parseHelper.parse('''
+			: '//' ~ . // C-like single line comment
+		''')
+		assertNotNull(result)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
+	}
+	
+	@Test
+	def void parseMultiLineCommentDefinition() {
+		val result = parseHelper.parse('''
+			: '/*' ~  '*/'. // C-like single line comment
+		''')
+		assertNotNull(result)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
+	}
+	
+	@Test
+	def void parseNestedMultiLineCommentDefinition() {
+		val result = parseHelper.parse('''
+			: '(*' ~ ~ '*)'. // Pascal like nested multi line comment
+		''')
+		assertNotNull(result)
+		result.assertNoSyntaxErrors
+		result.assertNoValidationErrors
+	}
+	
+		
+	@Test
 	def void parseExample1() {
 		val specFile = new File(class.getResource('/example1.eag').file)
 		val spec = Files.readAllLines(specFile.toPath).join('\n')

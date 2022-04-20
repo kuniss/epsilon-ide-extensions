@@ -6,6 +6,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="rules" upperBound="-1"
         eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WhiteSpaceRule">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="whitespaceDefs" upperBound="-1"
+        eType="#//WhiteSpaceDefinition" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WhiteSpaceDefinition"/>
   <eClassifiers xsi:type="ecore:EClass" name="MetaRule">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="isToken" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
@@ -79,6 +84,20 @@
         eType="#//Affix" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Affix"/>
+  <eClassifiers xsi:type="ecore:EClass" name="WhiteSpace" eSuperTypes="#//WhiteSpaceDefinition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="token" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CommentToEndOfLine" eSuperTypes="#//WhiteSpaceDefinition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="startToken" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CommentInBrackets" eSuperTypes="#//WhiteSpaceDefinition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="startToken" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="endToken" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NestingCommentInBrackets" eSuperTypes="#//WhiteSpaceDefinition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="startToken" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="endToken" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MetaNonterminal" eSuperTypes="#//MetaSymbol">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="#//MetaRule"/>
   </eClassifiers>

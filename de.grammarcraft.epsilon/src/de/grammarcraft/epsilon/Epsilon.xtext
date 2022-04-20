@@ -3,7 +3,18 @@ grammar de.grammarcraft.epsilon.Epsilon with org.eclipse.xtext.common.Terminals
 generate epsilon "http://www.grammarcraft.de/epsilon/Epsilon"
 
 Specification:
-	{Specification} rules += ( MetaRule | HyperRule )*
+	{Specification} rules += ( WhiteSpaceRule | MetaRule | HyperRule )*
+;
+
+WhiteSpaceRule:
+	":" whitespaceDefs+=WhiteSpaceDefinition ( "|" whitespaceDefs+=WhiteSpaceDefinition )* '.'
+;
+
+WhiteSpaceDefinition returns WhiteSpaceDefinition: 
+	   {WhiteSpace}               token=STRING
+     | {CommentToEndOfLine}       startToken=STRING "~"
+     | {CommentInBrackets}        startToken=STRING "~"     endToken=STRING
+     | {NestingCommentInBrackets} startToken=STRING "~" "~" endToken=STRING
 ;
 
 // Meta grammar rules

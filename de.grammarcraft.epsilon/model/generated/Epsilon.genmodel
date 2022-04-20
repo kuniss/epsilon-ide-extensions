@@ -23,6 +23,10 @@
     <genClasses ecoreClass="Epsilon.ecore#//Specification">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epsilon.ecore#//Specification/rules"/>
     </genClasses>
+    <genClasses ecoreClass="Epsilon.ecore#//WhiteSpaceRule">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epsilon.ecore#//WhiteSpaceRule/whitespaceDefs"/>
+    </genClasses>
+    <genClasses ecoreClass="Epsilon.ecore#//WhiteSpaceDefinition"/>
     <genClasses ecoreClass="Epsilon.ecore#//MetaRule">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//MetaRule/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//MetaRule/isToken"/>
@@ -68,6 +72,20 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epsilon.ecore#//AffixForm/affixes"/>
     </genClasses>
     <genClasses ecoreClass="Epsilon.ecore#//Affix"/>
+    <genClasses ecoreClass="Epsilon.ecore#//WhiteSpace">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//WhiteSpace/token"/>
+    </genClasses>
+    <genClasses ecoreClass="Epsilon.ecore#//CommentToEndOfLine">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//CommentToEndOfLine/startToken"/>
+    </genClasses>
+    <genClasses ecoreClass="Epsilon.ecore#//CommentInBrackets">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//CommentInBrackets/startToken"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//CommentInBrackets/endToken"/>
+    </genClasses>
+    <genClasses ecoreClass="Epsilon.ecore#//NestingCommentInBrackets">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//NestingCommentInBrackets/startToken"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epsilon.ecore#//NestingCommentInBrackets/endToken"/>
+    </genClasses>
     <genClasses ecoreClass="Epsilon.ecore#//MetaNonterminal">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epsilon.ecore#//MetaNonterminal/ref"/>
     </genClasses>
