@@ -1,5 +1,8 @@
 # Change Log
 
+## 2.1.0
+- updated epsilon language extension, other extensions of the pack has not been changed but got new version 
+
 ## 2.0.3
 - corrected OpenVSX publsihing task to get it published finally
 

@@ -1,7 +1,10 @@
 # Change Log
 
+## 2.1.0
+- no changes (published together with other extensions as part of the Epsilon EAG extension pack, other parts of the pack may have changes)
+
 ## 2.0.3
-- corrected OpenVSX publsihing task to get it published finally
+- corrected OpenVSX publishing task to get it published finally
 
 ## 2.0.2
 - ensure publishing to OpenVSX does not repackage the extension as node modules are left out that way  
@@ -19,7 +22,7 @@
 - no changes (published together with other extensions as part of the Epsilon EAG extension pack, other parts of the pack may have changes)
 
 ## 1.2.0
-- license file packaged to fullfill OpenVSX legal requirements
+- license file packaged to fulfill OpenVSX legal requirements
 
 ## 1.1.1
 - no changes (published together with other extensions as part of the Epsilon EAG extension pack, other parts of the pack may have changes)

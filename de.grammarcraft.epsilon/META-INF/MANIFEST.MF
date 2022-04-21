@@ -3,7 +3,7 @@ Automatic-Module-Name: de.grammarcraft.epsilon
 Bundle-ManifestVersion: 2
 Bundle-Name: de.grammarcraft.epsilon
 Bundle-Vendor: My Company
-Bundle-Version: 2.2.0.qualifier
+Bundle-Version: 2.3.0.qualifier
 Bundle-SymbolicName: de.grammarcraft.epsilon; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext,

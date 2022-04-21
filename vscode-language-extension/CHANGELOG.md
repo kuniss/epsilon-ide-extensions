@@ -1,7 +1,10 @@
 # Change Log
 
+## 2.1.0
+- added new grammar specification language feature allowing to declare white spaces on grammar level
+
 ## 2.0.3
-- corrected OpenVSX publsihing task to get it published finally
+- corrected OpenVSX publishing task to get it published finally
 
 ## 2.0.2
 - ensure publishing to OpenVSX does not repackage the extension as node modules are left out that way  
@@ -17,7 +20,7 @@
 
 ## 1.3.1
 - added syntax highlighting support for backtick strings (was forgotten to be added in 1.3.0...)
-- corrected the meta nontermal alternative snippet to get rid of a VS code snippet warning notification
+- corrected the meta non-terminal alternative snippet to get rid of a VS code snippet warning notification
 
 ## 1.3.0
 - added backtick string support as this will come with Gamma, the successor of Epsilon; backtick strings are not evaluated for escaped characters (like \n) and are in that sense "raw" strings
