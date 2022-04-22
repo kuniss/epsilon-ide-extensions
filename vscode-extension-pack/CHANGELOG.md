@@ -1,5 +1,8 @@
 # Change Log
 
+## 2.1.1
+- solved a build extension publishing problem   
+
 ## 2.1.0
 - updated epsilon language extension, other extensions of the pack has not been changed but got new version 
 

@@ -1,5 +1,8 @@
 # Change Log
 
+## 2.1.1
+- solved a build extension publishing problem   
+
 ## 2.1.0
 - no changes (published together with other extensions as part of the Epsilon EAG extension pack, other parts of the pack may have changes)
 

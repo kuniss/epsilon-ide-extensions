@@ -2,7 +2,7 @@
     "name": "epsilon-eag",
     "displayName": "EAG Language",
     "description": "Specification Language for Extended Affix Grammars",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "publisher": "grammarcraft",
     "license": "EPL-2.0",
     "homepage": "https://github.com/kuniss/epsilon-ide-extensions/blob/master/vscode-language-extension/README.md",

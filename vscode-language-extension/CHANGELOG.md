@@ -1,5 +1,8 @@
 # Change Log
 
+## 2.1.1
+- solved a build extension publishing problem   
+
 ## 2.1.0
 - added new grammar specification language feature allowing to declare white spaces on grammar level
 
