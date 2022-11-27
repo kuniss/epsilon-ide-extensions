@@ -1,5 +1,7 @@
 # Change Log
 
+- removed ":." from auto closing pairs to avoid it is automatically added at affix domain definitions when typing ":" 
+
 ## 2.1.1
 - solved a build extension publishing problem   
 
