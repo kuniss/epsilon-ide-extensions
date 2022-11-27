@@ -1,5 +1,7 @@
 # Change Log
 
+## 2.2.0
+
 - using full Textmate scope names in the theme's token color definitions (as incomplete scope names has not been recognized at light theme; just to be sure, they has been adapted here too) 
 
 ## 2.1.1

@@ -2,7 +2,7 @@
     "name": "epsilon-eag-light-theme",
     "displayName": "EAG Light Theme",
     "description": "Light Theme for Extended Affix Grammars (based on Light+)",
-    "version": "2.1.1",
+    "version": "2.2.0",
     "publisher": "grammarcraft",
     "license": "EPL-2.0",
     "homepage": "https://github.com/kuniss/epsilon-ide-extensions/blob/master/vscode-light-theme-extension/README.md",
