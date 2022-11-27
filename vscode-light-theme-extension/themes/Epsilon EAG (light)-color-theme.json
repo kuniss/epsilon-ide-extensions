@@ -886,15 +886,15 @@
 			}
 		},
 		{
-			"scope": "entity.name.metanonterminal",
+			"scope": "entity.name.metanonterminal.epsilon",
 			"settings": {
 				"foreground": "#7C0000"
 			}
 		},
 		{
 			"scope": [
-				"string.quoted.double.metaterminal",
-				"string.quoted.single.metaterminal"
+				"string.quoted.double.metaterminal.epsilon",
+				"string.quoted.single.metaterminal.epsilon"
 			],
 			"settings": {
 				"foreground": "#7C0000",
@@ -903,8 +903,8 @@
 		},
 		{
 			"scope": [
-				"string.quoted.double.metaterminal.quote",
-				"string.quoted.single.metaterminal.quote"
+				"string.quoted.double.metaterminal.quote.epsilon",
+				"string.quoted.single.metaterminal.quote.epsilon"
 			],
 			"settings": {
 				"foreground": "#7C0000",
@@ -912,15 +912,15 @@
 			}
 		},
 		{
-			"scope": "entity.name.hypernonterminal",
+			"scope": ["entity.name.hypernonterminal.epsilon"],
 			"settings": {
-				"foreground": "#0044FF"
+				"foreground": "#0034c2"
 			}
 		},
 		{
 			"scope": [
-				"string.quoted.double.hyperterminal",
-				"string.quoted.single.hyperterminal"
+				"string.quoted.double.hyperterminal.epsilon",
+				"string.quoted.single.hyperterminal.epsilon"
 			],
 			"settings": {
 				"foreground": "#0044FF",
@@ -929,8 +929,8 @@
 		},
 		{
 			"scope": [
-				"string.quoted.double.hyperterminal.quote",
-				"string.quoted.single.hyperterminal.quote"
+				"string.quoted.double.hyperterminal.quote.epsilon",
+				"string.quoted.single.hyperterminal.quote.epsilon"
 			],
 			"settings": {
 				"foreground": "#0044FF",
@@ -938,7 +938,7 @@
 			}
 		},
 		{
-			"scope": "keyword.operator",
+			"scope": "keyword.operator.epsilon",
 			"settings": {
 				"foreground": "#4400FD",
 				"fontStyle": "bold"

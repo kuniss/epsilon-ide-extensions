@@ -1,5 +1,7 @@
 # Change Log
 
+- using full Textmate scope names in the theme's token color definitions (as incomplete scope names has not been recognized anymore; seems to be a backward incompatible change in newer VS code versions)
+
 ## 2.1.1
 - solved a build extension publishing problem   
 
