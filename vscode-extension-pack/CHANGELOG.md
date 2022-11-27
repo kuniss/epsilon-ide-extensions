@@ -1,5 +1,8 @@
 # Change Log
 
+- updated EAG language extension improving auto closing pairs
+- updated EAG themes due to an issue in the light theme regarding Textmate scope names and therefore invisible operators and awkward colors
+
 ## 2.1.1
 - solved a build extension publishing problem   
 
