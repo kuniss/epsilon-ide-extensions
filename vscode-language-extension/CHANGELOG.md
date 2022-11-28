@@ -1,8 +1,8 @@
 # Change Log
 
 ## 2.2.0
-
-- removed ":." from auto closing pairs to avoid it is automatically added at affix domain definitions when typing ":" 
+- removed ":." from auto closing pairs to avoid it is automatically added at affix domain definitions when typing ":"
+- fixed missing warning messages if error situation is missing; solves GH issue #4 
 
 ## 2.1.1
 - solved a build extension publishing problem   

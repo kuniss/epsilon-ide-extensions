@@ -89,14 +89,12 @@ package class EpsilonExecutor {
 		Executors.newSingleThreadExecutor().submit(outputConsumer);
 		val exitCode = process.waitFor();
 		
-		if (exitCode == 0) {
-			logger.info(String.format("executing '%s' was successful and did not detect any error", finalCmdLine));
-			return emptyList	
-		}
+		if (exitCode == 0)
+			logger.info(String.format("executing '%s' was successful and did not detect any error", finalCmdLine))
+		else    
+    		logger.info(String.format("executing '%s' failed with error code %d", finalCmdLine, exitCode))
 		
-		logger.info(String.format("executing '%s' failed with error code %d", finalCmdLine, exitCode));
-		
-		createIssueListFrom(outputConsumer.stdErrLines)
+        createIssueListFrom(outputConsumer.stdErrLines)
 	}
 	
 	package def static skipEpsilonExecution() {
