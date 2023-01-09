@@ -7,4 +7,10 @@
 			class = "de.grammarcraft.epsilon.epsilon.EpsilonPackage"
 			genModel = "model/generated/Epsilon.genmodel" />
 	</extension>
+	<extension
+    	point="org.eclipse.core.runtime.preferences">
+    	<initializer
+        	class="de.grammarcraft.epsilon.preferences.PreferenceInitializer">
+		</initializer>
+	</extension>
 </plugin>
