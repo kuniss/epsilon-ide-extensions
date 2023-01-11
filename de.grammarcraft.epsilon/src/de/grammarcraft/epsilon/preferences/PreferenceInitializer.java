@@ -22,7 +22,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
         getPreferenceStore().putBoolean(EpsilonPreferences.P_GENERATOR_OPTION_GENERATION_ONLY, true);
         getPreferenceStore().putBoolean(EpsilonPreferences.P_GENERATOR_OPTION_NO_REFERENCE_COUNTING, false);
         getPreferenceStore().putBoolean(EpsilonPreferences.P_GENERATOR_OPTION_IGNORE_TOKEN_MARKS, false);
-        getPreferenceStore().putBoolean(EpsilonPreferences.P_GENERATOR_OPTION_SPACE_INSTEA_NL, true);
+        getPreferenceStore().putBoolean(EpsilonPreferences.P_GENERATOR_OPTION_SPACE_INSTEAD_NL, true);
 	}
 
     public static IEclipsePreferences getPreferenceStore() {

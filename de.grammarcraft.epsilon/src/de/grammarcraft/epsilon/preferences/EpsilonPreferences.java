@@ -19,7 +19,7 @@ public class EpsilonPreferences {
     public static final String P_GENERATOR_OPTION_NO_OPTIMIZATION = "generatorOptionNoOptimization";
     public static final String P_GENERATOR_OPTION_NO_REFERENCE_COUNTING = "generatorOptionNoRefCounting";
     public static final String P_GENERATOR_OPTION_IGNORE_TOKEN_MARKS = "generatorOptionIgnoreTokenMark";
-    public static final String P_GENERATOR_OPTION_SPACE_INSTEA_NL = "generatorOptionStaceInsteadNL";
+    public static final String P_GENERATOR_OPTION_SPACE_INSTEAD_NL = "generatorOptionStaceInsteadNL";
     
     public static final String getGeneratorExecutablePath() {
         return getPreferenceStore().get(P_GENERATOR_EXE_PATH, EPSILON_EXE_DEFAULT);
@@ -53,12 +53,12 @@ public class EpsilonPreferences {
         return getPreferenceStore().getBoolean(P_GENERATOR_OPTION_NO_REFERENCE_COUNTING, false);        
     }
     
-    public static final boolean getIngnoreTokenMarks() {
+    public static final boolean getIgnoreTokenMarks() {
         return getPreferenceStore().getBoolean(P_GENERATOR_OPTION_IGNORE_TOKEN_MARKS, false);        
     }    
 
     public static final boolean getSpaceInsteadNL() {
-        return getPreferenceStore().getBoolean(P_GENERATOR_OPTION_SPACE_INSTEA_NL, true);        
+        return getPreferenceStore().getBoolean(P_GENERATOR_OPTION_SPACE_INSTEAD_NL, true);        
     }
 
     public static final String getAdditionalGeneratorOptions() {
