@@ -17,7 +17,10 @@ import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.core.runtime.Path
 import org.eclipse.emf.common.util.Diagnostic
 import org.eclipse.xtend.lib.annotations.Accessors
-import de.grammarcraft.epsilon.preferences.EpsilonPreferences
+import de.grammarcraft.epsilon.properties.IPropertiesProvider
+import org.eclipse.core.resources.IFile
+import org.eclipse.core.resources.IProject
+import com.google.inject.Inject
 
 package class EpsilonExecutor {
 	
@@ -35,11 +38,15 @@ package class EpsilonExecutor {
 	static val TAG_ERROR = 'error:'
 	static val TAG_WARN  = 'warn:'
 	static val TAG_INFO  = 'info:'
+	
+	File epsilonExecutableFile;
+	File epsilonTargetDir;
+	boolean codeGenerationOnly
+	String additionalExecutionArgument
+	IProject project
 
-	static var File epsilonExecutableFile = determineEpsilonExecutable();
-	static var File epsilonTargetDir = determineEpsilonTargetDir();
-	static var boolean codeGenerationOnly = determineCodeGenerationOnlyOption()
-	static var String additionalExecutionArgument = determineAdditionalExecutionArgument()
+	@Inject IPropertiesProvider propertiesProvider
+	
 	
 	@Accessors protected static class EpsilonIssue {
 		@Accessors(PACKAGE_GETTER) val int severity
@@ -49,10 +56,17 @@ package class EpsilonExecutor {
 		
 	}
 	
-	package static def List<EpsilonIssue> executeOn(Specification specification) {
-		
+	package def List<EpsilonIssue> executeOn(Specification specification) {
+        		
+        //TODO make class OO
+        
 		if (skipEpsilonExecution()) {
 			return emptyList			
+		}
+		
+		project = getIProject(specification)
+		if (project === null) {
+		    logger.warn("no project context for property read out found - going to use default preferences");
 		}
 		
 		epsilonExecutableFile = determineEpsilonExecutable()
@@ -91,12 +105,18 @@ package class EpsilonExecutor {
 		val exitCode = process.waitFor();
 		
 		if (exitCode == 0)
-			logger.info(String.format("executing '%s' was successful and did not detect any error", finalCmdLine))
+			logger.warn(String.format("executing '%s' was successful and did not detect any error", finalCmdLine))
 		else    
-    		logger.info(String.format("executing '%s' failed with error code %d", finalCmdLine, exitCode))
+    		logger.warn(String.format("executing '%s' failed with error code %d", finalCmdLine, exitCode))
 		
         createIssueListFrom(outputConsumer.stdErrLines)
 	}
+    
+    def static getIProject(Specification specification) {
+        val path = specification.eResource.URI.toPlatformString(true)
+        val file = ResourcesPlugin.workspace?.root?.findMember(path) as IFile
+        file?.project
+    }
 	
 	package def static skipEpsilonExecution() {
 		if (System.getProperty(SKIP_EXECUTION_SYSPROP_NAME) !== null) {	
@@ -106,20 +126,21 @@ package class EpsilonExecutor {
 		return false
 	}
 			
-	def static determineCodeGenerationOnlyOption() {
+	def determineCodeGenerationOnlyOption() {
 		if (System.getProperty(CODE_GENERATION_ONLY_SYSPROP_NAME) !== null) {	
 			logger.info("Only source code is generated, not compiled, due to setting of system property " + CODE_GENERATION_ONLY_SYSPROP_NAME);		
 			return Boolean.parseBoolean(System.getProperty(CODE_GENERATION_ONLY_SYSPROP_NAME))
 		}
 		else {
+		    val result = propertiesProvider.getGenerationOnly(project)
             logger.info(String.format("No system property '%s' is defined, going to use preference setting code generatioOnly=%b", 
-                CODE_GENERATION_ONLY_SYSPROP_NAME, EpsilonPreferences.generationOnly
+                CODE_GENERATION_ONLY_SYSPROP_NAME, result
             ));
-            return EpsilonPreferences.generationOnly
+            return result
 		}
 	}
 	
-	def static determineAdditionalExecutionArgument() {
+	def determineAdditionalExecutionArgument() {
 		var String additionalArgs
 		if (System.getProperty(ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME) !== null) {
 			
@@ -138,7 +159,7 @@ package class EpsilonExecutor {
 		return additionalArgs.trim
 	}
     
-    def static allConfiguredAdditionalOptions() {
+    def allConfiguredAdditionalOptions() {
         var StringBuilder result = new StringBuilder
         
         // Gamma generator options
@@ -148,22 +169,22 @@ package class EpsilonExecutor {
         //      -r               Disable reference counting in compiled compiler
         //      -s, --space      Compiled compiler uses space instead of newline as separator
         
-        if (EpsilonPreferences.noConstantTreesCollapsing)
+        if (propertiesProvider.getNoConstantTreesCollapsing(project))
             result.append(" -c")
         
-        if (EpsilonPreferences.noOptimization)
+        if (propertiesProvider.getNoOptimization(project))
             result.append(" -o")
         
-        if (EpsilonPreferences.noReferenceCounting)
+        if (propertiesProvider.getNoReferenceCounting(project))
             result.append(" -r")
         
-        if (EpsilonPreferences.ingnoreTokenMarks)
+        if (propertiesProvider.getIgnoreTokenMarks(project))
             result.append(" -p")
         
-        if (EpsilonPreferences.spaceInsteadNL)
+        if (propertiesProvider.getSpaceInsteadNL(project))
             result.append(" -s")
         
-        result.append(" ").append(EpsilonPreferences.additionalGeneratorOptions)        
+        result.append(" ").append(propertiesProvider.getAdditionalGeneratorOptions(project))        
         return result.toString
     }
 	
@@ -262,7 +283,7 @@ package class EpsilonExecutor {
 		return new File(srcFile);
 	}
 
-	package def static File determineEpsilonExecutable() {
+	package def File determineEpsilonExecutable() {
 		var String epsilonExecutable
 		if (System.getProperty(EPSILON_EXE_SYSPROP_NAME) !== null) {
 			
@@ -270,7 +291,7 @@ package class EpsilonExecutor {
 			logger.info(String.format("system property %s defined, take Epsilon executable from it", EPSILON_EXE_SYSPROP_NAME))
 		}
 		else {
-		    epsilonExecutable = EpsilonPreferences.generatorExecutablePath
+		    epsilonExecutable = propertiesProvider.getGeneratorExecutablePath(project)
 			logger.info(String.format("No system property '%s' is defined, use the default path '%s' from preferences as Epsilon executable", 
 				EPSILON_EXE_SYSPROP_NAME, epsilonExecutable
 			));
@@ -280,7 +301,7 @@ package class EpsilonExecutor {
 		return new File(epsilonExecutable);
 	}
 
-	package static def File determineEpsilonTargetDir() {
+	package def File determineEpsilonTargetDir() {
 		var String epsilonTargetDir
 		if (System.getProperty(EPSILON_TARGET_DIR_SYSPROP_NAME) !== null) {
 			
@@ -288,14 +309,23 @@ package class EpsilonExecutor {
 			logger.info(String.format("system property %s defined, use it as Epsilon generation target directory", EPSILON_TARGET_DIR_SYSPROP_NAME))
 		}
 		else {
-		    epsilonTargetDir = EpsilonPreferences.generatorTargetDir
+		    epsilonTargetDir = propertiesProvider.getGeneratorTargetDir(project)
 			logger.info(String.format(
 				"No system property '%s' is defined, use the default path '%s' from preferences as Epsilon generation target directory", 
 				EPSILON_TARGET_DIR_SYSPROP_NAME, epsilonTargetDir
 			));
 		}
 		
-		var result = new File(epsilonTargetDir);
+		val configuredTargetDir = new File(epsilonTargetDir)
+		var result = 
+    		if (!configuredTargetDir.isAbsolute && project !== null) {
+    		    // create target dir relative to Eclipse project
+    		    project?.location.addTrailingSeparator.append(epsilonTargetDir).toFile 
+    		}
+    		else {
+    		    // alternatively, create target dir relative to current working dir
+    		    configuredTargetDir
+    		}
 		
 		if (!result.exists()) {
 			logger.warn(String.format("Epsilon generation target directory '%s' does not exist - hopefully the Epsilon executable will create it",

@@ -15,6 +15,7 @@ import com.google.inject.Inject
 import de.grammarcraft.epsilon.epsilon.EpsilonPackage
 import de.grammarcraft.epsilon.epsilon.Specification
 import de.grammarcraft.epsilon.validation.EpsilonExecutor.EpsilonIssue
+import org.apache.log4j.Logger
 
 /**
  * This class contains custom validation rules. 
@@ -22,8 +23,11 @@ import de.grammarcraft.epsilon.validation.EpsilonExecutor.EpsilonIssue
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
 class EpsilonValidator extends AbstractEpsilonValidator {
-	
+    
+    static val logger = Logger.getLogger(EpsilonValidator.name);
+    
 	@Inject extension IssuePositionHelper
+	@Inject EpsilonExecutor epsilonExecutor
 	
 	static val ISSUE_CODE_PREFIX = "de.grammarcraft.epsilon.";
 	public static val EPSILON_COMPILER_GENERATOR_DETECTED_ISSUE = ISSUE_CODE_PREFIX + "EpsilonCGIssue";
@@ -33,8 +37,13 @@ class EpsilonValidator extends AbstractEpsilonValidator {
 	def runEpsilonExecutable(Specification specification) {
 			val isLinux = System.getProperty("os.name").toLowerCase().startsWith("linux");
 			if (isLinux) {
-				val issues = EpsilonExecutor.executeOn(specification);
-				addMarkersForIssues(specification.eResource(), issues);
+			    try {
+    				val issues = epsilonExecutor.executeOn(specification);
+    				addMarkersForIssues(specification.eResource(), issues);			        
+			    }
+			    catch (Exception e) {
+			        logger.error("executing epsilon generator failed: " + e.message)
+			    }
 			}
 			else
 				info("Running the epsilon compiler generator under Windows is not supported yet, unfortunately. "
