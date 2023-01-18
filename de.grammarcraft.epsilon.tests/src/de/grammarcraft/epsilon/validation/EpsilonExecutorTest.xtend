@@ -5,9 +5,19 @@ import org.eclipse.emf.common.util.Diagnostic
 import org.junit.Test
 
 import static org.junit.Assert.*
+import org.junit.runner.RunWith
+import org.eclipse.xtext.testing.XtextRunner
+import org.eclipse.xtext.testing.InjectWith
+import de.grammarcraft.epsilon.tests.EpsilonInjectorProvider
+import com.google.inject.Inject
+import de.grammarcraft.epsilon.preferences.EpsilonPreferences
 
+@RunWith(XtextRunner)
+@InjectWith(EpsilonInjectorProvider)
 class EpsilonExecutorTest {
-	
+    
+    @Inject EpsilonExecutor epsilonExecutor
+    
 	@Test
 	def void createIssueFromError() {
 		val msg = 'number of affixforms differs from signature'
@@ -84,16 +94,21 @@ class EpsilonExecutorTest {
 	
 	@Test
 	def void determineEpsilonTargetDirDefault() {
-		val result = EpsilonExecutor.determineEpsilonTargetDir
-		assertEquals(new File('./'), result)
+		val result = epsilonExecutor.determineEpsilonTargetDir
+		assertEquals(new File(EpsilonPreferences.EPSILON_TARGET_DIR_DEFAULT), result)
 	}
 
 	@Test
 	def void determineEpsilonTargetDirFromSysProp() {
 		val file = new File('./build')
 		System.properties.setProperty(EpsilonExecutor.EPSILON_TARGET_DIR_SYSPROP_NAME, file.absolutePath)
-		val result = EpsilonExecutor.determineEpsilonTargetDir
-		assertEquals(file.absolutePath, result.absolutePath)
+        try {
+        	val result = epsilonExecutor.determineEpsilonTargetDir
+        	assertEquals(file.absolutePath, result.absolutePath)
+        }
+        finally {
+            System.properties.remove(EpsilonExecutor.EPSILON_TARGET_DIR_SYSPROP_NAME)
+        }
 	}
 	
 	@Test
@@ -101,18 +116,18 @@ class EpsilonExecutorTest {
 		val file = File.createTempFile('determineEpsilonTargetDirFallBackOnError', 'build')
 		System.properties.setProperty(EpsilonExecutor.EPSILON_TARGET_DIR_SYSPROP_NAME, file.absolutePath)
 		try {
-			val result = EpsilonExecutor.determineEpsilonTargetDir
+			val result = epsilonExecutor.determineEpsilonTargetDir
 			assertEquals(new File('./').absolutePath, result.absolutePath)
 		}
 		finally {
-			System.properties.remove(EpsilonExecutor.EPSILON_EXE_SYSPROP_NAME)
+			System.properties.remove(EpsilonExecutor.EPSILON_TARGET_DIR_SYSPROP_NAME)
 		}
 	}
 	
 
 	@Test
 	def void determineEpsilonExecutableDefault() {
-		val result = EpsilonExecutor.determineEpsilonExecutable
+		val result = epsilonExecutor.determineEpsilonExecutable
 		assertEquals(new File('./build/cg/gamma'), result)
 	}
 
@@ -121,7 +136,7 @@ class EpsilonExecutorTest {
 		val file = new File('./build/epsilon')
 		System.properties.setProperty(EpsilonExecutor.EPSILON_EXE_SYSPROP_NAME, file.absolutePath)
 		try {
-			val result = EpsilonExecutor.determineEpsilonExecutable
+			val result = epsilonExecutor.determineEpsilonExecutable
 			assertEquals(file.absolutePath, result.absolutePath)			
 		}
 		finally {
@@ -131,8 +146,8 @@ class EpsilonExecutorTest {
 
 	@Test
 	def void determineAdditionalExecutionArgsDefault() {
-		val result = EpsilonExecutor.determineAdditionalExecutionArgument
-		assertTrue(result.empty)
+		val result = epsilonExecutor.determineAdditionalExecutionArgument
+		assertEquals("-s", result) // by default space instead of NL is enabled
 	}
 
 	@Test
@@ -140,7 +155,7 @@ class EpsilonExecutorTest {
 		val additionalArgs = '-g -s'
 		System.properties.setProperty(EpsilonExecutor.ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME, additionalArgs)
 		try {
-			val result = EpsilonExecutor.determineAdditionalExecutionArgument
+			val result = epsilonExecutor.determineAdditionalExecutionArgument
 			assertEquals(additionalArgs, result)			
 		}
 		finally {
