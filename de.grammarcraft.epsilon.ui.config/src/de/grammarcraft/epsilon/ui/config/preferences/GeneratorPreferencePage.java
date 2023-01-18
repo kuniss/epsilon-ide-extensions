@@ -30,7 +30,17 @@ public class GeneratorPreferencePage
 	extends FieldEditorPreferencePage
 	implements IWorkbenchPreferencePage {
 
-	public GeneratorPreferencePage() {
+    public static final String LABEL_GENERATOR_PATH = "&Generator path:";
+    public static final String LABEL_GENERATOR_TARGET_DIR = "Generator output folder:";
+    public static final String LABEL_GENERATOR_ADDITIONAL_OPTIONS = "Additional Generator Options:";
+    public static final String LABEL_GENERATOR_OPTION_NO_CONSTANT_TREES_COLLABSING = "Disable &collapsing constant trees (-c)";
+    public static final String LABEL_GENERATOR_OPTION_GENERATION_ONLY = "&Generate only, do not compile, e.g if D compiler is missing (-g)";
+    public static final String LABEL_GENERATOR_OPTION_NO_OPTIMIZATION = "Disable &optimizing of variable storage in generated compiler (-o)";
+    public static final String LABEL_GENERATOR_OPTION_NO_REFERENCE_COUNTING = "Disable &reference counting in generated compiler (-r)";
+    public static final String LABEL_GENERATOR_OPTION_IGNORE_TOKEN_MARKS = "&Parser ignores regular token marks at hyper-nonterminals (-p)";
+    public static final String LABEL_GENERATOR_OPTION_SPACE_INSTEAD_NL = "Generated compiler uses &space instead of newline as separator (-s)";
+
+    public GeneratorPreferencePage() {
 		super(GRID);
 		IPreferenceStore store = new ScopedPreferenceStore(InstanceScope.INSTANCE, "de.grammarcraft.epsilon");
 	    setPreferenceStore(store);
@@ -45,9 +55,9 @@ public class GeneratorPreferencePage
 	 */
 	public void createFieldEditors() {
 		addField(new FileFieldEditor(EpsilonPreferences.P_GENERATOR_EXE_PATH, 
-				"&Generator Path:", getFieldEditorParent()));
+				LABEL_GENERATOR_PATH, getFieldEditorParent()));
         addField(new StringFieldEditor(EpsilonPreferences.P_GENERATOR_TARGET_DIR, 
-                "Generator Output Folder:", getFieldEditorParent()));
+                LABEL_GENERATOR_TARGET_DIR, getFieldEditorParent()));
 
         // Gamma generator options
         //      -c               Disable collapsing constant trees
@@ -59,37 +69,37 @@ public class GeneratorPreferencePage
         addField(
               new BooleanFieldEditor(
                       EpsilonPreferences.P_GENERATOR_OPTION_NO_CONSTANT_TREES_COLLABSING,
-                      "Disable &collapsing constant trees (-c)",
+                      LABEL_GENERATOR_OPTION_NO_CONSTANT_TREES_COLLABSING,
                       getFieldEditorParent()));
         addField(
                 new BooleanFieldEditor(
                         EpsilonPreferences.P_GENERATOR_OPTION_GENERATION_ONLY,
-                        "&Generate only, do not compile, e.g if D compiler is missing (-g)",
+                        LABEL_GENERATOR_OPTION_GENERATION_ONLY,
                         getFieldEditorParent())); 
         addField(
                 new BooleanFieldEditor(
                         EpsilonPreferences.P_GENERATOR_OPTION_NO_OPTIMIZATION,
-                        "Disable &optimizing of variable storage in genrated compiler (-o)",
+                        LABEL_GENERATOR_OPTION_NO_OPTIMIZATION,
                         getFieldEditorParent()));
         addField(
                 new BooleanFieldEditor(
                         EpsilonPreferences.P_GENERATOR_OPTION_NO_REFERENCE_COUNTING,
-                        "Disable &reference counting in generated compiler (-r)",
+                        LABEL_GENERATOR_OPTION_NO_REFERENCE_COUNTING,
                         getFieldEditorParent()));
         addField(
                 new BooleanFieldEditor(
                         EpsilonPreferences.P_GENERATOR_OPTION_IGNORE_TOKEN_MARKS,
-                        "&Parser ignores regular token marks at hyper-nonterminals (-p)",
+                        LABEL_GENERATOR_OPTION_IGNORE_TOKEN_MARKS,
                         getFieldEditorParent()));
         addField(
                 new BooleanFieldEditor(
-                        EpsilonPreferences.P_GENERATOR_OPTION_SPACE_INSTEA_NL,
-                        "Generated compiler uses &space instead of newline as separator",
+                        EpsilonPreferences.P_GENERATOR_OPTION_SPACE_INSTEAD_NL,
+                        LABEL_GENERATOR_OPTION_SPACE_INSTEAD_NL,
                         getFieldEditorParent()));   
 
         // if new gets added before LS gets adapted:
         addField(new StringFieldEditor(EpsilonPreferences.P_GENERATOR_ADDITIONAL_OPTIONS, 
-                "Additional Generator Options:", getFieldEditorParent()));
+                LABEL_GENERATOR_ADDITIONAL_OPTIONS, getFieldEditorParent()));
 
 // Eclipse generated:
 //		addField(

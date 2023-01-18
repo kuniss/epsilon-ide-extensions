@@ -7,7 +7,8 @@ Bundle-Activator: de.grammarcraft.epsilon.ui.config.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  de.grammarcraft.epsilon;bundle-version="2.3.0",
- de.grammarcraft.epsilon.ui;bundle-version="2.2.0"
+ de.grammarcraft.epsilon.ui;bundle-version="2.2.0",
+ org.eclipse.core.resources
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: de.grammarcraft.epsilon.ui.config
 Bundle-ActivationPolicy: lazy
