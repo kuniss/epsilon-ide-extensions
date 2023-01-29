@@ -3,11 +3,22 @@
  */
 package de.grammarcraft.epsilon.ui
 
+import com.google.inject.Binder
+import com.google.inject.name.Names
+import de.grammarcraft.epsilon.ui.config.EpsilonPreferencesInitializer
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
+import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreInitializer
 
 /**
  * Use this class to register components to be used within the Eclipse IDE.
  */
 @FinalFieldsConstructor
 class EpsilonUiModule extends AbstractEpsilonUiModule {
+    
+    def configureIPreferenceStoreInitializerForEpsilon(Binder binder) {
+        binder.bind(IPreferenceStoreInitializer)
+            .annotatedWith(Names.named("EpsilonPreferences"))
+            .to(EpsilonPreferencesInitializer);
+    }
+    
 }

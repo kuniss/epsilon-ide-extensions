@@ -465,4 +465,30 @@
 			type="text">
 		</fileTypes>
 	</extension>
+	
+    <extension point="org.eclipse.ui.preferencePages">
+        <page
+            category="de.grammarcraft.epsilon.Epsilon"
+            class="de.grammarcraft.epsilon.ui.EpsilonExecutableExtensionFactory:de.grammarcraft.epsilon.ui.config.EpsilonPreferencePage"
+            id="de.grammarcraft.epsilon.Epsilon.generator.preferencePage"
+            name="Generator">
+            <keywordReference id="de.grammarcraft.epsilon.ui.keyword_Epsilon"/>
+        </page>
+    </extension>
+
+    <extension point="org.eclipse.ui.propertyPages">
+        <page
+            category="de.grammarcraft.epsilon.Epsilon"
+            class="de.grammarcraft.epsilon.ui.EpsilonExecutableExtensionFactory:de.grammarcraft.epsilon.ui.config.EpsilonPreferencePage"
+            id="de.grammarcraft.epsilon.Epsilon.generator.propertyPage"
+            name="Generator">
+            <keywordReference id="de.grammarcraft.epsilon.ui.keyword_Epsilon"/>
+            <enabledWhen>
+                <adapt type="org.eclipse.core.resources.IProject"/>
+            </enabledWhen>
+            <filter name="projectNature" value="org.eclipse.xtext.ui.shared.xtextNature"/>
+        </page>
+    </extension>
+   
+	
 </plugin>

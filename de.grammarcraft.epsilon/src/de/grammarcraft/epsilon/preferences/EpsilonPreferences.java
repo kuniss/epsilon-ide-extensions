@@ -2,6 +2,10 @@ package de.grammarcraft.epsilon.preferences;
 
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.xtext.Constants;
+
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 
 /**
  * Constant definitions for plug-in preferences
@@ -21,6 +25,19 @@ public class EpsilonPreferences {
     public static final String P_GENERATOR_OPTION_IGNORE_TOKEN_MARKS = "generatorOptionIgnoreTokenMark";
     public static final String P_GENERATOR_OPTION_SPACE_INSTEAD_NL = "generatorOptionStaceInsteadNL";
     
+    private String languageName;
+
+    @Inject
+    public void setLanguageName(@Named(Constants.LANGUAGE_NAME) String languageName) {
+        this.languageName = languageName;
+    }
+
+    public String getPropertyKey(String preferenceName) {
+        return languageName + "." + preferenceName;
+    }
+
+
+    
     public static final String getGeneratorExecutablePath() {
         return getPreferenceStore().get(P_GENERATOR_EXE_PATH, EPSILON_EXE_DEFAULT);
     }
@@ -28,6 +45,8 @@ public class EpsilonPreferences {
     public static final String getGeneratorTargetDir() {
         return getPreferenceStore().get(P_GENERATOR_TARGET_DIR, EPSILON_TARGET_DIR_DEFAULT);
     }
+    
+    
 
 // Gamma generator options
 //    -c               Disable collapsing constant trees
