@@ -20,7 +20,7 @@ import com.google.inject.name.Named;
 public class EpsilonPreferences {
     
     public static String EPSILON_TARGET_DIR_DEFAULT = "./build";
-    public static String EPSILON_EXE_DEFAULT = EPSILON_TARGET_DIR_DEFAULT + "/cg/gamma"; // for later when we will carrying the gamma exec
+    public static String EPSILON_EXE_DEFAULT = EPSILON_TARGET_DIR_DEFAULT + "./cg/gamma"; // for later when we will carrying the gamma exec
 
     public static final String P_GENERATOR_EXE_PATH = "generatorExecutablePath";
     public static final String P_GENERATOR_TARGET_DIR = "generatorTargetDir";
@@ -50,8 +50,8 @@ public class EpsilonPreferences {
         @Override public boolean optionNoConstantTreesCollapsing()  { return false; }
         @Override public boolean optionIgnoreTokenMarks()           { return false; }
         @Override public boolean optionGenerationOnly()             { return true;  }
-        @Override public String generatorTargetDir()                { return "build"; }
-        @Override public String generatorExecutablePath()           { return "cg/gamma"; }
+        @Override public String generatorTargetDir()                { return EPSILON_TARGET_DIR_DEFAULT; }
+        @Override public String generatorExecutablePath()           { return EPSILON_EXE_DEFAULT; }
         @Override public String additionalGeneratorOptions()        { return ""; }
     };
     
