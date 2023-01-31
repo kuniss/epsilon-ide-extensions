@@ -1,3 +1,6 @@
+/**
+ * Copyright 2023 kuniss@grammarcraft.de
+ */
 package de.grammarcraft.epsilon.preferences;
 
 import org.eclipse.core.resources.IProject;

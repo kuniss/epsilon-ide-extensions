@@ -1,5 +1,5 @@
 /**
- * 
+ * Copyright 2023 kuniss@grammarcraft.de
  */
 package de.grammarcraft.epsilon.ui.config;
 
@@ -16,8 +16,10 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
 /**
- * @author Michael Clay - Initial contribution and API
- * @since 2.1
+ * This implementation and idea is derived from 
+ * org.eclipse.xtext.builder_2.25.0.v20210301-0928.jar:org.eclipse.xtext.builder.preferences.BuilderPreferencePage
+ * 
+ * @author kuniss@grammarcraft.de
  */
 public class EpsilonPreferencePage extends PropertyAndPreferencePage {
     

@@ -1,3 +1,6 @@
+/**
+ * Copyright 2023 kuniss@grammarcraft.de
+ */
 package de.grammarcraft.epsilon.preferences;
 
 public interface IEpsilonPreferences {

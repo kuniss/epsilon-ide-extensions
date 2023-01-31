@@ -1,5 +1,5 @@
 /**
- * 
+ * Copyright 2023 kuniss@grammarcraft.de
  */
 package de.grammarcraft.epsilon.ui.config;
 
@@ -28,9 +28,10 @@ import de.grammarcraft.epsilon.preferences.EpsilonPreferences;
 import de.grammarcraft.epsilon.ui.internal.EpsilonActivator;
 
 /**
- * @author Michael Clay - Initial contribution and API
- * @author Stephane Galland - Add getOutputConfigurations()
- * @since 2.1
+ * This implementation and idea is derived from 
+ * org.eclipse.xtext.builder_2.25.0.v20210301-0928.jar:org.eclipse.xtext.builder.preferences.BuilderConfigurationBlock
+ * 
+ * @author kuniss@grammarcraft.de
  */
 public class EpsilonConfigurationBlock extends OptionsConfigurationBlock {
     
