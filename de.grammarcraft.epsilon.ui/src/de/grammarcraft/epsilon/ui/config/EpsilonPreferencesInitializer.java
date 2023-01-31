@@ -33,15 +33,15 @@ public class EpsilonPreferencesInitializer implements IPreferenceStoreInitialize
     }
 
     protected void initializeEpsilonPreferences(IPreferenceStore store) {
-        store.setDefault(epsilonPreferences.getPropertyKey(EpsilonPreferences.P_GENERATOR_EXE_PATH), EpsilonPreferences.getGeneratorExecutablePath());
-        store.setDefault(epsilonPreferences.getPropertyKey(EpsilonPreferences.P_GENERATOR_TARGET_DIR), EpsilonPreferences.getGeneratorTargetDir());
-        store.setDefault(epsilonPreferences.getPropertyKey(EpsilonPreferences.P_GENERATOR_ADDITIONAL_OPTIONS), EpsilonPreferences.getAdditionalGeneratorOptions());
-        store.setDefault(epsilonPreferences.getPropertyKey(EpsilonPreferences.P_GENERATOR_OPTION_GENERATION_ONLY), EpsilonPreferences.getGenerationOnly());
-        store.setDefault(epsilonPreferences.getPropertyKey(EpsilonPreferences.P_GENERATOR_OPTION_IGNORE_TOKEN_MARKS), EpsilonPreferences.getIgnoreTokenMarks());
-        store.setDefault(epsilonPreferences.getPropertyKey(EpsilonPreferences.P_GENERATOR_OPTION_NO_CONSTANT_TREES_COLLABSING), EpsilonPreferences.getNoConstantTreesCollapsing());
-        store.setDefault(epsilonPreferences.getPropertyKey(EpsilonPreferences.P_GENERATOR_OPTION_NO_OPTIMIZATION), EpsilonPreferences.getNoOptimization());
-        store.setDefault(epsilonPreferences.getPropertyKey(EpsilonPreferences.P_GENERATOR_OPTION_NO_REFERENCE_COUNTING), EpsilonPreferences.getNoReferenceCounting());
-        store.setDefault(epsilonPreferences.getPropertyKey(EpsilonPreferences.P_GENERATOR_OPTION_SPACE_INSTEAD_NL), EpsilonPreferences.getSpaceInsteadNL());
+        store.setDefault(epsilonPreferences.keyFor(EpsilonPreferences.P_GENERATOR_EXE_PATH), EpsilonPreferences.getGeneratorExecutablePath());
+        store.setDefault(epsilonPreferences.keyFor(EpsilonPreferences.P_GENERATOR_TARGET_DIR), EpsilonPreferences.getGeneratorTargetDir());
+        store.setDefault(epsilonPreferences.keyFor(EpsilonPreferences.P_GENERATOR_ADDITIONAL_OPTIONS), EpsilonPreferences.getAdditionalGeneratorOptions());
+        store.setDefault(epsilonPreferences.keyFor(EpsilonPreferences.P_GENERATOR_OPTION_GENERATION_ONLY), EpsilonPreferences.getGenerationOnly());
+        store.setDefault(epsilonPreferences.keyFor(EpsilonPreferences.P_GENERATOR_OPTION_IGNORE_TOKEN_MARKS), EpsilonPreferences.getIgnoreTokenMarks());
+        store.setDefault(epsilonPreferences.keyFor(EpsilonPreferences.P_GENERATOR_OPTION_NO_CONSTANT_TREES_COLLABSING), EpsilonPreferences.getNoConstantTreesCollapsing());
+        store.setDefault(epsilonPreferences.keyFor(EpsilonPreferences.P_GENERATOR_OPTION_NO_OPTIMIZATION), EpsilonPreferences.getNoOptimization());
+        store.setDefault(epsilonPreferences.keyFor(EpsilonPreferences.P_GENERATOR_OPTION_NO_REFERENCE_COUNTING), EpsilonPreferences.getNoReferenceCounting());
+        store.setDefault(epsilonPreferences.keyFor(EpsilonPreferences.P_GENERATOR_OPTION_SPACE_INSTEAD_NL), EpsilonPreferences.getSpaceInsteadNL());
     }
 
 }

@@ -18,8 +18,6 @@ import de.grammarcraft.epsilon.scoping.DisabledGlobalScopeProvider
  */
 class EpsilonRuntimeModule extends AbstractEpsilonRuntimeModule {
     
-    public static val PLUGIN_ID = "de.grammarcraft.epsilon"
-	
 	override  bindIGlobalScopeProvider() {
 		DisabledGlobalScopeProvider;
 	}
