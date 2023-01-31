@@ -15,9 +15,12 @@ import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreInitializer
 @FinalFieldsConstructor
 class EpsilonUiModule extends AbstractEpsilonUiModule {
     
+    /**
+     * Registers the UI preference initializer to be executed.
+     */
     def configureIPreferenceStoreInitializerForEpsilon(Binder binder) {
         binder.bind(IPreferenceStoreInitializer)
-            .annotatedWith(Names.named("EpsilonPreferences"))
+            .annotatedWith(Names.named("EpsilonPreferences")) // the name is not important, but probably needs to be unique to other initializers
             .to(EpsilonPreferencesInitializer);
     }
     
