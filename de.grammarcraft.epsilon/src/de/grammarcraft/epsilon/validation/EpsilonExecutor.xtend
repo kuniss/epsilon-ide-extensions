@@ -42,7 +42,7 @@ package class EpsilonExecutor {
 	File epsilonExecutableFile;
 	File epsilonTargetDir;
 	boolean codeGenerationOnly
-	String additionalExecutionArgument
+	List<String> additionalExecutionArgument
 	IProject project
 
 	@Inject IEpsilonPreferencesProvider preferenceProvider
@@ -57,8 +57,6 @@ package class EpsilonExecutor {
 	
 	package def List<EpsilonIssue> executeOn(Specification specification) {
         		
-        //TODO make class OO
-        
 		if (skipEpsilonExecution()) {
 			return emptyList			
 		}
@@ -90,7 +88,7 @@ package class EpsilonExecutor {
 		val builder = new ProcessBuilder();
 		builder.command(epsilonExecutableFile.getAbsolutePath(), '--offset', '--output-directory', epsilonTargetDir.absolutePath)
 		if (!additionalExecutionArgument.empty)
-			builder.command.add(additionalExecutionArgument)
+		    additionalExecutionArgument.forEach[builder.command.add(it)]
 		if (codeGenerationOnly) 
 			builder.command.add('-g') // works only since gamma! But we do not differentiate both.
 		builder.command.add(eagSrcFile.getAbsolutePath());
@@ -104,7 +102,7 @@ package class EpsilonExecutor {
 		val exitCode = process.waitFor();
 		
 		if (exitCode == 0)
-			logger.warn(String.format("executing '%s' was successful and did not detect any error", finalCmdLine))
+			logger.info(String.format("executing '%s' was successful and did not detect any error", finalCmdLine))
 		else    
     		logger.warn(String.format("executing '%s' failed with error code %d", finalCmdLine, exitCode))
 		
@@ -140,26 +138,27 @@ package class EpsilonExecutor {
 	}
 	
 	def determineAdditionalExecutionArgument() {
-		var String additionalArgs
+		var List<String> additionalArgs
 		if (System.getProperty(ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME) !== null) {
-			
-			additionalArgs = System.getProperty(ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME)
+			additionalArgs = System.getProperty(ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME).trim.split('\\s+').toList
 			logger.info(String.format("system property %s defined, take additional execution arguments from it", ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME))
 		}
 		else {
 		    additionalArgs = allConfiguredAdditionalOptions()
-			logger.info(String.format("No system property '%s' is defined, going to use preference setting '%s'", 
-				ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME, additionalArgs
+			logger.info(String.format("No system property '%s' is defined, going to use preference settings", 
+				ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME
 			));
 		}
 		
 		if (!additionalArgs.empty)
-			logger.info("The following additional execution arguments will be used: '" + additionalArgs + "'")
-		return additionalArgs.trim
+			logger.info("The following additional execution arguments will be used: " + additionalArgs.join(' '))
+		return additionalArgs
 	}
     
     def allConfiguredAdditionalOptions() {
-        var StringBuilder result = new StringBuilder
+        val List<String> result = newArrayList
+        
+        val preferences = if (project !== null) preferenceProvider.projectPreferences(project) else preferenceProvider.workspacePreferences
         
         // Gamma generator options
         //      -c               Disable collapsing constant trees
@@ -168,23 +167,26 @@ package class EpsilonExecutor {
         //      -r               Disable reference counting in compiled compiler
         //      -s, --space      Compiled compiler uses space instead of newline as separator
         
-        if (preferenceProvider.projectPreferences(project).optionNoConstantTreesCollapsing)
-            result.append(" -c")
+        if (preferences.optionNoConstantTreesCollapsing)
+            result.add("-c")
         
-        if (preferenceProvider.projectPreferences(project).optionNoOptimization)
-            result.append(" -o")
+        if (preferences.optionNoOptimization)
+            result.add("-o")
         
-        if (preferenceProvider.projectPreferences(project).optionNoReferenceCounting)
-            result.append(" -r")
+        if (preferences.optionNoReferenceCounting)
+            result.add("-r")
         
-        if (preferenceProvider.projectPreferences(project).optionIgnoreTokenMarks)
-            result.append(" -p")
+        if (preferences.optionIgnoreTokenMarks)
+            result.add("-p")
         
-        if (preferenceProvider.projectPreferences(project).optionSpaceInsteadNL)
-            result.append(" -s")
+        if (preferences.optionSpaceInsteadNL)
+            result.add("-s")
         
-        result.append(" ").append(preferenceProvider.projectPreferences(project).additionalGeneratorOptions)        
-        return result.toString
+        val additionalOptions = preferences.additionalGeneratorOptions.trim
+        if (!additionalOptions.empty)
+            result.addAll(additionalOptions.split('\\s+'))        
+
+        return result
     }
 	
 	private def static checkEpsilonHomeDirConstraints(File epsilonHomeDir) {
@@ -287,11 +289,15 @@ package class EpsilonExecutor {
 		if (System.getProperty(EPSILON_EXE_SYSPROP_NAME) !== null) {
 			
 			epsilonExecutable = System.getProperty(EPSILON_EXE_SYSPROP_NAME)
-			logger.info(String.format("system property %s defined, take Epsilon executable from it", EPSILON_EXE_SYSPROP_NAME))
+			logger.info(String.format("system property %s defined, take Epsilon executable path from it", EPSILON_EXE_SYSPROP_NAME))
+		}
+		else if (project !== null) {
+            epsilonExecutable = preferenceProvider.projectPreferences(project).generatorExecutablePath
+            logger.info(String.format("project preferences defined, take Epsilon executable path from it"))		    
 		}
 		else {
-		    epsilonExecutable = preferenceProvider.projectPreferences(project).generatorExecutablePath
-			logger.info(String.format("No system property '%s' is defined, use the default path '%s' from preferences as Epsilon executable", 
+		    epsilonExecutable = preferenceProvider.workspacePreferences.generatorExecutablePath
+			logger.info(String.format("No system property '%s' nor project preference is defined, use the default path '%s' from workspace preferences as Epsilon executable", 
 				EPSILON_EXE_SYSPROP_NAME, epsilonExecutable
 			));
 		}
@@ -307,10 +313,14 @@ package class EpsilonExecutor {
 			epsilonTargetDir = System.getProperty(EPSILON_TARGET_DIR_SYSPROP_NAME)
 			logger.info(String.format("system property %s defined, use it as Epsilon generation target directory", EPSILON_TARGET_DIR_SYSPROP_NAME))
 		}
-		else {
+		else if (project !== null) {
 		    epsilonTargetDir = preferenceProvider.projectPreferences(project).generatorTargetDir
-			logger.info(String.format(
-				"No system property '%s' is defined, use the default path '%s' from preferences as Epsilon generation target directory", 
+            logger.info(String.format("project preference defined, use it as Epsilon generation target directory"))
+		}
+		else {
+            epsilonTargetDir = preferenceProvider.workspacePreferences.generatorTargetDir
+            logger.info(String.format(
+				"No system property '%s' nor project preference is defined, use the default path '%s' from workspace preferences as Epsilon generation target directory", 
 				EPSILON_TARGET_DIR_SYSPROP_NAME, epsilonTargetDir
 			));
 		}

@@ -20,7 +20,7 @@ import static de.grammarcraft.epsilon.preferences.IEpsilonPreferences.*;
 public class EpsilonPreferencesProvider implements IEpsilonPreferencesProvider {
     
     public static String EPSILON_TARGET_DIR_DEFAULT = "./build";
-    public static String EPSILON_EXE_DEFAULT = EPSILON_TARGET_DIR_DEFAULT + "./cg/gamma"; // for later when we will carrying the gamma exec
+    public static String EPSILON_EXE_DEFAULT = EPSILON_TARGET_DIR_DEFAULT + "/cg/gamma"; // for later when we will carrying the gamma exec
     
     private String languageName;
 

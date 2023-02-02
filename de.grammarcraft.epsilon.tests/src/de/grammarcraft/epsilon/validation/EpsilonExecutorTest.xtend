@@ -11,6 +11,7 @@ import org.eclipse.xtext.testing.InjectWith
 import de.grammarcraft.epsilon.tests.EpsilonInjectorProvider
 import com.google.inject.Inject
 import de.grammarcraft.epsilon.preferences.EpsilonPreferencesProvider
+import java.util.List
 
 @RunWith(XtextRunner)
 @InjectWith(EpsilonInjectorProvider)
@@ -147,16 +148,18 @@ class EpsilonExecutorTest {
 	@Test
 	def void determineAdditionalExecutionArgsDefault() {
 		val result = epsilonExecutor.determineAdditionalExecutionArgument
-		assertEquals("-s", result) // by default space instead of NL is enabled
+		assertEquals(1, result.size)
+		assertEquals("-s", result.join(' ')) // by default space instead of NL is enabled
 	}
 
 	@Test
 	def void determineAdditionalExecutionArgsFromSysProp() {
-		val additionalArgs = '-g -s'
+		val additionalArgs = ' -g -s '
 		System.properties.setProperty(EpsilonExecutor.ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME, additionalArgs)
 		try {
-			val result = epsilonExecutor.determineAdditionalExecutionArgument
-			assertEquals(additionalArgs, result)			
+			val List<String> result = epsilonExecutor.determineAdditionalExecutionArgument
+			assertEquals(2, result.size)
+			assertEquals(additionalArgs.trim, result.join(' '))			
 		}
 		finally {
 			System.properties.remove(EpsilonExecutor.ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME)
