@@ -10,7 +10,8 @@ import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreInitializer;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-import de.grammarcraft.epsilon.preferences.EpsilonPreferences;
+import de.grammarcraft.epsilon.preferences.IEpsilonPreferences;
+import de.grammarcraft.epsilon.preferences.IEpsilonPreferencesProvider;
 
 /**
  * This implementation and idea is derived from 
@@ -21,11 +22,11 @@ import de.grammarcraft.epsilon.preferences.EpsilonPreferences;
 @Singleton
 public class EpsilonPreferencesInitializer implements IPreferenceStoreInitializer {
     
-    private EpsilonPreferences epsilonPreferences;
+    private IEpsilonPreferencesProvider preferences;
 
     @Inject
-    public void setEpsilonPreferences(EpsilonPreferences epsilonPreferences) {
-        this.epsilonPreferences = epsilonPreferences;
+    public void setEpsilonPreferences(IEpsilonPreferencesProvider epsilonPreferences) {
+        this.preferences = epsilonPreferences;
     }
 
     @Override
@@ -35,15 +36,15 @@ public class EpsilonPreferencesInitializer implements IPreferenceStoreInitialize
     }
 
     protected void initializeEpsilonPreferences(IPreferenceStore store) {
-        store.setDefault(epsilonPreferences.keyFor(EpsilonPreferences.P_GENERATOR_EXE_PATH), EpsilonPreferences.getGeneratorExecutablePath());
-        store.setDefault(epsilonPreferences.keyFor(EpsilonPreferences.P_GENERATOR_TARGET_DIR), EpsilonPreferences.getGeneratorTargetDir());
-        store.setDefault(epsilonPreferences.keyFor(EpsilonPreferences.P_GENERATOR_ADDITIONAL_OPTIONS), EpsilonPreferences.getAdditionalGeneratorOptions());
-        store.setDefault(epsilonPreferences.keyFor(EpsilonPreferences.P_GENERATOR_OPTION_GENERATION_ONLY), EpsilonPreferences.getGenerationOnly());
-        store.setDefault(epsilonPreferences.keyFor(EpsilonPreferences.P_GENERATOR_OPTION_IGNORE_TOKEN_MARKS), EpsilonPreferences.getIgnoreTokenMarks());
-        store.setDefault(epsilonPreferences.keyFor(EpsilonPreferences.P_GENERATOR_OPTION_NO_CONSTANT_TREES_COLLABSING), EpsilonPreferences.getNoConstantTreesCollapsing());
-        store.setDefault(epsilonPreferences.keyFor(EpsilonPreferences.P_GENERATOR_OPTION_NO_OPTIMIZATION), EpsilonPreferences.getNoOptimization());
-        store.setDefault(epsilonPreferences.keyFor(EpsilonPreferences.P_GENERATOR_OPTION_NO_REFERENCE_COUNTING), EpsilonPreferences.getNoReferenceCounting());
-        store.setDefault(epsilonPreferences.keyFor(EpsilonPreferences.P_GENERATOR_OPTION_SPACE_INSTEAD_NL), EpsilonPreferences.getSpaceInsteadNL());
+        store.setDefault(preferences.key(IEpsilonPreferences.GENERATOR_EXE_PATH), preferences.defaults().generatorExecutablePath());
+        store.setDefault(preferences.key(IEpsilonPreferences.GENERATOR_TARGET_DIR), preferences.defaults().generatorTargetDir());
+        store.setDefault(preferences.key(IEpsilonPreferences.ADDITIONAL_GENERATOR_OPTIONS), preferences.defaults().additionalGeneratorOptions());
+        store.setDefault(preferences.key(IEpsilonPreferences.OPTION_GENERATION_ONLY), preferences.defaults().optionGenerationOnly());
+        store.setDefault(preferences.key(IEpsilonPreferences.OPTION_IGNORE_TOKEN_MARKS), preferences.defaults().optionIgnoreTokenMarks());
+        store.setDefault(preferences.key(IEpsilonPreferences.OPTION_NO_CONSTANT_TREES_COLLAPSING), preferences.defaults().optionNoConstantTreesCollapsing());
+        store.setDefault(preferences.key(IEpsilonPreferences.OPTION_NO_OPTIMIZATION), preferences.defaults().optionNoOptimization());
+        store.setDefault(preferences.key(IEpsilonPreferences.OPTION_NO_REFERENCE_COUNTING), preferences.defaults().optionNoReferenceCounting());
+        store.setDefault(preferences.key(IEpsilonPreferences.OPTION_SPACE_INSTEAD_NL), preferences.defaults().optionSpaceInsteadNL());
     }
 
 }

@@ -24,7 +24,7 @@ import org.eclipse.xtext.ui.preferences.ScrolledPageContent;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
-import de.grammarcraft.epsilon.preferences.EpsilonPreferences;
+import de.grammarcraft.epsilon.preferences.IEpsilonPreferences;
 import de.grammarcraft.epsilon.ui.internal.EpsilonActivator;
 
 /**
@@ -111,23 +111,23 @@ public class EpsilonConfigurationBlock extends OptionsConfigurationBlock {
 
     protected void createGeneralSectionItems(Composite composite) {
         addTextField(composite, LABEL_GENERATOR_PATH,
-                getKey(EpsilonPreferences.P_GENERATOR_EXE_PATH), 0, 0);
+                getKey(IEpsilonPreferences.GENERATOR_EXE_PATH), 0, 0);
         addTextField(composite, LABEL_GENERATOR_TARGET_DIR,
-                getKey(EpsilonPreferences.P_GENERATOR_TARGET_DIR), 0, 0);
+                getKey(IEpsilonPreferences.GENERATOR_TARGET_DIR), 0, 0);
         addCheckBox(composite, LABEL_GENERATOR_OPTION_GENERATION_ONLY,
-                getKey(EpsilonPreferences.P_GENERATOR_OPTION_GENERATION_ONLY), BOOLEAN_VALUES, 0);
+                getKey(IEpsilonPreferences.OPTION_GENERATION_ONLY), BOOLEAN_VALUES, 0);
         addCheckBox(composite, LABEL_GENERATOR_OPTION_IGNORE_TOKEN_MARKS,
-                getKey(EpsilonPreferences.P_GENERATOR_OPTION_IGNORE_TOKEN_MARKS), BOOLEAN_VALUES, 0);
+                getKey(IEpsilonPreferences.OPTION_IGNORE_TOKEN_MARKS), BOOLEAN_VALUES, 0);
         addCheckBox(composite, LABEL_GENERATOR_OPTION_NO_CONSTANT_TREES_COLLABSING,
-                getKey(EpsilonPreferences.P_GENERATOR_OPTION_NO_CONSTANT_TREES_COLLABSING), BOOLEAN_VALUES, 0);
+                getKey(IEpsilonPreferences.OPTION_NO_CONSTANT_TREES_COLLAPSING), BOOLEAN_VALUES, 0);
         addCheckBox(composite, LABEL_GENERATOR_OPTION_NO_OPTIMIZATION,
-                getKey(EpsilonPreferences.P_GENERATOR_OPTION_NO_OPTIMIZATION), BOOLEAN_VALUES, 0);
+                getKey(IEpsilonPreferences.OPTION_NO_OPTIMIZATION), BOOLEAN_VALUES, 0);
         addCheckBox(composite, LABEL_GENERATOR_OPTION_NO_REFERENCE_COUNTING,
-                getKey(EpsilonPreferences.P_GENERATOR_OPTION_NO_REFERENCE_COUNTING), BOOLEAN_VALUES, 0);
+                getKey(IEpsilonPreferences.OPTION_NO_REFERENCE_COUNTING), BOOLEAN_VALUES, 0);
         addCheckBox(composite, LABEL_GENERATOR_OPTION_SPACE_INSTEAD_NL,
-                getKey(EpsilonPreferences.P_GENERATOR_OPTION_SPACE_INSTEAD_NL), BOOLEAN_VALUES, 0);
+                getKey(IEpsilonPreferences.OPTION_SPACE_INSTEAD_NL), BOOLEAN_VALUES, 0);
         addTextField(composite, LABEL_GENERATOR_ADDITIONAL_OPTIONS,
-                getKey(EpsilonPreferences.P_GENERATOR_ADDITIONAL_OPTIONS), 0, 0);
+                getKey(IEpsilonPreferences.ADDITIONAL_GENERATOR_OPTIONS), 0, 0);
     }
     
     public String getKey(String preferenceName) {

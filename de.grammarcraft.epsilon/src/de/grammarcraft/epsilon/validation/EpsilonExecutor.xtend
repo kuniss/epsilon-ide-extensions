@@ -1,6 +1,8 @@
 package de.grammarcraft.epsilon.validation
 
+import com.google.inject.Inject
 import de.grammarcraft.epsilon.epsilon.Specification
+import de.grammarcraft.epsilon.preferences.IEpsilonPreferencesProvider
 import java.io.BufferedReader
 import java.io.File
 import java.io.InputStream
@@ -13,14 +15,12 @@ import java.util.concurrent.TimeUnit
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 import org.apache.log4j.Logger
+import org.eclipse.core.resources.IFile
+import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.core.runtime.Path
 import org.eclipse.emf.common.util.Diagnostic
 import org.eclipse.xtend.lib.annotations.Accessors
-import de.grammarcraft.epsilon.properties.IPropertiesProvider
-import org.eclipse.core.resources.IFile
-import org.eclipse.core.resources.IProject
-import com.google.inject.Inject
 
 package class EpsilonExecutor {
 	
@@ -45,8 +45,7 @@ package class EpsilonExecutor {
 	String additionalExecutionArgument
 	IProject project
 
-	@Inject IPropertiesProvider propertiesProvider
-	
+	@Inject IEpsilonPreferencesProvider preferenceProvider
 	
 	@Accessors protected static class EpsilonIssue {
 		@Accessors(PACKAGE_GETTER) val int severity
@@ -132,7 +131,7 @@ package class EpsilonExecutor {
 			return Boolean.parseBoolean(System.getProperty(CODE_GENERATION_ONLY_SYSPROP_NAME))
 		}
 		else {
-		    val result = propertiesProvider.getGenerationOnly(project)
+		    val result = preferenceProvider.projectPreferences(project).optionGenerationOnly
             logger.info(String.format("No system property '%s' is defined, going to use preference setting code generatioOnly=%b", 
                 CODE_GENERATION_ONLY_SYSPROP_NAME, result
             ));
@@ -169,22 +168,22 @@ package class EpsilonExecutor {
         //      -r               Disable reference counting in compiled compiler
         //      -s, --space      Compiled compiler uses space instead of newline as separator
         
-        if (propertiesProvider.getNoConstantTreesCollapsing(project))
+        if (preferenceProvider.projectPreferences(project).optionNoConstantTreesCollapsing)
             result.append(" -c")
         
-        if (propertiesProvider.getNoOptimization(project))
+        if (preferenceProvider.projectPreferences(project).optionNoOptimization)
             result.append(" -o")
         
-        if (propertiesProvider.getNoReferenceCounting(project))
+        if (preferenceProvider.projectPreferences(project).optionNoReferenceCounting)
             result.append(" -r")
         
-        if (propertiesProvider.getIgnoreTokenMarks(project))
+        if (preferenceProvider.projectPreferences(project).optionIgnoreTokenMarks)
             result.append(" -p")
         
-        if (propertiesProvider.getSpaceInsteadNL(project))
+        if (preferenceProvider.projectPreferences(project).optionSpaceInsteadNL)
             result.append(" -s")
         
-        result.append(" ").append(propertiesProvider.getAdditionalGeneratorOptions(project))        
+        result.append(" ").append(preferenceProvider.projectPreferences(project).additionalGeneratorOptions)        
         return result.toString
     }
 	
@@ -291,7 +290,7 @@ package class EpsilonExecutor {
 			logger.info(String.format("system property %s defined, take Epsilon executable from it", EPSILON_EXE_SYSPROP_NAME))
 		}
 		else {
-		    epsilonExecutable = propertiesProvider.getGeneratorExecutablePath(project)
+		    epsilonExecutable = preferenceProvider.projectPreferences(project).generatorExecutablePath
 			logger.info(String.format("No system property '%s' is defined, use the default path '%s' from preferences as Epsilon executable", 
 				EPSILON_EXE_SYSPROP_NAME, epsilonExecutable
 			));
@@ -309,7 +308,7 @@ package class EpsilonExecutor {
 			logger.info(String.format("system property %s defined, use it as Epsilon generation target directory", EPSILON_TARGET_DIR_SYSPROP_NAME))
 		}
 		else {
-		    epsilonTargetDir = propertiesProvider.getGeneratorTargetDir(project)
+		    epsilonTargetDir = preferenceProvider.projectPreferences(project).generatorTargetDir
 			logger.info(String.format(
 				"No system property '%s' is defined, use the default path '%s' from preferences as Epsilon generation target directory", 
 				EPSILON_TARGET_DIR_SYSPROP_NAME, epsilonTargetDir

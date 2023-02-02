@@ -10,7 +10,7 @@ import org.eclipse.xtext.testing.XtextRunner
 import org.eclipse.xtext.testing.InjectWith
 import de.grammarcraft.epsilon.tests.EpsilonInjectorProvider
 import com.google.inject.Inject
-import de.grammarcraft.epsilon.preferences.EpsilonPreferences
+import de.grammarcraft.epsilon.preferences.EpsilonPreferencesProvider
 
 @RunWith(XtextRunner)
 @InjectWith(EpsilonInjectorProvider)
@@ -95,7 +95,7 @@ class EpsilonExecutorTest {
 	@Test
 	def void determineEpsilonTargetDirDefault() {
 		val result = epsilonExecutor.determineEpsilonTargetDir
-		assertEquals(new File(EpsilonPreferences.EPSILON_TARGET_DIR_DEFAULT), result)
+		assertEquals(new File(EpsilonPreferencesProvider.EPSILON_TARGET_DIR_DEFAULT), result)
 	}
 
 	@Test
