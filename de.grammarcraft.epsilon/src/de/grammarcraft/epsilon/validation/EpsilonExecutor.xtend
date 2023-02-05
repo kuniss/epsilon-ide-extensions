@@ -39,8 +39,9 @@ package class EpsilonExecutor {
 	static val TAG_WARN  = 'warn:'
 	static val TAG_INFO  = 'info:'
 	
-	File epsilonExecutableFile;
-	File epsilonTargetDir;
+	File epsilonExecutableFile
+	File epsilonTargetDir
+	boolean createTargetDirIfNotExists
 	boolean codeGenerationOnly
 	List<String> additionalExecutionArgument
 	IProject project
@@ -68,6 +69,7 @@ package class EpsilonExecutor {
 		
 		epsilonExecutableFile = determineEpsilonExecutable()
 		epsilonTargetDir = determineEpsilonTargetDir()
+		createTargetDirIfNotExists = determineCreateTargetDirOption()
 		codeGenerationOnly = determineCodeGenerationOnlyOption()
 		additionalExecutionArgument = determineAdditionalExecutionArgument()
 		
@@ -252,7 +254,7 @@ package class EpsilonExecutor {
 	 * Requires gamma with offset position reporting by cmd line argument --offset being set
 	 */
 	static val EPSILON_ISSUE_POSITION_PATTERN = Pattern.compile("(?<file>[^:@]*)@(?<offset>\\d+).*")
-		
+    
 	private static def int asSeverity(String tag) {
 		switch (tag) {
 			case TAG_ERROR: return Diagnostic.ERROR
@@ -306,6 +308,16 @@ package class EpsilonExecutor {
 		return new File(epsilonExecutable);
 	}
 
+    def determineCreateTargetDirOption() {
+        if (project !== null) {
+            return preferenceProvider.projectPreferences(project).optionCreateTargetDir
+        }
+        else {
+            logger.info("No project preference is defined, use the default option from workspace preferences whether generation target directory should be created");
+            return preferenceProvider.workspacePreferences.optionCreateTargetDir
+        }
+    }
+    
 	package def File determineEpsilonTargetDir() {
 		var String epsilonTargetDir
 		if (System.getProperty(EPSILON_TARGET_DIR_SYSPROP_NAME) !== null) {
@@ -337,7 +349,13 @@ package class EpsilonExecutor {
     		}
 		
 		if (!result.exists()) {
-			logger.warn(String.format("Epsilon generation target directory '%s' does not exist - hopefully the Epsilon executable will create it",
+		    if (createTargetDirIfNotExists) {
+		        logger.info(String.format("going to create generator target directory '%s' as defined by preferences", result.absolutePath))
+		        if (!result.mkdirs)
+		          logger.warn(String.format("failed to create generator target directory '%s' as defined by preferences", result.absolutePath))
+		    }
+		    else
+			    logger.warn(String.format("Epsilon generation target directory '%s' does not exist - hopefully the Epsilon executable will create it",
 					result.absolutePath))
 		}
 		else if (!result.isDirectory) {
@@ -345,7 +363,6 @@ package class EpsilonExecutor {
 					result.absolutePath))
 			result = new File('./')
 		}
-		
 			
 		logger.info("The following Epsilon generation target directory will be used: " + result.absolutePath)
 		return result

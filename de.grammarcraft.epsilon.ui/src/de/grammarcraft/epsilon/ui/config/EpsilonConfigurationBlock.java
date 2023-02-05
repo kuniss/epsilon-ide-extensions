@@ -101,6 +101,7 @@ public class EpsilonConfigurationBlock extends OptionsConfigurationBlock {
     public static final String LABEL_GENERATOR_PATH = "&Generator path:";
     public static final String LABEL_GENERATOR_TARGET_DIR = "Generator output folder:";
     public static final String LABEL_GENERATOR_ADDITIONAL_OPTIONS = "Additional Generator Options:";
+    public static final String LABEL_GENERATOR_OPTION_CREATE_TARGET_DIR = "Create generator output &folder if it doesn't exist";
     public static final String LABEL_GENERATOR_OPTION_NO_CONSTANT_TREES_COLLABSING = "Disable &collapsing constant trees (-c)";
     public static final String LABEL_GENERATOR_OPTION_GENERATION_ONLY = "&Generate only, do not compile, e.g if D compiler is missing (-g)";
     public static final String LABEL_GENERATOR_OPTION_NO_OPTIMIZATION = "Disable &optimizing of variable storage in generated compiler (-o)";
@@ -113,6 +114,8 @@ public class EpsilonConfigurationBlock extends OptionsConfigurationBlock {
                 getKey(IEpsilonPreferences.GENERATOR_EXE_PATH), 0, 0);
         addTextField(composite, LABEL_GENERATOR_TARGET_DIR,
                 getKey(IEpsilonPreferences.GENERATOR_TARGET_DIR), 0, 0);
+        addCheckBox(composite, LABEL_GENERATOR_OPTION_CREATE_TARGET_DIR,
+                getKey(IEpsilonPreferences.OPTION_CREATE_TARGET_DIR), BOOLEAN_VALUES, 0);
         addCheckBox(composite, LABEL_GENERATOR_OPTION_GENERATION_ONLY,
                 getKey(IEpsilonPreferences.OPTION_GENERATION_ONLY), BOOLEAN_VALUES, 0);
         addCheckBox(composite, LABEL_GENERATOR_OPTION_IGNORE_TOKEN_MARKS,
@@ -146,7 +149,7 @@ public class EpsilonConfigurationBlock extends OptionsConfigurationBlock {
 
     @Override
     protected String[] getFullBuildDialogStrings(boolean workspaceSettings) {
-        String title = "Building Settings Changed"; //Messages.BuilderConfigurationBlock_SettingsChanged_Title;
+        String title = "Gneerator Building Settings Changed";
         String message;
         if (workspaceSettings) {
             message = "The Building settings have changed. A full rebuild is required for changes to take effect. Do the full build now?"; // Messages.BuilderConfigurationBlock_SettingsChanged_WorkspaceBuild;

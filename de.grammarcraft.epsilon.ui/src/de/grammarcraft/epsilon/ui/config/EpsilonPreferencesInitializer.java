@@ -39,6 +39,7 @@ public class EpsilonPreferencesInitializer implements IPreferenceStoreInitialize
         store.setDefault(preferences.key(IEpsilonPreferences.GENERATOR_EXE_PATH), preferences.defaults().generatorExecutablePath());
         store.setDefault(preferences.key(IEpsilonPreferences.GENERATOR_TARGET_DIR), preferences.defaults().generatorTargetDir());
         store.setDefault(preferences.key(IEpsilonPreferences.ADDITIONAL_GENERATOR_OPTIONS), preferences.defaults().additionalGeneratorOptions());
+        store.setDefault(preferences.key(IEpsilonPreferences.OPTION_CREATE_TARGET_DIR), preferences.defaults().optionCreateTargetDir());
         store.setDefault(preferences.key(IEpsilonPreferences.OPTION_GENERATION_ONLY), preferences.defaults().optionGenerationOnly());
         store.setDefault(preferences.key(IEpsilonPreferences.OPTION_IGNORE_TOKEN_MARKS), preferences.defaults().optionIgnoreTokenMarks());
         store.setDefault(preferences.key(IEpsilonPreferences.OPTION_NO_CONSTANT_TREES_COLLAPSING), preferences.defaults().optionNoConstantTreesCollapsing());

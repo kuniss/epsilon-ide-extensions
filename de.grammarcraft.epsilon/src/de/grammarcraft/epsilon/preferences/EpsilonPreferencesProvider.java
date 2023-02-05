@@ -41,6 +41,7 @@ public class EpsilonPreferencesProvider implements IEpsilonPreferencesProvider {
         @Override public boolean optionNoConstantTreesCollapsing()  { return false; }
         @Override public boolean optionIgnoreTokenMarks()           { return false; }
         @Override public boolean optionGenerationOnly()             { return true;  }
+        @Override public boolean optionCreateTargetDir()            { return true; }
         @Override public String generatorTargetDir()                { return EPSILON_TARGET_DIR_DEFAULT; }
         @Override public String generatorExecutablePath()           { return EPSILON_EXE_DEFAULT; }
         @Override public String additionalGeneratorOptions()        { return ""; }
@@ -55,12 +56,13 @@ public class EpsilonPreferencesProvider implements IEpsilonPreferencesProvider {
     public void initializeDefaultPreferences() {
         storeDefault(key(GENERATOR_EXE_PATH), defaults().generatorExecutablePath());
         storeDefault(key(GENERATOR_TARGET_DIR), defaults().generatorTargetDir());
-        storeDefault(key(ADDITIONAL_GENERATOR_OPTIONS), defaults().additionalGeneratorOptions());
+        storeDefault(key(OPTION_CREATE_TARGET_DIR), defaults().optionCreateTargetDir());
         storeDefault(key(OPTION_NO_CONSTANT_TREES_COLLAPSING), defaults().optionNoConstantTreesCollapsing());
         storeDefault(key(OPTION_GENERATION_ONLY), defaults().optionGenerationOnly());
         storeDefault(key(OPTION_NO_REFERENCE_COUNTING), defaults().optionNoReferenceCounting());
         storeDefault(key(OPTION_IGNORE_TOKEN_MARKS), defaults().optionIgnoreTokenMarks());
         storeDefault(key(OPTION_SPACE_INSTEAD_NL), defaults().optionSpaceInsteadNL());
+        storeDefault(key(ADDITIONAL_GENERATOR_OPTIONS), defaults().additionalGeneratorOptions());
     }
     
     private final class PreferenceStoreBasedPreferencesAccess implements IEpsilonPreferences {
@@ -80,6 +82,11 @@ public class EpsilonPreferencesProvider implements IEpsilonPreferencesProvider {
         @Override
         public String generatorTargetDir() {
             return this.preferenceStore.get(key(GENERATOR_TARGET_DIR), fallback.generatorTargetDir());
+        }
+        
+        @Override
+        public boolean optionCreateTargetDir() {
+            return this.preferenceStore.getBoolean(key(OPTION_CREATE_TARGET_DIR), fallback.optionCreateTargetDir());
         }
 
         @Override
