@@ -53,6 +53,12 @@ export function activate(context: ExtensionContext) {
     if (additionalExeOptions && additionalExeOptions !== '') {
         env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.additionalExeOptions=\'' + additionalExeOptions + '\'' 
     }
+    let lsLogEnabled = workspace.getConfiguration().get<boolean>('eag.compilerGenerator.log')
+    var additonalArgs: string[] = []
+    if (lsLogEnabled) {
+         additonalArgs = ['-log']
+    }
+
 
     console.log("JAVA_OPTS: " + env['JAVA_OPTS'])
 
@@ -61,11 +67,12 @@ export function activate(context: ExtensionContext) {
     let serverOptions: ServerOptions = {
         run: {
             command: serverModule,
+            args: additonalArgs,
             options: env
         },
         debug: {
             command: serverModule,
-            args: ['-Xdebug', '-Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n,quiet=y', '-Xmx256m'],
+            args: ['-Xdebug', '-Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n,quiet=y', '-Xmx256m'].concat(additonalArgs),
             options: env
         }
     }
@@ -74,7 +81,7 @@ export function activate(context: ExtensionContext) {
     let clientOptions: LanguageClientOptions = {
         // Register the server for plain text documents
         documentSelector: [
-            { language: 'epsilon', pattern: '**/*.{eag,eps,epsilon}' },
+            { language: 'epsilon', pattern: '**/*.{eag,epsilon}' },
             { language: 'epsilon', scheme: 'file' },
             { language: 'epsilon', scheme: 'untitled' }
         ],
