@@ -97,6 +97,9 @@
             }
         ]
     },
+    "activationEvents": [
+        "onLanguage:epsilon"
+    ],
     "main": "./out/extension",
     "scripts": {
         "vscode:prepublish": "tsc -p ./client",
