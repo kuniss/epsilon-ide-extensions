@@ -112,15 +112,23 @@ package class EpsilonExecutor {
 	}
     
     def static getIProject(Specification specification) {
-        val path = specification.eResource.URI.toPlatformString(true)
-        val file = ResourcesPlugin.workspace?.root?.findMember(path) as IFile
-        file?.project
+        try {
+            val path = specification.eResource.URI.toPlatformString(true)
+            val file = ResourcesPlugin.workspace?.root?.findMember(path) as IFile
+            file?.project
+        }
+        catch (IllegalStateException ise) {
+            logger.warn("no project specific preferences will be loaded as project could not be determined from workspace: " + ise.message);
+            return null
+        }
     }
 	
 	package def static skipEpsilonExecution() {
-		if (System.getProperty(SKIP_EXECUTION_SYSPROP_NAME) !== null) {	
-			logger.info("Epsilon execution is skipped due to setting of system property " + SKIP_EXECUTION_SYSPROP_NAME);		
-			return Boolean.parseBoolean(System.getProperty(SKIP_EXECUTION_SYSPROP_NAME))
+		if (System.getProperty(SKIP_EXECUTION_SYSPROP_NAME) !== null) {
+		    val skipped = Boolean.parseBoolean(System.getProperty(SKIP_EXECUTION_SYSPROP_NAME))
+		    if (skipped)
+			    logger.info("Epsilon execution is skipped due to setting of system property " + SKIP_EXECUTION_SYSPROP_NAME);		
+			return skipped
 		}
 		return false
 	}
