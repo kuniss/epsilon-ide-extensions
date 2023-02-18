@@ -2,7 +2,7 @@
     "name": "epsilon-eag",
     "displayName": "EAG Language",
     "description": "Specification Language for Extended Affix Grammars",
-    "version": "2.2.0",
+    "version": "2.3.0",
     "publisher": "grammarcraft",
     "license": "EPL-2.0",
     "homepage": "https://github.com/kuniss/epsilon-ide-extensions/blob/master/vscode-language-extension/README.md",
@@ -57,6 +57,17 @@
                     "default": "./gamma",
                     "markdownDescription": "Defines the path to the EAG compiler generator executable (and resources) which is used to generated compilers and to validate grammars.\n\nIn case, a relative path is given then it will be relative to the project's root directory.\n\nChanges will be applied after restart. Alternatively, command 'Reload Window' may be executed.\n\nNote: This will only evaluated if `#eag.runCompilerGenerator#` is enabled."
                 },
+                "eag.compilerGenerator.evaluatorGeneratorType": {
+                    "type": "string",
+                    "default": "soag",
+                    "markdownDescription": "Defines the evaluator generator strategy which gets applied.\n\nThe more capable produces less errors for EAG specifications but is slower at runtime.\n\nChanges will be applied after restart. Alternatively, command 'Reload Window' may be executed.\n\nNote: This will only evaluated if `#eag.runCompilerGenerator#` is enabled.",
+                    "enum": ["soag", "sweep", "slag"],
+                    "enumDescriptions": [
+                        "Sequentially Orientable EAG evaluator generator is applied (--soag), most capable, like multi pass compiler",
+                        "Single Sweep evaluator generator is applied (--sweep), less capable than SOAG, but faster at runtime",
+                        "Strong left-defined EAG evaluator generator is applied (--slag), less capable than Single Sweep, but fastest at runtime"
+                    ]
+                },
                 "eag.compilerGenerator.targetDir": {
                     "type": "string",
                     "default": "./build/",
@@ -71,6 +82,11 @@
                     "type": "string",
                     "default": "",
                     "markdownDescription": "Defines additional execution arguments which will be added to the EAG compiler generator executable invocation defined by eag.CompilerGenerator.executable\n\nChanges will be applied after restart. Alternatively, command 'Reload Window' may be executed.\n\nNote: This will only evaluated if `#eag.runCompilerGenerator#` is enabled."
+                },
+                "eag.compilerGenerator.log": {
+                    "type": "boolean",
+                    "default": false,
+                    "markdownDescription": "Enables the language server log which creates a log file in the current project directory.\n\nChanges will be applied after restart. Alternatively, command 'Reload Window' may be executed."
                 }
             }
         },

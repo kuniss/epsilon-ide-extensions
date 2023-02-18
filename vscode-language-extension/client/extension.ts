@@ -45,14 +45,22 @@ export function activate(context: ExtensionContext) {
     if (epsilonExecutable && epsilonExecutable !== '') {
         env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.executable=\'' + epsilonExecutable  + '\''
     }
+
+    let epsilonEvaluatorType = workspace.getConfiguration().get<string>('eag.compilerGenerator.evaluatorGeneratorType')
+    if (epsilonEvaluatorType && epsilonEvaluatorType !== '') {
+        env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.evaluatorGeneratorType=\'' + epsilonEvaluatorType  + '\''
+    }
+
     let epsilonTargetDir = workspace.getConfiguration().get('eag.compilerGenerator.targetDir')
     if (epsilonTargetDir && epsilonTargetDir !== '') {
         env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.target.dir=\'' + epsilonTargetDir + '\''
     }
+
     let additionalExeOptions = workspace.getConfiguration().get('eag.compilerGenerator.additionalExeOptions')
     if (additionalExeOptions && additionalExeOptions !== '') {
         env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.additionalExeOptions=\'' + additionalExeOptions + '\'' 
     }
+
     let lsLogEnabled = workspace.getConfiguration().get<boolean>('eag.compilerGenerator.log')
     var additonalArgs: string[] = []
     if (lsLogEnabled) {
