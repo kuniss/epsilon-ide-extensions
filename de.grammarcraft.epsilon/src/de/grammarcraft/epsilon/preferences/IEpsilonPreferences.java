@@ -15,6 +15,7 @@ public interface IEpsilonPreferences {
     public static final String OPTION_IGNORE_TOKEN_MARKS = "generatorOptionIgnoreTokenMark";
     public static final String OPTION_SPACE_INSTEAD_NL = "generatorOptionSpaceInsteadNL";
     public static final String ADDITIONAL_GENERATOR_OPTIONS = "additionalGeneratorOptions";
+    public static final String EVALUATOR_GENERATOR_TYPE = "evaluatorGeneratorType";
 
     public String generatorExecutablePath();
     
@@ -35,5 +36,7 @@ public interface IEpsilonPreferences {
     public boolean optionSpaceInsteadNL();
 
     public String additionalGeneratorOptions();
+    
+    public String evaluatorGeneratorType();
 
 }

@@ -32,6 +32,7 @@ package class EpsilonExecutor {
 	
 	static val SKIP_EXECUTION_SYSPROP_NAME = 'de.grammarcraft.epsilon.skipExecution'
 	static val CODE_GENERATION_ONLY_SYSPROP_NAME = 'de.grammarcraft.epsilon.codeGenerationOnly'
+	static val EVALUTATOR_TYPE_SYSPROP_NAME = 'de.grammarcraft.epsilon.evaluatorGeneratorType' 
 	
 	static val EPSILONCG_FINISHING_TIMEOUT_MS = 2000
 	
@@ -44,6 +45,7 @@ package class EpsilonExecutor {
 	boolean createTargetDirIfNotExists
 	boolean codeGenerationOnly
 	List<String> additionalExecutionArgument
+	String evaluatorType
 	IProject project
 
 	@Inject IEpsilonPreferencesProvider preferenceProvider
@@ -72,6 +74,7 @@ package class EpsilonExecutor {
 		createTargetDirIfNotExists = determineCreateTargetDirOption()
 		codeGenerationOnly = determineCodeGenerationOnlyOption()
 		additionalExecutionArgument = determineAdditionalExecutionArgument()
+		evaluatorType = determineEvaluatorType()
 		
 		if (!epsilonExecutableFile.exists && epsilonExecutableFile.isFile) {
 			logger.warn(String.format("no Epsilon executable found at '%s'", epsilonExecutableFile.getAbsolutePath()));
@@ -93,6 +96,7 @@ package class EpsilonExecutor {
 		    additionalExecutionArgument.forEach[builder.command.add(it)]
 		if (codeGenerationOnly) 
 			builder.command.add('-g') // works only since gamma! But we do not differentiate both.
+		builder.command.add('--' + evaluatorType)
 		builder.command.add(eagSrcFile.getAbsolutePath());
 		builder.directory(epsilonExecutableHomeDir);
 		val finalCmdLine = builder.command.join(" ")
@@ -151,11 +155,11 @@ package class EpsilonExecutor {
 		var List<String> additionalArgs
 		if (System.getProperty(ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME) !== null) {
 			additionalArgs = System.getProperty(ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME).trim.split('\\s+').toList
-			logger.info(String.format("system property %s defined, take additional execution arguments from it", ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME))
+			logger.debug(String.format("system property %s defined, take additional execution arguments from it", ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME))
 		}
 		else {
 		    additionalArgs = allConfiguredAdditionalOptions()
-			logger.info(String.format("No system property '%s' is defined, going to use preference settings", 
+			logger.debug(String.format("No system property '%s' is defined, going to use preference settings", 
 				ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME
 			));
 		}
@@ -163,6 +167,20 @@ package class EpsilonExecutor {
 		if (!additionalArgs.empty)
 			logger.info("The following additional execution arguments will be used: " + additionalArgs.join(' '))
 		return additionalArgs
+	}
+	
+	def determineEvaluatorType() {
+        if (System.getProperty(de.grammarcraft.epsilon.validation.EpsilonExecutor.EVALUTATOR_TYPE_SYSPROP_NAME) !== null) {   
+            logger.debug(String.format("system property '%s' defined, take evaluator generator from it", de.grammarcraft.epsilon.validation.EpsilonExecutor.EVALUTATOR_TYPE_SYSPROP_NAME));     
+            return System.getProperty(de.grammarcraft.epsilon.validation.EpsilonExecutor.EVALUTATOR_TYPE_SYSPROP_NAME) 
+        }
+        else {
+            val result = preferenceProvider.projectPreferences(project).evaluatorGeneratorType
+            logger.info(String.format("No system property '%s' is defined, going to use preference set evaluator '%s'", 
+                de.grammarcraft.epsilon.validation.EpsilonExecutor.EVALUTATOR_TYPE_SYSPROP_NAME, result
+            ));
+            return result
+        }
 	}
     
     def allConfiguredAdditionalOptions() {

@@ -43,6 +43,7 @@ class EpsilonValidator extends AbstractEpsilonValidator {
 			    }
 			    catch (Exception e) {
 			        logger.error("executing epsilon generator failed: " + e.message)
+                    logger.error("stack trace: ", e)
 			    }
 			}
 			else

@@ -108,10 +108,15 @@ public class EpsilonConfigurationBlock extends OptionsConfigurationBlock {
     public static final String LABEL_GENERATOR_OPTION_NO_REFERENCE_COUNTING = "Disable &reference counting in generated compiler (-r)";
     public static final String LABEL_GENERATOR_OPTION_IGNORE_TOKEN_MARKS = "&Parser ignores regular token marks at hyper-nonterminals (-p)";
     public static final String LABEL_GENERATOR_OPTION_SPACE_INSTEAD_NL = "Generated compiler uses &space instead of newline as separator (-s)";
+    public static final String LABEL_EVALUATOR_GENERATOR_TYPE = "&Evaluator generator strategy";
+
+    private static final String[] EVALUATOR_GENERATOR_TYPES = {"soag", "sweep", "slag"};
 
     protected void createGeneralSectionItems(Composite composite) {
         addTextField(composite, LABEL_GENERATOR_PATH,
                 getKey(IEpsilonPreferences.GENERATOR_EXE_PATH), 0, 0);
+        addComboBox(composite, LABEL_EVALUATOR_GENERATOR_TYPE, getKey(IEpsilonPreferences.EVALUATOR_GENERATOR_TYPE), 
+                0, EVALUATOR_GENERATOR_TYPES, EVALUATOR_GENERATOR_TYPES);
         addTextField(composite, LABEL_GENERATOR_TARGET_DIR,
                 getKey(IEpsilonPreferences.GENERATOR_TARGET_DIR), 0, 0);
         addCheckBox(composite, LABEL_GENERATOR_OPTION_CREATE_TARGET_DIR,

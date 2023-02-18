@@ -19,6 +19,7 @@ import static de.grammarcraft.epsilon.preferences.IEpsilonPreferences.*;
  */
 public class EpsilonPreferencesProvider implements IEpsilonPreferencesProvider {
     
+    protected static final String DEFAULT_EVALUATOR_TYPE = "soag";
     public static String EPSILON_TARGET_DIR_DEFAULT = "./build";
     public static String EPSILON_EXE_DEFAULT = EPSILON_TARGET_DIR_DEFAULT + "/cg/gamma"; // for later when we will carrying the gamma exec
     
@@ -45,6 +46,7 @@ public class EpsilonPreferencesProvider implements IEpsilonPreferencesProvider {
         @Override public String generatorTargetDir()                { return EPSILON_TARGET_DIR_DEFAULT; }
         @Override public String generatorExecutablePath()           { return EPSILON_EXE_DEFAULT; }
         @Override public String additionalGeneratorOptions()        { return ""; }
+        @Override public String evaluatorGeneratorType()            { return DEFAULT_EVALUATOR_TYPE; }
     };
     
     @Override
@@ -63,6 +65,7 @@ public class EpsilonPreferencesProvider implements IEpsilonPreferencesProvider {
         storeDefault(key(OPTION_IGNORE_TOKEN_MARKS), defaults().optionIgnoreTokenMarks());
         storeDefault(key(OPTION_SPACE_INSTEAD_NL), defaults().optionSpaceInsteadNL());
         storeDefault(key(ADDITIONAL_GENERATOR_OPTIONS), defaults().additionalGeneratorOptions());
+        storeDefault(key(EVALUATOR_GENERATOR_TYPE), defaults().evaluatorGeneratorType());        
     }
     
     private final class PreferenceStoreBasedPreferencesAccess implements IEpsilonPreferences {
@@ -122,6 +125,11 @@ public class EpsilonPreferencesProvider implements IEpsilonPreferencesProvider {
         @Override
         public String additionalGeneratorOptions() {
             return this.preferenceStore.get(key(ADDITIONAL_GENERATOR_OPTIONS), fallback.additionalGeneratorOptions());
+        }
+        
+        @Override
+        public String evaluatorGeneratorType() {
+            return this.preferenceStore.get(key(EVALUATOR_GENERATOR_TYPE), fallback.evaluatorGeneratorType());
         }
     }
 

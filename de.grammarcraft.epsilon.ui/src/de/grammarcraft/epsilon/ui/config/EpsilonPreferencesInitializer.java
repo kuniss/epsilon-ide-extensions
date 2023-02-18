@@ -46,6 +46,7 @@ public class EpsilonPreferencesInitializer implements IPreferenceStoreInitialize
         store.setDefault(preferences.key(IEpsilonPreferences.OPTION_NO_OPTIMIZATION), preferences.defaults().optionNoOptimization());
         store.setDefault(preferences.key(IEpsilonPreferences.OPTION_NO_REFERENCE_COUNTING), preferences.defaults().optionNoReferenceCounting());
         store.setDefault(preferences.key(IEpsilonPreferences.OPTION_SPACE_INSTEAD_NL), preferences.defaults().optionSpaceInsteadNL());
+        store.setDefault(preferences.key(IEpsilonPreferences.EVALUATOR_GENERATOR_TYPE), preferences.defaults().evaluatorGeneratorType());
     }
 
 }
