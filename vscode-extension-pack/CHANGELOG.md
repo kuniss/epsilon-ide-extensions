@@ -15,7 +15,7 @@
 - updated epsilon language extension, other extensions of the pack has not been changed but got new version 
 
 ## 2.0.3
-- corrected OpenVSX publsihing task to get it published finally
+- corrected OpenVSX publishing task to get it published finally
 
 ## 2.0.2
 - ensure publishing to OpenVSX does not repackage the extension as node modules are left out that way  
@@ -33,7 +33,7 @@
 - updated epsilon language extension, other extensions of the pack has not been changed but got new version 
 
 ## 1.2.0
-- license file packaged to fullfill OpenVSX legal requirements
+- license file packaged to fulfill OpenVSX legal requirements
 
 ## 1.1.1
 - Initial release
