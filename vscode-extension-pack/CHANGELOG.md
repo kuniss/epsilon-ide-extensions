@@ -1,5 +1,8 @@
 # Change Log
 
+## 2.3.0
+- updated EAG language extension to solve GH issue #5 and incorporate other improvements
+
 ## 2.2.0
 
 - updated EAG language extension improving auto closing pairs
