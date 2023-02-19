@@ -61,12 +61,12 @@ export function activate(context: ExtensionContext) {
         env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.additionalExeOptions=\'' + additionalExeOptions + '\'' 
     }
 
-    let lsLogEnabled = workspace.getConfiguration().get<boolean>('eag.compilerGenerator.log')
+    let logLevel = workspace.getConfiguration().get<string>('eag.compilerGenerator.logLevel')
     var additonalArgs: string[] = []
-    if (lsLogEnabled) {
+    if (logLevel != "OFF") {
          additonalArgs = ['-log']
+         env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.logLevel=\'' + logLevel + '\'' 
     }
-
 
     console.log("JAVA_OPTS: " + env['JAVA_OPTS'])
 

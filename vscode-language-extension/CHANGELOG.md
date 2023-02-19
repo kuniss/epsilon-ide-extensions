@@ -1,10 +1,11 @@
 # Change Log
 
 ## 2.3.0
-- made evaluator generator strategy configurable (`eag.compilerGenerator.evaluatorGeneratorType`) to solve itHub issue [#5](https://github.com/kuniss/epsilon-ide-extensions/issues/5))
-- added configuration option (`eag.compilerGenerator.log`) to enable language server logging in to a project local log file (for extension development purposes only)
+- made evaluator generator strategy configurable (`eag.compilerGenerator.evaluatorGeneratorType`) to solve GitHub issue [#5](https://github.com/kuniss/epsilon-ide-extensions/issues/5))
+- added configuration option (`eag.compilerGenerator.logLevel`) to enable language server logging in to a project local log file (mainly, for extension development purposes)
 - corrected an unreported issue for processing additionally configured options (`eag.compilerGenerator.additionalExeOptions`) correctly
 - generate target directory configured via `eag.compilerGenerator.targetDir` if it does not exist
+
 ## 2.2.0
 - removed ":." from auto closing pairs to avoid it is automatically added at affix domain definitions when typing ":"
 - fixed missing warning messages if error situation is missing; solves GH issue #4 
