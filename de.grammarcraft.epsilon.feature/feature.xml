@@ -2,27 +2,36 @@
 <feature
       id="de.grammarcraft.epsilon.feature"
       label="Epsilon Feature "
-      version="2.2.0.qualifier">
+      version="2.3.0.qualifier">
+
+   <description url="https://github.com/kuniss/epsilon-ide-extensions">
+      A plugin for editing Extend Affix Grammar files (.eag).
+If a Gamma comiler generator (https://github.com/linkrope/gamma) is installed then D code is generated which represents a full capable compiler corresponding to the given EAG specification.
+   </description>
+
+   <copyright url="https://github.com/kuniss/epsilon-ide-extensions/blob/master/LICENSE">
+      Provided under the Eclipse Public License 2.0
+   </copyright>
 
    <plugin
          id="de.grammarcraft.epsilon"
          download-size="0"
          install-size="0"
-         version="2.2.0"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="de.grammarcraft.epsilon.ide"
          download-size="0"
          install-size="0"
-         version="2.2.0"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="de.grammarcraft.epsilon.ui"
          download-size="0"
          install-size="0"
-         version="2.2.0"
+         version="0.0.0"
          unpack="false"/>
 
 </feature>
