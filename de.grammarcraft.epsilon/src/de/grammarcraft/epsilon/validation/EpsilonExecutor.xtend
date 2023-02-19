@@ -27,13 +27,13 @@ package class EpsilonExecutor {
 	
 	static val logger = Logger.getLogger(EpsilonExecutor.name);
 	
-	package static val EPSILON_TARGET_DIR_SYSPROP_NAME = 'de.grammarcraft.epsilon.target.dir'
-	package static val EPSILON_EXE_SYSPROP_NAME = 'de.grammarcraft.epsilon.executable'
-	package static val ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME = 'de.grammarcraft.epsilon.additionalExeOptions'
+	package static val SYSPROP_NAME_EPSILON_TARGET_DIR = 'de.grammarcraft.epsilon.target.dir'
+	package static val SYSPROP_NAME_EPSILON_EXE = 'de.grammarcraft.epsilon.executable'
+	package static val SYSPROP_NAME_ADDITIONAL_EXE_ARGUMENTS = 'de.grammarcraft.epsilon.additionalExeOptions'
 	
-	static val SKIP_EXECUTION_SYSPROP_NAME = 'de.grammarcraft.epsilon.skipExecution'
-	static val CODE_GENERATION_ONLY_SYSPROP_NAME = 'de.grammarcraft.epsilon.codeGenerationOnly'
-	static val EVALUTATOR_TYPE_SYSPROP_NAME = 'de.grammarcraft.epsilon.evaluatorGeneratorType'
+	static val SYSPROP_NAME_SKIP_EXECUTION = 'de.grammarcraft.epsilon.skipExecution'
+	static val SYSPROP_NAME_CODE_GENERATION_ONLY = 'de.grammarcraft.epsilon.codeGenerationOnly'
+	static val SYSPROP_NAME_EVALUTATOR_TYPE = 'de.grammarcraft.epsilon.evaluatorGeneratorType'
 	static val SYSPROP_NAME_LOG_LEVEL = 'de.grammarcraft.epsilon.logLevel'  
 	
 	static val EPSILONCG_FINISHING_TIMEOUT_MS = 2000
@@ -147,24 +147,24 @@ package class EpsilonExecutor {
     }
 	
 	package def static skipEpsilonExecution() {
-		if (System.getProperty(SKIP_EXECUTION_SYSPROP_NAME) !== null) {
-		    val skipped = Boolean.parseBoolean(System.getProperty(SKIP_EXECUTION_SYSPROP_NAME))
+		if (System.getProperty(SYSPROP_NAME_SKIP_EXECUTION) !== null) {
+		    val skipped = Boolean.parseBoolean(System.getProperty(SYSPROP_NAME_SKIP_EXECUTION))
 		    if (skipped)
-			    logger.info("Epsilon execution is skipped due to setting of system property " + SKIP_EXECUTION_SYSPROP_NAME);		
+			    logger.info("Epsilon execution is skipped due to setting of system property " + SYSPROP_NAME_SKIP_EXECUTION);		
 			return skipped
 		}
 		return false
 	}
 			
 	def determineCodeGenerationOnlyOption() {
-		if (System.getProperty(CODE_GENERATION_ONLY_SYSPROP_NAME) !== null) {	
-			logger.info("Only source code is generated, not compiled, due to setting of system property " + CODE_GENERATION_ONLY_SYSPROP_NAME);		
-			return Boolean.parseBoolean(System.getProperty(CODE_GENERATION_ONLY_SYSPROP_NAME))
+		if (System.getProperty(SYSPROP_NAME_CODE_GENERATION_ONLY) !== null) {	
+			logger.info("Only source code is generated, not compiled, due to setting of system property " + SYSPROP_NAME_CODE_GENERATION_ONLY);		
+			return Boolean.parseBoolean(System.getProperty(SYSPROP_NAME_CODE_GENERATION_ONLY))
 		}
 		else {
 		    val result = preferenceProvider.projectPreferences(project).optionGenerationOnly
             logger.info(String.format("No system property '%s' is defined, going to use preference setting code generatioOnly=%b", 
-                CODE_GENERATION_ONLY_SYSPROP_NAME, result
+                SYSPROP_NAME_CODE_GENERATION_ONLY, result
             ));
             return result
 		}
@@ -172,14 +172,14 @@ package class EpsilonExecutor {
 	
 	def determineAdditionalExecutionArgument() {
 		var List<String> additionalArgs
-		if (System.getProperty(ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME) !== null) {
-			additionalArgs = System.getProperty(ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME).trim.split('\\s+').toList
-			logger.debug(String.format("system property %s defined, take additional execution arguments from it", ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME))
+		if (System.getProperty(de.grammarcraft.epsilon.validation.EpsilonExecutor.SYSPROP_NAME_ADDITIONAL_EXE_ARGUMENTS) !== null) {
+			additionalArgs = System.getProperty(de.grammarcraft.epsilon.validation.EpsilonExecutor.SYSPROP_NAME_ADDITIONAL_EXE_ARGUMENTS).trim.split('\\s+').toList
+			logger.debug(String.format("system property %s defined, take additional execution arguments from it", de.grammarcraft.epsilon.validation.EpsilonExecutor.SYSPROP_NAME_ADDITIONAL_EXE_ARGUMENTS))
 		}
 		else {
 		    additionalArgs = allConfiguredAdditionalOptions()
 			logger.debug(String.format("No system property '%s' is defined, going to use preference settings", 
-				ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME
+				de.grammarcraft.epsilon.validation.EpsilonExecutor.SYSPROP_NAME_ADDITIONAL_EXE_ARGUMENTS
 			));
 		}
 		
@@ -189,14 +189,14 @@ package class EpsilonExecutor {
 	}
 	
 	def determineEvaluatorType() {
-        if (System.getProperty(de.grammarcraft.epsilon.validation.EpsilonExecutor.EVALUTATOR_TYPE_SYSPROP_NAME) !== null) {   
-            logger.debug(String.format("system property '%s' defined, take evaluator generator from it", de.grammarcraft.epsilon.validation.EpsilonExecutor.EVALUTATOR_TYPE_SYSPROP_NAME));     
-            return System.getProperty(de.grammarcraft.epsilon.validation.EpsilonExecutor.EVALUTATOR_TYPE_SYSPROP_NAME) 
+        if (System.getProperty(de.grammarcraft.epsilon.validation.EpsilonExecutor.SYSPROP_NAME_EVALUTATOR_TYPE) !== null) {   
+            logger.debug(String.format("system property '%s' defined, take evaluator generator from it", de.grammarcraft.epsilon.validation.EpsilonExecutor.SYSPROP_NAME_EVALUTATOR_TYPE));     
+            return System.getProperty(de.grammarcraft.epsilon.validation.EpsilonExecutor.SYSPROP_NAME_EVALUTATOR_TYPE) 
         }
         else {
             val result = preferenceProvider.projectPreferences(project).evaluatorGeneratorType
             logger.info(String.format("No system property '%s' is defined, going to use preference set evaluator '%s'", 
-                de.grammarcraft.epsilon.validation.EpsilonExecutor.EVALUTATOR_TYPE_SYSPROP_NAME, result
+                de.grammarcraft.epsilon.validation.EpsilonExecutor.SYSPROP_NAME_EVALUTATOR_TYPE, result
             ));
             return result
         }
@@ -333,10 +333,10 @@ package class EpsilonExecutor {
 
 	package def File determineEpsilonExecutable() {
 		var String epsilonExecutable
-		if (System.getProperty(EPSILON_EXE_SYSPROP_NAME) !== null) {
+		if (System.getProperty(de.grammarcraft.epsilon.validation.EpsilonExecutor.SYSPROP_NAME_EPSILON_EXE) !== null) {
 			
-			epsilonExecutable = System.getProperty(EPSILON_EXE_SYSPROP_NAME)
-			logger.info(String.format("system property %s defined, take Epsilon executable path from it", EPSILON_EXE_SYSPROP_NAME))
+			epsilonExecutable = System.getProperty(de.grammarcraft.epsilon.validation.EpsilonExecutor.SYSPROP_NAME_EPSILON_EXE)
+			logger.info(String.format("system property %s defined, take Epsilon executable path from it", de.grammarcraft.epsilon.validation.EpsilonExecutor.SYSPROP_NAME_EPSILON_EXE))
 		}
 		else if (project !== null) {
             epsilonExecutable = preferenceProvider.projectPreferences(project).generatorExecutablePath
@@ -345,7 +345,7 @@ package class EpsilonExecutor {
 		else {
 		    epsilonExecutable = preferenceProvider.workspacePreferences.generatorExecutablePath
 			logger.info(String.format("No system property '%s' nor project preference is defined, use the default path '%s' from workspace preferences as Epsilon executable", 
-				EPSILON_EXE_SYSPROP_NAME, epsilonExecutable
+				de.grammarcraft.epsilon.validation.EpsilonExecutor.SYSPROP_NAME_EPSILON_EXE, epsilonExecutable
 			));
 		}
 			
@@ -365,10 +365,10 @@ package class EpsilonExecutor {
     
 	package def File determineEpsilonTargetDir() {
 		var String epsilonTargetDir
-		if (System.getProperty(EPSILON_TARGET_DIR_SYSPROP_NAME) !== null) {
+		if (System.getProperty(de.grammarcraft.epsilon.validation.EpsilonExecutor.SYSPROP_NAME_EPSILON_TARGET_DIR) !== null) {
 			
-			epsilonTargetDir = System.getProperty(EPSILON_TARGET_DIR_SYSPROP_NAME)
-			logger.info(String.format("system property %s defined, use it as Epsilon generation target directory", EPSILON_TARGET_DIR_SYSPROP_NAME))
+			epsilonTargetDir = System.getProperty(de.grammarcraft.epsilon.validation.EpsilonExecutor.SYSPROP_NAME_EPSILON_TARGET_DIR)
+			logger.info(String.format("system property %s defined, use it as Epsilon generation target directory", de.grammarcraft.epsilon.validation.EpsilonExecutor.SYSPROP_NAME_EPSILON_TARGET_DIR))
 		}
 		else if (project !== null) {
 		    epsilonTargetDir = preferenceProvider.projectPreferences(project).generatorTargetDir
@@ -378,7 +378,7 @@ package class EpsilonExecutor {
             epsilonTargetDir = preferenceProvider.workspacePreferences.generatorTargetDir
             logger.info(String.format(
 				"No system property '%s' nor project preference is defined, use the default path '%s' from workspace preferences as Epsilon generation target directory", 
-				EPSILON_TARGET_DIR_SYSPROP_NAME, epsilonTargetDir
+				de.grammarcraft.epsilon.validation.EpsilonExecutor.SYSPROP_NAME_EPSILON_TARGET_DIR, epsilonTargetDir
 			));
 		}
 		

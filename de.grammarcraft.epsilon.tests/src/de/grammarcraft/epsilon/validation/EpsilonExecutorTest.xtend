@@ -102,26 +102,26 @@ class EpsilonExecutorTest {
 	@Test
 	def void determineEpsilonTargetDirFromSysProp() {
 		val file = new File('./build')
-		System.properties.setProperty(EpsilonExecutor.EPSILON_TARGET_DIR_SYSPROP_NAME, file.absolutePath)
+		System.properties.setProperty(EpsilonExecutor.SYSPROP_NAME_EPSILON_TARGET_DIR, file.absolutePath)
         try {
         	val result = epsilonExecutor.determineEpsilonTargetDir
         	assertEquals(file.absolutePath, result.absolutePath)
         }
         finally {
-            System.properties.remove(EpsilonExecutor.EPSILON_TARGET_DIR_SYSPROP_NAME)
+            System.properties.remove(EpsilonExecutor.SYSPROP_NAME_EPSILON_TARGET_DIR)
         }
 	}
 	
 	@Test
 	def void determineEpsilonTargetDirFallBackOnError() {
 		val file = File.createTempFile('determineEpsilonTargetDirFallBackOnError', 'build')
-		System.properties.setProperty(EpsilonExecutor.EPSILON_TARGET_DIR_SYSPROP_NAME, file.absolutePath)
+		System.properties.setProperty(EpsilonExecutor.SYSPROP_NAME_EPSILON_TARGET_DIR, file.absolutePath)
 		try {
 			val result = epsilonExecutor.determineEpsilonTargetDir
 			assertEquals(new File('./').absolutePath, result.absolutePath)
 		}
 		finally {
-			System.properties.remove(EpsilonExecutor.EPSILON_TARGET_DIR_SYSPROP_NAME)
+			System.properties.remove(EpsilonExecutor.SYSPROP_NAME_EPSILON_TARGET_DIR)
 		}
 	}
 	
@@ -135,13 +135,13 @@ class EpsilonExecutorTest {
 	@Test
 	def void determineEpsilonExecutableFromSysProp() {
 		val file = new File('./build/epsilon')
-		System.properties.setProperty(EpsilonExecutor.EPSILON_EXE_SYSPROP_NAME, file.absolutePath)
+		System.properties.setProperty(EpsilonExecutor.SYSPROP_NAME_EPSILON_EXE, file.absolutePath)
 		try {
 			val result = epsilonExecutor.determineEpsilonExecutable
 			assertEquals(file.absolutePath, result.absolutePath)			
 		}
 		finally {
-			System.properties.remove(EpsilonExecutor.EPSILON_EXE_SYSPROP_NAME)
+			System.properties.remove(EpsilonExecutor.SYSPROP_NAME_EPSILON_EXE)
 		}
 	}
 
@@ -155,14 +155,14 @@ class EpsilonExecutorTest {
 	@Test
 	def void determineAdditionalExecutionArgsFromSysProp() {
 		val additionalArgs = ' -g -s '
-		System.properties.setProperty(EpsilonExecutor.ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME, additionalArgs)
+		System.properties.setProperty(EpsilonExecutor.SYSPROP_NAME_ADDITIONAL_EXE_ARGUMENTS, additionalArgs)
 		try {
 			val List<String> result = epsilonExecutor.determineAdditionalExecutionArgument
 			assertEquals(2, result.size)
 			assertEquals(additionalArgs.trim, result.join(' '))			
 		}
 		finally {
-			System.properties.remove(EpsilonExecutor.ADDITIONAL_EXE_ARGUMENTS_SYSPROP_NAME)
+			System.properties.remove(EpsilonExecutor.SYSPROP_NAME_ADDITIONAL_EXE_ARGUMENTS)
 		}
 	}
 
