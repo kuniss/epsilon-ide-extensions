@@ -21,6 +21,7 @@ import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.core.runtime.Path
 import org.eclipse.emf.common.util.Diagnostic
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.apache.log4j.Level
 
 package class EpsilonExecutor {
 	
@@ -32,7 +33,8 @@ package class EpsilonExecutor {
 	
 	static val SKIP_EXECUTION_SYSPROP_NAME = 'de.grammarcraft.epsilon.skipExecution'
 	static val CODE_GENERATION_ONLY_SYSPROP_NAME = 'de.grammarcraft.epsilon.codeGenerationOnly'
-	static val EVALUTATOR_TYPE_SYSPROP_NAME = 'de.grammarcraft.epsilon.evaluatorGeneratorType' 
+	static val EVALUTATOR_TYPE_SYSPROP_NAME = 'de.grammarcraft.epsilon.evaluatorGeneratorType'
+	static val SYSPROP_NAME_LOG_LEVEL = 'de.grammarcraft.epsilon.logLevel'  
 	
 	static val EPSILONCG_FINISHING_TIMEOUT_MS = 2000
 	
@@ -59,6 +61,8 @@ package class EpsilonExecutor {
 	}
 	
 	package def List<EpsilonIssue> executeOn(Specification specification) {
+	    
+	    setLogLevelFromSystemProperty()
         		
 		if (skipEpsilonExecution()) {
 			return emptyList			
@@ -114,6 +118,21 @@ package class EpsilonExecutor {
 		
         createIssueListFrom(outputConsumer.stdErrLines)
 	}
+    
+    def setLogLevelFromSystemProperty() {
+        if (System.getProperty(SYSPROP_NAME_LOG_LEVEL) !== null) {
+            val logLevel = System.getProperty(SYSPROP_NAME_LOG_LEVEL)
+            switch (logLevel) {
+            	case "ALL": logger.level = Level.ALL
+            	case "TRACE": logger.level = Level.TRACE
+                case "DEBUG": logger.level = Level.DEBUG
+                case "INFO": logger.level = Level.INFO
+                case "WARN": logger.level = Level.WARN
+                case "ERROR": logger.level = Level.ERROR
+                case "FATAL": logger.level = Level.FATAL
+            }
+        }            
+    }
     
     def static getIProject(Specification specification) {
         try {
