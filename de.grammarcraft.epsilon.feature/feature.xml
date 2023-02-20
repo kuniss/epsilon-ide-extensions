@@ -2,7 +2,7 @@
 <feature
       id="de.grammarcraft.epsilon.feature"
       label="Epsilon Compiler Generator Plugin"
-      version="2.3.0.qualifier">
+      version="2.4.0.qualifier">
 
    <description url="https://github.com/kuniss/epsilon-ide-extensions">
       A plugin for editing Extend Affix Grammar files (.eag).
@@ -14,7 +14,7 @@ If a Gamma comiler generator (https://github.com/linkrope/gamma) is installed th
    </copyright>
 
    <url>
-      <update url="http://epsilon.grammarcraft.de"/>
+      <update label="Udate Site for the Epsilon Compiler Generator plugin" url="http://epsilon.grammarcraft.de"/>
    </url>
 
    <plugin
