@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="de.grammarcraft.epsilon.feature"
-      label="Epsilon Feature "
+      label="Epsilon Compiler Generator Plugin"
       version="2.3.0.qualifier">
 
    <description url="https://github.com/kuniss/epsilon-ide-extensions">
@@ -12,6 +12,10 @@ If a Gamma comiler generator (https://github.com/linkrope/gamma) is installed th
    <copyright url="https://github.com/kuniss/epsilon-ide-extensions/blob/master/LICENSE">
       Provided under the Eclipse Public License 2.0
    </copyright>
+
+   <url>
+      <update url="http://epsilon.grammarcraft.de"/>
+   </url>
 
    <plugin
          id="de.grammarcraft.epsilon"
