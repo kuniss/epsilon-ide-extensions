@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <description name="Epsilon Compiler Generator Plugin" url="https://www.grammarcraft.de/epsilon/updatesite">
+   <description name="Epsilon Compiler Generator Plugin Update Site" url="https://epsilon.grammarcraft.de">
       This is an Eclipse update site for the Epsilon Compiler Generator plugin (https://github.com/kuniss/epsilon-ide-extensions).
    </description>
-   <feature url="features/de.grammarcraft.epsilon.feature_2.4.0.qualifier.jar" id="de.grammarcraft.epsilon.feature" version="2.4.0.qualifier">
+   <feature url="features/de.grammarcraft.epsilon.feature_2.4.0.202302201723.jar" id="de.grammarcraft.epsilon.feature" version="2.4.0.202302201723">
       <category name="de.grammarcraft.epsilon"/>
    </feature>
    <category-def name="de.grammarcraft.epsilon" label="Epsilon Compiler Generator">
