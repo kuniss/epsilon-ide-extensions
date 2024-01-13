@@ -1,5 +1,8 @@
 # Change Log
 
+## 3.0.0
+- no changes (published together with other extensions as part of the Epsilon EAG extension pack, other parts of the pack may have changes)
+
 ## 2.3.0
 - no changes, just new publishing via GitHub actions
 

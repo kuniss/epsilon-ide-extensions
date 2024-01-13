@@ -1,5 +1,9 @@
 # Change Log
 
+## 3.0.0
+- _gamma_ executable packaged into language server JAR and get unpackaged into 'de.grammarcraft.epsilon.executable' configured gamma parent directory
+- needed gamma specific Dlang sources get unpacked into 'de.grammarcraft.epsilon.target.dir' configured target directory 
+
 ## 2.3.0
 - made evaluator generator strategy configurable (`eag.compilerGenerator.evaluatorGeneratorType`) to solve GitHub issue [#5](https://github.com/kuniss/epsilon-ide-extensions/issues/5))
 - added configuration option (`eag.compilerGenerator.logLevel`) to enable language server logging in to a project local log file (mainly, for extension development purposes)

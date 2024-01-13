@@ -1,5 +1,8 @@
 # Change Log
 
+## 3.0.0
+- language extension got updated, others unchanged but version increased for all together
+
 ## 2.3.0
 - updated EAG language extension to solve GH issue #5 and incorporate other improvements
 
