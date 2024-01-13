@@ -119,6 +119,7 @@ configure(subprojects.findAll { it.name.startsWith('vscode') }) {
 	}
 
 	task vscodeExtension(dependsOn: [npmInstall, npmInstallVsce], type: NodeTask) {
+		description = "builds the VS code extension in this project"
 		ext.destDir = new File(buildDir, 'vscode')
 		ext.archiveName = "epsilon-eag-$project.name-${project.version}.vsix"
 		ext.destPath = "$destDir/$archiveName"
@@ -188,6 +189,11 @@ def changeLogFilesToUpdate = [
 	file('vscode-light-theme-extension/CHANGELOG.md'),
 	file('vscode-extension-pack/CHANGELOG.md'),
 ]
+def manifestFilesToUpdate = [
+	file('de.grammarcraft.epsilon/META-INF/MANIFEST.MF'),
+	file('de.grammarcraft.epsilon.ide/META-INF/MANIFEST.MF'),
+	file('de.grammarcraft.epsilon.ui/META-INF/MANIFEST.MF'),
+]
 
 def updatePackageFiles(packageFilesToUpdate) {
 	// String replacements - isn't long enough to justify advanced code ;)
@@ -198,9 +204,18 @@ def updatePackageFiles(packageFilesToUpdate) {
 	}
 }
 
+def updatePluginManifests(manifestFilesToUpdate) {
+	manifestFilesToUpdate.forEach { file ->
+		String text = file.getText(encoding)
+		text = text.replaceAll("Bundle-Version: \\d+\\.\\d+\\.\\d+", "Bundle-Version: $project.version")
+		file.setText(text, encoding)
+	}
+}
+
 confirmReleaseVersion {
 	doLast {
 		updatePackageFiles(packageFilesToUpdate)
+		updatePluginManifests(manifestFilesToUpdate)
 
 		// Replaces the "## <version>" just after # Change Log with "## <project.version>" 
 		changeLogFilesToUpdate.forEach { file ->
@@ -217,6 +232,7 @@ updateVersion {
 	doLast {
 
 		updatePackageFiles(packageFilesToUpdate)
+		updatePluginManifests(manifestFilesToUpdate)
 
 		// Adds a "## <project.version>" just after # Change Log
 		changeLogFilesToUpdate.forEach { file ->
