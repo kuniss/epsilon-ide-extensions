@@ -34,7 +34,10 @@ shadowJar {
 		'plugin.xml', 'systembundle.properties', 'profile.list')
 	classifier = 'ls'
 	append('plugin.properties')
+	
+	with gammaNativeResources
 }
+
 //this is an eclipse plugin project
 eclipseClasspath.enabled=false
 cleanEclipseClasspath.enabled=false
