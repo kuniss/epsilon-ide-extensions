@@ -35,21 +35,14 @@ class EpsilonValidator extends AbstractEpsilonValidator {
 	// perform this check only on file save
 	@Check(CheckType.NORMAL)
 	def runEpsilonExecutable(Specification specification) {
-			val isLinux = System.getProperty("os.name").toLowerCase().startsWith("linux");
-			if (isLinux) {
-			    try {
-    				val issues = epsilonExecutor.executeOn(specification);
-    				addMarkersForIssues(specification.eResource(), issues);			        
-			    }
-			    catch (Exception e) {
-			        logger.error("executing epsilon generator failed: " + e.message)
-                    logger.error("stack trace: ", e)
-			    }
-			}
-			else
-				info("Running the epsilon compiler generator under Windows is not supported yet, unfortunately. "
-						+ "So, the correctness of some affix parameters could not be checked.",
-						EpsilonPackage.eINSTANCE.getSpecification_Rules());
+	    try {
+			val issues = epsilonExecutor.executeOn(specification);
+			addMarkersForIssues(specification.eResource(), issues);			        
+	    }
+	    catch (Exception e) {
+	        logger.error("executing epsilon generator failed: " + e.message)
+            logger.error("stack trace: ", e)
+	    }
 	}
 
 	private def addMarkersForIssues(Resource resource, List<EpsilonIssue> issues) {

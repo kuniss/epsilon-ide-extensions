@@ -48,3 +48,14 @@ eclipse.classpath.plusConfigurations += [configurations.mwe2]
 //this is an eclipse plugin project
 eclipseClasspath.enabled=false
 cleanEclipseClasspath.enabled=false
+
+tasks.register('gammaResources', Copy) {
+	group = 'ide'
+	description = 'Creates native D exe and source as Eclispe resources for test runtime'
+	
+	destinationDir = projectDir
+	with gammaNativeResources
+}
+
+jar.dependsOn 'gammaResources'
+

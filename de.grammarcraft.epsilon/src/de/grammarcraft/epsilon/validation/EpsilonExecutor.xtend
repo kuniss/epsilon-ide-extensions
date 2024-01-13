@@ -79,15 +79,17 @@ package class EpsilonExecutor {
 		codeGenerationOnly = determineCodeGenerationOnlyOption()
 		additionalExecutionArgument = determineAdditionalExecutionArgument()
 		evaluatorType = determineEvaluatorType()
-		
-		if (!epsilonExecutableFile.exists && epsilonExecutableFile.isFile) {
+
+		if (!epsilonExecutableFile.exists || !epsilonExecutableFile.isFile) {
+			ResourceExtractor.extractExecutableFromJarTo(epsilonExecutableFile.parentFile)
+			ResourceExtractor.extractDLibSourcesFromJarTo(epsilonTargetDir)
+		}
+				
+		if (!epsilonExecutableFile.exists || !epsilonExecutableFile.isFile) {
 			logger.warn(String.format("no Epsilon executable found at '%s'", epsilonExecutableFile.getAbsolutePath()));
 			return emptyList
 		}
 				
-		val epsilonExecutableHomeDir = epsilonExecutableFile.parentFile
-		checkEpsilonHomeDirConstraints(epsilonExecutableHomeDir)
-		
 		val eagSrcFile = determineEagSourceFileFrom(specification);
 		if (!eagSrcFile.exists()) {
 			logger.warn(String.format("Epsilon source file '%s' to be processed does not exist", eagSrcFile.getAbsolutePath()));
@@ -102,7 +104,7 @@ package class EpsilonExecutor {
 			builder.command.add('-g') // works only since gamma! But we do not differentiate both.
 		builder.command.add('--' + evaluatorType)
 		builder.command.add(eagSrcFile.getAbsolutePath());
-		builder.directory(epsilonExecutableHomeDir);
+		builder.directory(epsilonTargetDir);
 		val finalCmdLine = builder.command.join(" ")
 		logger.info("going to invoke the following Epsilon compiler generator cmd line: " + finalCmdLine);
 		
@@ -235,15 +237,7 @@ package class EpsilonExecutor {
 
         return result
     }
-	
-	private def static checkEpsilonHomeDirConstraints(File epsilonHomeDir) {
-		val fixSubDir = new File(epsilonHomeDir, "fix")
-		if (!fixSubDir.exists || fixSubDir.isFile)
-			logger.warn(String.format("There is no 'fix' sub directory in Eclipse executable home directory '%s' - compiler generation may fail.", 
-				epsilonHomeDir.absolutePath
-			))
-	}
-	
+		
 	package def static createIssueListFrom(List<String> stderrLines) {
 		val lines = new ArrayList<String>
 		for (String line : stderrLines) {
@@ -349,8 +343,18 @@ package class EpsilonExecutor {
 			));
 		}
 			
+		val configuredEpsilonExecutable = new File(epsilonExecutable);
+		var result = 
+    		if (!configuredEpsilonExecutable.isAbsolute && project !== null) {
+    		    // create exe path relative to Eclipse project
+    		    project?.location.addTrailingSeparator.append(epsilonExecutable).toFile 
+    		}
+    		else {
+    		    // alternatively, create exe path relative to current working dir
+    		    configuredEpsilonExecutable
+    		}
 		logger.info("The following Epsilon executable will be used for generation and validation: " + epsilonExecutable)
-		return new File(epsilonExecutable);
+		return result
 	}
 
     def determineCreateTargetDirOption() {
