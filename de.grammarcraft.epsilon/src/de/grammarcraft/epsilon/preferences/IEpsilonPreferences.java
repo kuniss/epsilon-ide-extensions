@@ -6,6 +6,7 @@ package de.grammarcraft.epsilon.preferences;
 public interface IEpsilonPreferences {
     
     public static final String GENERATOR_EXE_PATH = "generatorExecutablePath";
+    public static final String USE_EXTERNAL_GENERATOR_EXE = "useExternalCompilerGeneratorExecutable";
     public static final String GENERATOR_TARGET_DIR = "generatorTargetDir";
     public static final String OPTION_CREATE_TARGET_DIR = "generatorOptionCreateTargetDir";
     public static final String OPTION_NO_CONSTANT_TREES_COLLAPSING = "generatorOptionNoConstantTreesCollapsing";
@@ -18,6 +19,8 @@ public interface IEpsilonPreferences {
     public static final String EVALUATOR_GENERATOR_TYPE = "evaluatorGeneratorType";
 
     public String generatorExecutablePath();
+    
+    public boolean useExternalCompilerGeneratorExe();
     
     public String generatorTargetDir();
     

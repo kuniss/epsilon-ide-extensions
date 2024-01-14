@@ -31,6 +31,7 @@ package class EpsilonExecutor {
 	package static val SYSPROP_NAME_EPSILON_EXE = 'de.grammarcraft.epsilon.executable'
 	package static val SYSPROP_NAME_ADDITIONAL_EXE_ARGUMENTS = 'de.grammarcraft.epsilon.additionalExeOptions'
 	
+	static val SYSPROP_USE_EXTERNAL_GENERATOR = 'de.grammarcraft.epsilon.useExternalExecutable'
 	static val SYSPROP_NAME_SKIP_EXECUTION = 'de.grammarcraft.epsilon.skipExecution'
 	static val SYSPROP_NAME_CODE_GENERATION_ONLY = 'de.grammarcraft.epsilon.codeGenerationOnly'
 	static val SYSPROP_NAME_EVALUTATOR_TYPE = 'de.grammarcraft.epsilon.evaluatorGeneratorType'
@@ -43,6 +44,7 @@ package class EpsilonExecutor {
 	static val TAG_INFO  = 'info:'
 	
 	File epsilonExecutableFile
+	boolean useExternalExecutable
 	File epsilonTargetDir
 	boolean createTargetDirIfNotExists
 	boolean codeGenerationOnly
@@ -74,19 +76,22 @@ package class EpsilonExecutor {
 		}
 		
 		epsilonExecutableFile = determineEpsilonExecutable()
+		useExternalExecutable = determineUseExternalExecutable()
 		epsilonTargetDir = determineEpsilonTargetDir()
 		createTargetDirIfNotExists = determineCreateTargetDirOption()
 		codeGenerationOnly = determineCodeGenerationOnlyOption()
 		additionalExecutionArgument = determineAdditionalExecutionArgument()
 		evaluatorType = determineEvaluatorType()
 
-		if (!epsilonExecutableFile.exists || !epsilonExecutableFile.isFile) {
+		if (!useExternalExecutable) {
 			ResourceExtractor.extractExecutableFromJarTo(epsilonExecutableFile.parentFile)
 			ResourceExtractor.extractDLibSourcesFromJarTo(epsilonTargetDir)
 		}
+		else
+			logger.warn("external compiler generator gets used, required Dlang sources needs to be provided manually")
 				
 		if (!epsilonExecutableFile.exists || !epsilonExecutableFile.isFile) {
-			logger.warn(String.format("no Epsilon executable found at '%s'", epsilonExecutableFile.getAbsolutePath()));
+			logger.warn(String.format("no compiler generator executable found at '%s'", epsilonExecutableFile.getAbsolutePath()));
 			return emptyList
 		}
 				
@@ -356,6 +361,20 @@ package class EpsilonExecutor {
 		logger.info("The following Epsilon executable will be used for generation and validation: " + epsilonExecutable)
 		return result
 	}
+	
+	def boolean determineUseExternalExecutable() {
+		if (System.getProperty(SYSPROP_USE_EXTERNAL_GENERATOR) !== null) {	
+			logger.info("External compiler generator executable is used (not the embedded one), due to setting of system property " + SYSPROP_USE_EXTERNAL_GENERATOR);		
+			return Boolean.parseBoolean(System.getProperty(SYSPROP_USE_EXTERNAL_GENERATOR))
+		}
+		else {
+		    val result = preferenceProvider.projectPreferences(project).useExternalCompilerGeneratorExe
+            logger.info(String.format("No system property '%s' is defined, going to use preference setting set to %b", 
+                SYSPROP_USE_EXTERNAL_GENERATOR, result
+            ));
+            return result
+		}		
+	}
 
     def determineCreateTargetDirOption() {
         if (project !== null) {
@@ -404,7 +423,7 @@ package class EpsilonExecutor {
 		          logger.warn(String.format("failed to create generator target directory '%s' as defined by preferences", result.absolutePath))
 		    }
 		    else
-			    logger.warn(String.format("Epsilon generation target directory '%s' does not exist - hopefully the Epsilon executable will create it",
+			    logger.info(String.format("Epsilon generation target directory '%s' does not exist - it is no created as configured",
 					result.absolutePath))
 		}
 		else if (!result.isDirectory) {

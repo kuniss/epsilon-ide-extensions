@@ -41,8 +41,9 @@ public class EpsilonPreferencesProvider implements IEpsilonPreferencesProvider {
         @Override public boolean optionNoOptimization()             { return false; }
         @Override public boolean optionNoConstantTreesCollapsing()  { return false; }
         @Override public boolean optionIgnoreTokenMarks()           { return false; }
-        @Override public boolean optionGenerationOnly()             { return true;  }
+        @Override public boolean optionGenerationOnly()             { return true; }
         @Override public boolean optionCreateTargetDir()            { return true; }
+        @Override public boolean useExternalCompilerGeneratorExe()	{ return false; }
         @Override public String generatorTargetDir()                { return EPSILON_TARGET_DIR_DEFAULT; }
         @Override public String generatorExecutablePath()           { return EPSILON_EXE_DEFAULT; }
         @Override public String additionalGeneratorOptions()        { return ""; }
@@ -57,6 +58,7 @@ public class EpsilonPreferencesProvider implements IEpsilonPreferencesProvider {
     @Override
     public void initializeDefaultPreferences() {
         storeDefault(key(GENERATOR_EXE_PATH), defaults().generatorExecutablePath());
+        storeDefault(key(USE_EXTERNAL_GENERATOR_EXE), defaults().useExternalCompilerGeneratorExe());
         storeDefault(key(GENERATOR_TARGET_DIR), defaults().generatorTargetDir());
         storeDefault(key(OPTION_CREATE_TARGET_DIR), defaults().optionCreateTargetDir());
         storeDefault(key(OPTION_NO_CONSTANT_TREES_COLLAPSING), defaults().optionNoConstantTreesCollapsing());
@@ -82,6 +84,11 @@ public class EpsilonPreferencesProvider implements IEpsilonPreferencesProvider {
             return this.preferenceStore.get(key(GENERATOR_EXE_PATH), fallback.generatorExecutablePath());
         }
 
+        @Override
+        public boolean useExternalCompilerGeneratorExe() {
+        	return this.preferenceStore.getBoolean(key(USE_EXTERNAL_GENERATOR_EXE), fallback.useExternalCompilerGeneratorExe());
+        }
+        
         @Override
         public String generatorTargetDir() {
             return this.preferenceStore.get(key(GENERATOR_TARGET_DIR), fallback.generatorTargetDir());

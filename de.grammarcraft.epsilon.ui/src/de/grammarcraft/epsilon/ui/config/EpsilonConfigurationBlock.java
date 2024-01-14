@@ -98,7 +98,8 @@ public class EpsilonConfigurationBlock extends OptionsConfigurationBlock {
         return pageContent;
     }
     
-    public static final String LABEL_GENERATOR_PATH = "&Generator path:";
+    public static final String LABEL_GENERATOR_PATH = "Generator path:";
+    public static final String LABEL_USE_EXTERNAL_GENERATOR_EXE = "&Use external compiler generator executable (not the embedded one)";
     public static final String LABEL_GENERATOR_TARGET_DIR = "Generator output folder:";
     public static final String LABEL_GENERATOR_ADDITIONAL_OPTIONS = "Additional Generator Options:";
     public static final String LABEL_GENERATOR_OPTION_CREATE_TARGET_DIR = "Create generator output &folder if it doesn't exist";
@@ -115,6 +116,8 @@ public class EpsilonConfigurationBlock extends OptionsConfigurationBlock {
     protected void createGeneralSectionItems(Composite composite) {
         addTextField(composite, LABEL_GENERATOR_PATH,
                 getKey(IEpsilonPreferences.GENERATOR_EXE_PATH), 0, 0);
+        addCheckBox(composite, LABEL_USE_EXTERNAL_GENERATOR_EXE,
+                getKey(IEpsilonPreferences.USE_EXTERNAL_GENERATOR_EXE), BOOLEAN_VALUES, 0);
         addComboBox(composite, LABEL_EVALUATOR_GENERATOR_TYPE, getKey(IEpsilonPreferences.EVALUATOR_GENERATOR_TYPE), 
                 0, EVALUATOR_GENERATOR_TYPES, EVALUATOR_GENERATOR_TYPES);
         addTextField(composite, LABEL_GENERATOR_TARGET_DIR,
@@ -154,7 +157,7 @@ public class EpsilonConfigurationBlock extends OptionsConfigurationBlock {
 
     @Override
     protected String[] getFullBuildDialogStrings(boolean workspaceSettings) {
-        String title = "Gneerator Building Settings Changed";
+        String title = "Compiler Generator Building Settings Changed";
         String message;
         if (workspaceSettings) {
             message = "The Building settings have changed. A full rebuild is required for changes to take effect. Do the full build now?"; // Messages.BuilderConfigurationBlock_SettingsChanged_WorkspaceBuild;

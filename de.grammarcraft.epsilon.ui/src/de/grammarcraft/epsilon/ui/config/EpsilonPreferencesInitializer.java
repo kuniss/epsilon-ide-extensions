@@ -37,6 +37,7 @@ public class EpsilonPreferencesInitializer implements IPreferenceStoreInitialize
 
     protected void initializeEpsilonPreferences(IPreferenceStore store) {
         store.setDefault(preferences.key(IEpsilonPreferences.GENERATOR_EXE_PATH), preferences.defaults().generatorExecutablePath());
+        store.setDefault(preferences.key(IEpsilonPreferences.USE_EXTERNAL_GENERATOR_EXE), preferences.defaults().useExternalCompilerGeneratorExe());
         store.setDefault(preferences.key(IEpsilonPreferences.GENERATOR_TARGET_DIR), preferences.defaults().generatorTargetDir());
         store.setDefault(preferences.key(IEpsilonPreferences.ADDITIONAL_GENERATOR_OPTIONS), preferences.defaults().additionalGeneratorOptions());
         store.setDefault(preferences.key(IEpsilonPreferences.OPTION_CREATE_TARGET_DIR), preferences.defaults().optionCreateTargetDir());
