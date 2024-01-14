@@ -157,24 +157,31 @@ package class EpsilonExecutor {
 		if (System.getProperty(SYSPROP_NAME_SKIP_EXECUTION) !== null) {
 		    val skipped = Boolean.parseBoolean(System.getProperty(SYSPROP_NAME_SKIP_EXECUTION))
 		    if (skipped)
-			    logger.info("Epsilon execution is skipped due to setting of system property " + SYSPROP_NAME_SKIP_EXECUTION);		
+			    logger.info("Compiler generator execution is skipped due to setting of system property " + SYSPROP_NAME_SKIP_EXECUTION);		
 			return skipped
 		}
 		return false
 	}
 			
 	def determineCodeGenerationOnlyOption() {
+		var result = false
 		if (System.getProperty(SYSPROP_NAME_CODE_GENERATION_ONLY) !== null) {	
-			logger.info("Only source code is generated, not compiled, due to setting of system property " + SYSPROP_NAME_CODE_GENERATION_ONLY);		
-			return Boolean.parseBoolean(System.getProperty(SYSPROP_NAME_CODE_GENERATION_ONLY))
+			result = Boolean.parseBoolean(System.getProperty(SYSPROP_NAME_CODE_GENERATION_ONLY))
+			logger.info('''system property '«SYSPROP_NAME_CODE_GENERATION_ONLY»' is defined and set to '«Boolean.toString(result)»', using to to determine whether only code genertion is done, no compilation''');		
 		}
 		else {
-		    val result = preferenceProvider.projectPreferences(project).optionGenerationOnly
+		    result = preferenceProvider.projectPreferences(project).optionGenerationOnly
             logger.info(String.format("No system property '%s' is defined, going to use preference setting code generatioOnly=%b", 
                 SYSPROP_NAME_CODE_GENERATION_ONLY, result
             ));
-            return result
 		}
+
+		if (result)
+			logger.info("Only source code is generated, not compiled")
+		else
+			logger.info("source code is generated and compiled using an preinstalled D compiler")
+			
+		return result
 	}
 	
 	def determineAdditionalExecutionArgument() {
@@ -363,17 +370,22 @@ package class EpsilonExecutor {
 	}
 	
 	def boolean determineUseExternalExecutable() {
+		var result = false
 		if (System.getProperty(SYSPROP_USE_EXTERNAL_GENERATOR) !== null) {	
-			logger.info("External compiler generator executable is used (not the embedded one), due to setting of system property " + SYSPROP_USE_EXTERNAL_GENERATOR);		
-			return Boolean.parseBoolean(System.getProperty(SYSPROP_USE_EXTERNAL_GENERATOR))
+			result = Boolean.parseBoolean(System.getProperty(SYSPROP_USE_EXTERNAL_GENERATOR))
+			logger.info('''system property '«SYSPROP_USE_EXTERNAL_GENERATOR»' is defined and set to '«result.toString»', using it for determine whether an external compiler generator executable is used or the internal one''');		
 		}
 		else {
-		    val result = preferenceProvider.projectPreferences(project).useExternalCompilerGeneratorExe
+		    result = preferenceProvider.projectPreferences(project).useExternalCompilerGeneratorExe
             logger.info(String.format("No system property '%s' is defined, going to use preference setting set to %b", 
                 SYSPROP_USE_EXTERNAL_GENERATOR, result
             ));
-            return result
-		}		
+		}
+		if (result)		
+			logger.info("External compiler generator executable is used (not the embedded one)")
+		else
+			logger.info("Embedded compiler generator executable is used (not an external one)")
+        return result
 	}
 
     def determineCreateTargetDirOption() {
