@@ -46,6 +46,11 @@ export function activate(context: ExtensionContext) {
         env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.executable=\'' + epsilonExecutable  + '\''
     }
 
+    let useExternalExecutable = workspace.getConfiguration().get('eag.compilerGenerator.useExternalExecutable')
+    if (useExternalExecutable !== undefined) {
+        env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.useExternalExecutable=' + useExternalExecutable
+    }
+
     let epsilonEvaluatorType = workspace.getConfiguration().get<string>('eag.compilerGenerator.evaluatorGeneratorType')
     if (epsilonEvaluatorType && epsilonEvaluatorType !== '') {
         env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.evaluatorGeneratorType=\'' + epsilonEvaluatorType  + '\''
