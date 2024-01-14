@@ -80,7 +80,7 @@
 		<page
 			class="de.grammarcraft.epsilon.ui.EpsilonExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
 			id="de.grammarcraft.epsilon.Epsilon"
-			name="Epsilon">
+			name="EAG Compiler Generator">
 			<keywordReference id="de.grammarcraft.epsilon.ui.keyword_Epsilon"/>
 		</page>
 		<page
@@ -103,7 +103,7 @@
 		<page
 			class="de.grammarcraft.epsilon.ui.EpsilonExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
 			id="de.grammarcraft.epsilon.Epsilon"
-			name="Epsilon">
+			name="EAG Compiler Generator">
 			<keywordReference id="de.grammarcraft.epsilon.ui.keyword_Epsilon"/>
 			<enabledWhen>
 				<adapt type="org.eclipse.core.resources.IProject"/>
@@ -294,7 +294,7 @@
 			category="de.grammarcraft.epsilon.Epsilon"
 			class="de.grammarcraft.epsilon.ui.EpsilonExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
 			id="de.grammarcraft.epsilon.Epsilon.compiler.preferencePage"
-			name="Compiler">
+			name="General">
 			<keywordReference id="de.grammarcraft.epsilon.ui.keyword_Epsilon"/>
 		</page>
 	</extension>
@@ -303,7 +303,7 @@
 			category="de.grammarcraft.epsilon.Epsilon"
 			class="de.grammarcraft.epsilon.ui.EpsilonExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
 			id="de.grammarcraft.epsilon.Epsilon.compiler.propertyPage"
-			name="Compiler">
+			name="General">
 			<keywordReference id="de.grammarcraft.epsilon.ui.keyword_Epsilon"/>
 			<enabledWhen>
 				<adapt type="org.eclipse.core.resources.IProject"/>
@@ -471,7 +471,7 @@
             category="de.grammarcraft.epsilon.Epsilon"
             class="de.grammarcraft.epsilon.ui.EpsilonExecutableExtensionFactory:de.grammarcraft.epsilon.ui.config.EpsilonPreferencePage"
             id="de.grammarcraft.epsilon.Epsilon.generator.preferencePage"
-            name="Generator">
+            name="Compiler Generator">
             <keywordReference id="de.grammarcraft.epsilon.ui.keyword_Epsilon"/>
         </page>
     </extension>
@@ -481,7 +481,7 @@
             category="de.grammarcraft.epsilon.Epsilon"
             class="de.grammarcraft.epsilon.ui.EpsilonExecutableExtensionFactory:de.grammarcraft.epsilon.ui.config.EpsilonPreferencePage"
             id="de.grammarcraft.epsilon.Epsilon.generator.propertyPage"
-            name="Generator">
+            name="Compiler Generator">
             <keywordReference id="de.grammarcraft.epsilon.ui.keyword_Epsilon"/>
             <enabledWhen>
                 <adapt type="org.eclipse.core.resources.IProject"/>
