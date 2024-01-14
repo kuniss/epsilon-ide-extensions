@@ -17,6 +17,7 @@ class ResourceExtractor {
         	val exeFile = new File(targetDir, exeName)
 			if (isLinux || isMacOS)
 				exeFile.executable = true
+       		log.info('''compiler generator executable successfully extracted to '«exeFile.path»' ''')			
         }
         else
        		log.warn('''failed to extract executable '«exeName»' - deeper semantic verification will be missed''')
@@ -24,7 +25,10 @@ class ResourceExtractor {
     
     def static extractDLibSourcesFromJarTo(File targetDir) {
         for (resource : D_LIB_SOURCES) {
-        	if (!extractResourceFromJar("/src-dlang/", resource, targetDir))
+        	if (extractResourceFromJar("/src-dlang/", resource, targetDir))
+        		log.info('''resource '«resource»' successfully extracted to '«targetDir.path»' ''')			
+        		
+        	else
         		log.warn('''failed to extract resource '«resource»' - generated D source may fail to compile''')
         }
     }
