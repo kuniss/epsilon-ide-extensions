@@ -55,7 +55,6 @@ configure(subprojects.findAll { it.name.startsWith('de.grammarcraft.epsilon') })
 // by the calling GH Action workflow, probably teh GH Action fetch-github-release-asset 
 // will be used downloading it from a gamma repo release page into the directory
 ext.gammaReleaseDownloadDir = './build/gamma-release-download'
-ext.gammaReleaseVersion = 'v0.3.0-gamma.3' // TODO this will become a project defintion via -P
 
 ext.gammaNativeResources = copySpec {
 	// gamma binaries

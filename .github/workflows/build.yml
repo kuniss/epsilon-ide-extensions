@@ -18,10 +18,22 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 11
+      - name: Download Gamma release artifact files
+        uses: dsaltares/fetch-gh-release-asset@v1.1.1
+        with:
+          repo: 'kuniss/gamma'
+          version: 'tags/v0.3.0-delta.4'
+          regex: true
+          file: "*\\.*"
+          target: 'build/gamma-release-download'
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: List downloaded Gamma release artifact files
+        run: |
+          ls -al ${{ github.workspace }}/gamma-release-download
       - name: Build
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: build
+          arguments: build -PgammaReleaseVersion=v0.3.0-delta.4
       - name: Store HTML test report
         uses: actions/upload-artifact@v3
         with:
