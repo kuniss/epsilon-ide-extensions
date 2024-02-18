@@ -14,18 +14,14 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 11
-      - name: Create Gamma download directory
-        run: |
-          mkdir -p ${{ github.workspace }}/build/gamma-release-download
       - name: Download Gamma release artifact files
-        uses: dsaltares/fetch-gh-release-asset@1.1.1
+        uses: robinraju/release-downloader@v1.9
         with:
-          repo: 'kuniss/gamma'
-          version: 'tags/v0.3.0-delta.4'
-          regex: false
-          file: 'gamma.linux-amd64'
-          target: 'build/gamma-release-download/'
-          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: "kuniss/gamma"
+          tag: "v0.3.0-delta.4"
+          fileName: "gamma.*"
+          zipBall: true
+          out-file-path: "build/gamma-release-download"
       - name: List downloaded Gamma release artifact files
         run: |
           ls -al ${{ github.workspace }}/build/gamma-release-download
