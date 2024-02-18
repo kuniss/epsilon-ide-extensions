@@ -52,8 +52,8 @@ configure(subprojects.findAll { it.name.startsWith('de.grammarcraft.epsilon') })
 }
 
 // The following gamma binaries and runtime sources are expected to be provided
-// by the calling GH Action workflow, probably teh GH Action fetch-github-release-asset 
-// will be used downloading it from a gamma repo release page into the directory
+// by the calling GH Action workflow, using the GH Action release-downloader 
+// for downloading it from a gamma repo release page into the directory
 ext.gammaReleaseDownloadDir = './build/gamma-release-download'
 
 ext.gammaNativeResources = copySpec {
@@ -72,9 +72,7 @@ ext.gammaNativeResources = copySpec {
 	}
 	
 	// gamma runtime souces
-	// the GH download skips the 'v' in the tag, so we need to do it here too
-	// however, we do not know whether the GH Action fetch-github-release-asset will do it too
-	from(zipTree(file("$gammaReleaseDownloadDir/gamma-${gammaReleaseVersion.substring(1)}.zip"))) {
+	from(zipTree(file("$gammaReleaseDownloadDir/gamma-${gammaReleaseVersion}.zip"))) {
 		include '*/include/runtime.d'
 		include '*/src/io.d'
 		include '*/src/log.d'
