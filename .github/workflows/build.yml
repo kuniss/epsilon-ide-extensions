@@ -27,8 +27,8 @@ jobs:
           repo: 'kuniss/gamma'
           version: 'tags/v0.3.0-delta.4'
           regex: false
-          file: "gamma.linux-amd64"
-          target: 'build/gamma-release-download'
+          file: 'gamma.linux-amd64'
+          target: 'build/gamma-release-download/'
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: List downloaded Gamma release artifact files
         run: |
