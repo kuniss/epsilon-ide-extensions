@@ -29,7 +29,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: List downloaded Gamma release artifact files
         run: |
-          ls -al ${{ github.workspace }}/gamma-release-download
+          ls -al ${{ github.workspace }}/build/gamma-release-download
       - name: Build
         uses: gradle/gradle-build-action@v2
         with:
