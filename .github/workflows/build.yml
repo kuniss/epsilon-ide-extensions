@@ -19,7 +19,7 @@ jobs:
           distribution: 'temurin'
           java-version: 11
       - name: Download Gamma release artifact files
-        uses: dsaltares/fetch-gh-release-asset@v1.1.1
+        uses: dsaltares/fetch-gh-release-asset@1.1.1
         with:
           repo: 'kuniss/gamma'
           version: 'tags/v0.3.0-delta.4'
