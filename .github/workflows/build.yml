@@ -32,7 +32,7 @@ jobs:
       - name: Upload built VS code extensions to workflow run page
         uses: actions/upload-artifact@v4
         with:
-          name: 'vscode-extensions.zip'
+          name: 'vscode-extensions'
           path: 'vscode-*-extension/build/vscode/*.vsix'
       - name: Store HTML test report
         uses: actions/upload-artifact@v3
