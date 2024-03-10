@@ -2,7 +2,7 @@
 <feature
       id="de.grammarcraft.epsilon.feature"
       label="Epsilon Compiler Generator Plugin"
-      version="2.4.0.qualifier">
+      version="3.0.0.qualifier">
 
    <description url="https://github.com/kuniss/epsilon-ide-extensions">
       A plugin for editing Extend Affix Grammar files (.eag).
