@@ -23,14 +23,19 @@ Currrently the following features are supported:
 * nonterminal navigation
 * auto-completion
 * auto-indentation
-
-[Experimental] Currently under Linux only:
-* semantic checks by the real compiler generator with position-correct findings shown in the problem report view (on file saving)
-* code generation on file saving (if no errors have been found)
+* semantic checks by the real Gamma compiler generator which comes embedded in the extension, with position-correct findings shown in the problem report view (on file saving)
+* embedded Gamma compiler generator runs on
+  * Windows 64-bit
+  * Linux 64-bit
+  * MacOS
+* source code generation of the target language compiler on file saving (if no errors have been found), available in *build* sub folder
+* automatic compiling of the generated compiler D source code with DMD, if installed, available in the *build* sub folder
 
 ## Requirements
 
 No specific requirements needed.
+
+But it is recommended to [install DMD D-Lang compiler](https://dlang.org/download.html#dmd) for utilizing the feature of automatically compiling the target language compiler.
 
 ## Extension Settings
 
@@ -38,9 +43,7 @@ See VS code settings [Ctr+,], look up for 'eag'.
 
 ## Known Issues
 
-Non Linux systems: Currently, it is possible to create specifcations with invalid Affix definitions as they are not checked semantically.
-
-Non Linux systems: The specifations cannot be executed, currently. There is no parser and evaluator generator backend implemented yet.
+The error position of the generated target language compilers are not accurate under circumstances. See [Gamma issue #6](https://github.com/linkrope/gamma/issues/6).
 
 ## Release Notes
 
