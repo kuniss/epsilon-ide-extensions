@@ -29,10 +29,11 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build -PgammaReleaseVersion=v0.3.0-delta.4
-      - name: Upload executables to workflow run page
+      - name: Upload built VS code extensions to workflow run page
         uses: actions/upload-artifact@v4
         with:
-          path: 'vscode-language-extension/build/vscode/*.vsix'
+          name: 'vscode-extensions.zip'
+          path: 'vscode-*-extension/build/vscode/*.vsix'
       - name: Store HTML test report
         uses: actions/upload-artifact@v3
         with:
