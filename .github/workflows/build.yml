@@ -33,7 +33,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: 'vscode-extensions'
-          path: 'vscode-*-extension/build/vscode/*.vsix'
+          path: 'vscode-*/build/vscode/*.vsix'
       - name: Store HTML test report
         uses: actions/upload-artifact@v4
         with:
