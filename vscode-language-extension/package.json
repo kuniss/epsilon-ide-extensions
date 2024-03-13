@@ -54,7 +54,7 @@
                 },
                 "eag.compilerGenerator.executable": {
                     "type": "string",
-                    "default": "./gamma",
+                    "default": "./build/cg/gamma",
                     "markdownDescription": "Defines the path to the EAG compiler generator executable (and resources) which is used to generated compilers and to validate grammars.\n\nIn case, a relative path is given then it will be relative to the project's root directory.\n\nChanges will be applied after restart. Alternatively, command 'Reload Window' may be executed.\n\nNote: This will only evaluated if `#eag.runCompilerGenerator#` is enabled."
                 },
                 "eag.compilerGenerator.useExternalExecutable": {
