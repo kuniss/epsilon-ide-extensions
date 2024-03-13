@@ -43,7 +43,7 @@ export function activate(context: ExtensionContext) {
 
     let epsilonExecutable = workspace.getConfiguration().get('eag.compilerGenerator.executable')
     if (epsilonExecutable && epsilonExecutable !== '') {
-        env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.executable=\'' + epsilonExecutable  + '\''
+        env['JAVA_OPTS'] += ` -Dde.grammarcraft.epsilon.executable="${epsilonExecutable}"`
     }
 
     let useExternalExecutable = workspace.getConfiguration().get('eag.compilerGenerator.useExternalExecutable')
@@ -53,24 +53,24 @@ export function activate(context: ExtensionContext) {
 
     let epsilonEvaluatorType = workspace.getConfiguration().get<string>('eag.compilerGenerator.evaluatorGeneratorType')
     if (epsilonEvaluatorType && epsilonEvaluatorType !== '') {
-        env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.evaluatorGeneratorType=\'' + epsilonEvaluatorType  + '\''
+        env['JAVA_OPTS'] += ` -Dde.grammarcraft.epsilon.evaluatorGeneratorType="${epsilonEvaluatorType}"`
     }
 
     let epsilonTargetDir = workspace.getConfiguration().get('eag.compilerGenerator.targetDir')
     if (epsilonTargetDir && epsilonTargetDir !== '') {
-        env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.target.dir=\'' + epsilonTargetDir + '\''
+        env['JAVA_OPTS'] += ` -Dde.grammarcraft.epsilon.target.dir="${epsilonTargetDir}"`
     }
 
     let additionalExeOptions = workspace.getConfiguration().get('eag.compilerGenerator.additionalExeOptions')
     if (additionalExeOptions && additionalExeOptions !== '') {
-        env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.additionalExeOptions=\'' + additionalExeOptions + '\'' 
+        env['JAVA_OPTS'] += ` -Dde.grammarcraft.epsilon.additionalExeOptions="${additionalExeOptions}"` 
     }
 
     let logLevel = workspace.getConfiguration().get<string>('eag.compilerGenerator.logLevel')
     var additonalArgs: string[] = []
     if (logLevel != "OFF") {
          additonalArgs = ['-log']
-         env['JAVA_OPTS'] += ' -Dde.grammarcraft.epsilon.logLevel=\'' + logLevel + '\'' 
+         env['JAVA_OPTS'] += ` -Dde.grammarcraft.epsilon.logLevel="${logLevel}"` 
     }
 
     console.log("JAVA_OPTS: " + env['JAVA_OPTS'])
