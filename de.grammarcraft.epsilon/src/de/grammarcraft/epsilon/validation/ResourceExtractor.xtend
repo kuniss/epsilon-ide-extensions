@@ -91,7 +91,7 @@ class ResourceExtractor {
 			return true    	
     }
     
-    def private static isWindows() {
+    def static isWindows() {
 		System.getProperty("os.name").toLowerCase().startsWith("windows");    	
     }
     

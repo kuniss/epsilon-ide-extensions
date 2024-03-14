@@ -354,7 +354,11 @@ package class EpsilonExecutor {
 				de.grammarcraft.epsilon.validation.EpsilonExecutor.SYSPROP_NAME_EPSILON_EXE, epsilonExecutable
 			));
 		}
-			
+		
+		if (ResourceExtractor.isWindows() && !epsilonExecutable.endsWith('.exe')) {
+			epsilonExecutable = epsilonExecutable + '.exe'
+		} 
+		
 		val configuredEpsilonExecutable = new File(epsilonExecutable);
 		var result = 
     		if (!configuredEpsilonExecutable.isAbsolute && project !== null) {
@@ -365,7 +369,7 @@ package class EpsilonExecutor {
     		    // alternatively, create exe path relative to current working dir
     		    configuredEpsilonExecutable
     		}
-		logger.info("The following Epsilon executable will be used for generation and validation: " + epsilonExecutable)
+		logger.info("The following Epsilon executable will be used for generation and validation: " + result.absolutePath)
 		return result
 	}
 	

@@ -12,6 +12,8 @@ import org.eclipse.xtext.Constants;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
+import de.grammarcraft.epsilon.validation.ResourceExtractor;
+
 import static de.grammarcraft.epsilon.preferences.IEpsilonPreferences.*;
 
 /**
@@ -45,9 +47,14 @@ public class EpsilonPreferencesProvider implements IEpsilonPreferencesProvider {
         @Override public boolean optionCreateTargetDir()            { return true; }
         @Override public boolean useExternalCompilerGeneratorExe()	{ return false; }
         @Override public String generatorTargetDir()                { return EPSILON_TARGET_DIR_DEFAULT; }
-        @Override public String generatorExecutablePath()           { return EPSILON_EXE_DEFAULT; }
         @Override public String additionalGeneratorOptions()        { return ""; }
         @Override public String evaluatorGeneratorType()            { return DEFAULT_EVALUATOR_TYPE; }
+        @Override public String generatorExecutablePath()           {
+        	if (ResourceExtractor.isWindows())
+            	return EPSILON_EXE_DEFAULT + ".exe"; 
+        	else
+        		return EPSILON_EXE_DEFAULT; 
+        }
     };
     
     @Override
