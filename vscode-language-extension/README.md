@@ -33,7 +33,7 @@ Currrently the following features are supported:
 
 ## Requirements
 
-No specific requirements needed.
+Requires Java 8 or Java 11 to run the language server. Does not run on Java 17 (Xtext restriction).
 
 But it is recommended to [install DMD D-Lang compiler](https://dlang.org/download.html#dmd) for utilizing the feature of automatically compiling the target language compiler.
 
