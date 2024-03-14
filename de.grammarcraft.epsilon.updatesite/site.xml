@@ -6,7 +6,7 @@
    <feature url="features/de.grammarcraft.epsilon.feature_2.4.0.202302201723.jar" id="de.grammarcraft.epsilon.feature" version="2.4.0.202302201723">
       <category name="de.grammarcraft.epsilon"/>
    </feature>
-   <feature url="features/de.grammarcraft.epsilon.feature_3.0.0.202403102311.jar" id="de.grammarcraft.epsilon.feature" version="3.0.0.202403102311">
+   <feature url="features/de.grammarcraft.epsilon.feature_3.0.0.202403150005.jar" id="de.grammarcraft.epsilon.feature" version="3.0.0.202403150005">
       <category name="de.grammarcraft.epsilon"/>
    </feature>
    <category-def name="de.grammarcraft.epsilon" label="Epsilon Compiler Generator">
