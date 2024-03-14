@@ -55,6 +55,10 @@ configure(subprojects.findAll { it.name.startsWith('de.grammarcraft.epsilon') })
 // by the calling GH Action workflow, using the GH Action release-downloader 
 // for downloading it from a gamma repo release page into the directory
 ext.gammaReleaseDownloadDir = './build/gamma-release-download'
+// to ensure Gradle build can alwaya be intialized
+if (!project.hasProperty('gammaReleaseVersion')) {
+	ext.gammaReleaseVersion = 'gamma_version_not_given'
+}
 
 ext.gammaNativeResources = copySpec {
 	// gamma binaries
