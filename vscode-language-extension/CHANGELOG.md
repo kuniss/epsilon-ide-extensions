@@ -1,8 +1,10 @@
 # Change Log
 
 ## 3.0.0
-- _gamma_ executable packaged into language server JAR and get unpackaged into 'de.grammarcraft.epsilon.executable' configured gamma parent directory
-- needed gamma specific Dlang sources get unpacked into 'de.grammarcraft.epsilon.target.dir' configured target directory 
+- Fix: ensured proper language server process termination
+- Fix: Windows: corrected issue position copmutation for errors and warnings detected by the generator run 
+- New: _gamma_ executable packaged into language server JAR and get unpackaged into 'de.grammarcraft.epsilon.executable' configured gamma parent directory
+- New: needed gamma specific Dlang sources get unpacked into 'de.grammarcraft.epsilon.target.dir' configured target directory 
 
 ## 2.3.0
 - made evaluator generator strategy configurable (`eag.compilerGenerator.evaluatorGeneratorType`) to solve GitHub issue [#5](https://github.com/kuniss/epsilon-ide-extensions/issues/5))
