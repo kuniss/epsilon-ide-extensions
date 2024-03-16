@@ -22,6 +22,8 @@ import {
     Position as LSPosition, Location as LSLocation
 } from 'vscode-languageclient';
 
+let languageClient: LanguageClient;
+
 export function activate(context: ExtensionContext) {
 
     // The server is implemented in Xtext
@@ -105,7 +107,7 @@ export function activate(context: ExtensionContext) {
     }
 
     // Create the language client and start the client.
-    let languageClient = new LanguageClient('epsilonEagLanguageServer', 'EAG Language Server', serverOptions, clientOptions);
+    languageClient = new LanguageClient('epsilonEagLanguageServer', 'EAG Language Server', serverOptions, clientOptions);
     let disposable = languageClient.start()
 
     commands.registerCommand('epsiloneag.show.references', (uri: string, position: LSPosition, locations: LSLocation[]) => {
@@ -126,3 +128,11 @@ export function activate(context: ExtensionContext) {
     // client can be deactivated on extension deactivation
     context.subscriptions.push(disposable);
 }
+
+export function deactivate(): Thenable<void> | undefined {
+    if (!languageClient) {
+      return undefined;
+    }
+    return languageClient.stop();
+}
+ 
