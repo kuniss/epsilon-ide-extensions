@@ -300,11 +300,14 @@ package class EpsilonExecutor {
 	
 	/**
 	 * Example line: <br>
-	 * expr-bnf.eag@72:4:26
+	 * c:\project\expr-bnf.eag@72 
+	 * or<br>
+	 * /home/user/project/expr-bnf.eag@72 
 	 * <br>
-	 * Requires gamma with offset position reporting by cmd line argument --offset being set
+	 * Requires gamma with offset position reporting by cmd line argument --offset being set.
+	 * The offset is the file offset from the beginning of the file.
 	 */
-	static val EPSILON_ISSUE_POSITION_PATTERN = Pattern.compile("(?<file>[^:@]*)@(?<offset>\\d+).*")
+	static val EPSILON_ISSUE_POSITION_PATTERN = Pattern.compile("(?<file>[^@]*)@(?<offset>\\d+).*")
     
 	private static def int asSeverity(String tag) {
 		switch (tag) {
