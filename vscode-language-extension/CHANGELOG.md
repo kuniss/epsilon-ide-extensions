@@ -2,7 +2,7 @@
 
 ## 3.0.0
 - Fix: ensured proper language server process termination
-- Fix: Windows: corrected issue position copmutation for errors and warnings detected by the generator run 
+- Fix: Windows: corrected issue position computation for errors and warnings detected by the generator run 
 - New: _gamma_ executable packaged into language server JAR and get unpackaged into 'de.grammarcraft.epsilon.executable' configured gamma parent directory
 - New: needed gamma specific Dlang sources get unpacked into 'de.grammarcraft.epsilon.target.dir' configured target directory 
 
