@@ -9,11 +9,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      
       - name: Set up JDK 11
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: 11
+          
       - name: Download Gamma release artifact files
         uses: robinraju/release-downloader@v1.9
         with:
@@ -25,25 +27,30 @@ jobs:
       - name: List downloaded Gamma release artifact files
         run: |
           ls -al ${{ github.workspace }}/build/gamma-release-download
-      - name: Build
+
+      - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
-        with:
-          arguments: build -PgammaReleaseVersion=v0.3.0-delta.4
+      - name: Build
+        run: ./gradlew build -PgammaReleaseVersion=v0.3.0-delta.4
+
       - name: Upload built VS code extensions to workflow run page
         uses: actions/upload-artifact@v4
         with:
           name: 'vscode-extensions'
           path: 'vscode-*/build/vscode/*.vsix'
+
       - name: Store HTML test report
         uses: actions/upload-artifact@v4
         with:
           name: test-report-html
           path: "**/reports/tests/"
+
       - name: Store XML test report
         uses: actions/upload-artifact@v4
         with:
           name: test-results-xml
           path: "**/test-results/"
+
       - name: Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
