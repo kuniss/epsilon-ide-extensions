@@ -1,11 +1,11 @@
 dependencies {
-	compile "org.eclipse.xtext:org.eclipse.xtext:${xtextVersion}"
-	compile "org.eclipse.xtext:org.eclipse.xtext.xbase:${xtextVersion}"
-	compile "org.eclipse.platform:org.eclipse.core.resources"
+	api "org.eclipse.xtext:org.eclipse.xtext:${xtextVersion}"
+	api "org.eclipse.xtext:org.eclipse.xtext.xbase:${xtextVersion}"
+	api "org.eclipse.platform:org.eclipse.core.resources"
 }
 configurations {
 	mwe2 {
-		extendsFrom compile
+		extendsFrom compileClasspath
 	}
 }
 
@@ -41,10 +41,12 @@ task generateXtextLanguage(type: JavaExec) {
 	args += "rootPath=/${projectDir}/.."
 }
 
+processResources.dependsOn(generateXtextLanguage)
 generateXtext.dependsOn(generateXtextLanguage)
-
 clean.dependsOn(cleanGenerateXtextLanguage)
+
 eclipse.classpath.plusConfigurations += [configurations.mwe2]
+
 //this is an eclipse plugin project
 eclipseClasspath.enabled=false
 cleanEclipseClasspath.enabled=false
@@ -57,5 +59,7 @@ tasks.register('gammaResources', Copy) {
 	with gammaNativeResources
 }
 
+generateXtext.mustRunAfter gammaResources // not really needed, but requested by Gradle 
+generateXtextLanguage.mustRunAfter gammaResources  // not really needed, but requested by Gradle
 jar.dependsOn 'gammaResources'
 

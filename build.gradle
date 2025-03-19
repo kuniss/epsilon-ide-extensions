@@ -1,15 +1,17 @@
 buildscript {
 	repositories {
 		mavenCentral()
-		maven {
-			url "https://plugins.gradle.org/m2/"
-		}
+		gradlePluginPortal()
 	}
 	dependencies {
-		classpath 'org.xtext:xtext-gradle-plugin:3.0.2'
+		classpath 'org.xtext:xtext-gradle-plugin:4.0.0'
 		classpath 'com.github.node-gradle:gradle-node-plugin:2.2.0'
 		classpath 'net.researchgate:gradle-release:2.8.1'
 	}
+}
+
+wrapper {
+	gradleVersion = '8.12.1'
 }
 
 apply plugin: 'com.github.node-gradle.node'
@@ -31,9 +33,9 @@ configure(subprojects.findAll { it.name.startsWith('de.grammarcraft.epsilon') })
 		mavenCentral()
 	}
 	
-	apply plugin: 'java'
+	apply plugin: 'java-library'
 	dependencies {
-		compile platform("org.eclipse.xtext:xtext-dev-bom:${xtextVersion}")
+		api platform("org.eclipse.xtext:xtext-dev-bom:${xtextVersion}")
 	}
 
 	apply plugin: 'org.xtext.xtend'
@@ -42,8 +44,13 @@ configure(subprojects.findAll { it.name.startsWith('de.grammarcraft.epsilon') })
 	
 	group = 'de.grammarcraft.epsilon'
 	
-	sourceCompatibility = '1.8'
-	targetCompatibility = '1.8'
+	java {
+		sourceCompatibility = JavaVersion.VERSION_1_8
+		targetCompatibility = JavaVersion.VERSION_1_8
+	    toolchain {
+	        languageVersion = JavaLanguageVersion.of(21)
+	    }
+	}
 	
 	configurations.all {
 		exclude group: 'asm'
@@ -55,9 +62,9 @@ configure(subprojects.findAll { it.name.startsWith('de.grammarcraft.epsilon') })
 // by the calling GH Action workflow, using the GH Action release-downloader 
 // for downloading it from a gamma repo release page into the directory
 ext.gammaReleaseDownloadDir = './build/gamma-release-download'
-// to ensure Gradle build can alwaya be intialized
+// to ensure Gradle build can always be intialized
 if (!project.hasProperty('gammaReleaseVersion')) {
-	ext.gammaReleaseVersion = 'gamma_version_not_given'
+	ext.gammaReleaseVersion = '0.3.0-gamma.3' // TOOO 'gamma_version_not_given'
 }
 
 ext.gammaNativeResources = copySpec {

@@ -1,9 +1,8 @@
-#Sun Nov 27 21:51:53 CET 2022
-generateGeneratedAnnotation=false
-includeDateInGenerated=false
-useJavaCompilerCompliance=false
-eclipse.preferences.version=1
-generateSuppressWarnings=true
 BuilderConfiguration.is_project_specific=true
 ValidatorConfiguration.is_project_specific=true
+eclipse.preferences.version=1
+generateGeneratedAnnotation=false
+generateSuppressWarnings=true
+includeDateInGenerated=false
 targetJavaVersion=JAVA8
+useJavaCompilerCompliance=false

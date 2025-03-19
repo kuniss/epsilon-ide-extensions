@@ -6,10 +6,10 @@
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="src-gen"/>
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="xtend-gen"/>
 		<wb-resource deploy-path="/" source-path="WebRoot"/>
-		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/de.grammarcraft.epsilon.ide/de.grammarcraft.epsilon.ide">
+		<dependent-module archiveName="de.grammarcraft.epsilon.ide-3.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/de.grammarcraft.epsilon.ide/de.grammarcraft.epsilon.ide">
 			<dependency-type>uses</dependency-type>
 		</dependent-module>
-		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/de.grammarcraft.epsilon/de.grammarcraft.epsilon">
+		<dependent-module archiveName="de.grammarcraft.epsilon-3.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/de.grammarcraft.epsilon/de.grammarcraft.epsilon">
 			<dependency-type>uses</dependency-type>
 		</dependent-module>
 	</wb-module>

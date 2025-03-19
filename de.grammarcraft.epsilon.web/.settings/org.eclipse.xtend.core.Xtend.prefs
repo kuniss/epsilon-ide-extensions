@@ -1,14 +1,13 @@
-#Sun Nov 27 21:51:53 CET 2022
-generateGeneratedAnnotation=false
-includeDateInGenerated=false
-outlet.DEFAULT_OUTPUT.userOutputPerSourceFolder=true
-outlet.DEFAULT_OUTPUT.installDslAsPrimarySource=false
-eclipse.preferences.version=1
-generateSuppressWarnings=true
 BuilderConfiguration.is_project_specific=true
-useJavaCompilerCompliance=false
+ValidatorConfiguration.is_project_specific=true
+eclipse.preferences.version=1
+generateGeneratedAnnotation=false
+generateSuppressWarnings=true
+includeDateInGenerated=false
 outlet.DEFAULT_OUTPUT.hideLocalSyntheticVariables=true
+outlet.DEFAULT_OUTPUT.installDslAsPrimarySource=false
 outlet.DEFAULT_OUTPUT.sourceFolder.src-gen.directory=xtend-gen
 outlet.DEFAULT_OUTPUT.sourceFolder.src.directory=xtend-gen
-ValidatorConfiguration.is_project_specific=true
+outlet.DEFAULT_OUTPUT.userOutputPerSourceFolder=true
 targetJavaVersion=JAVA8
+useJavaCompilerCompliance=false
