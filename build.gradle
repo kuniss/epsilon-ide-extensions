@@ -48,7 +48,7 @@ configure(subprojects.findAll { it.name.startsWith('de.grammarcraft.epsilon') })
 		sourceCompatibility = JavaVersion.VERSION_1_8
 		targetCompatibility = JavaVersion.VERSION_1_8
 	    toolchain {
-	        languageVersion = JavaLanguageVersion.of(21)
+	        languageVersion = JavaLanguageVersion.of(11)
 	    }
 	}
 	
