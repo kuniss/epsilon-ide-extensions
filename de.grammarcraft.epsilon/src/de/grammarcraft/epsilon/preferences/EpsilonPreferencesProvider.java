@@ -155,8 +155,12 @@ public class EpsilonPreferencesProvider implements IEpsilonPreferencesProvider {
     
     @Override
     public IEpsilonPreferences projectPreferences(IProject project) {
-        IEclipsePreferences projectPreferenceStore = new ProjectScope(project).getNode(languageName);
-        return new PreferenceStoreBasedPreferencesAccess(projectPreferenceStore, workspacePreferences());
+    	if (project != null) {
+            IEclipsePreferences projectPreferenceStore = new ProjectScope(project).getNode(languageName);
+            return new PreferenceStoreBasedPreferencesAccess(projectPreferenceStore, workspacePreferences());    		
+    	}
+    	else
+    		return workspacePreferences();
     }
     
     private void storeDefault(String preferenceName, String value) {
