@@ -1,5 +1,9 @@
 # Change Log
 
+## 3.1.0
+
+- incorporated gamma executables from release https://github.com/linkrope/gamma/releases/tag/v0.3.0
+
 ## 3.0.0
 - Fix: ensured proper language server process termination
 - Fix: Windows: corrected issue position computation for errors and warnings detected by the generator run 

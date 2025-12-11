@@ -1,5 +1,9 @@
 # Change Log
 
+## 3.1.0
+
+- language extension got updated, others unchanged but version increased for all together
+
 ## 3.0.0
 - language extension got updated, others unchanged but version increased for all together
 
